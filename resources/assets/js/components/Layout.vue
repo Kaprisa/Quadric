@@ -5,6 +5,7 @@
                 v-model="drawer"
                 right
                 app
+                v-if="!($route.meta.type === 'auth')"
         >
             <v-list dense>
                 <v-list-tile @click="$router.push('/')">

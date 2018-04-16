@@ -8,7 +8,7 @@
             <span>12:30</span>
         </v-system-bar>
         <video ref="video" width="100%" height="100%">
-            <source :src="`/video/${props.dir}/${props.video}`" type="video/mp4">
+            <source v-if="course.course" :src="`/video/${course.course.name}/${props.video}`" type="video/mp4">
             Your browser does not support HTML5 video.
         </video>
         <v-toolbar card color="primary" >
@@ -64,6 +64,7 @@
     </v-card>
 </template>
 <script>
+    import { mapGetters } from 'vuex'
     export default {
         name: 'v-video',
         data() {
@@ -90,6 +91,11 @@
         },
         props: {
             props: Object
+        },
+        computed: {
+            ...mapGetters({
+                course: 'course'
+            })
         },
         methods: {
             changePlay() {

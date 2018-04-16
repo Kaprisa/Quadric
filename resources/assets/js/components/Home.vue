@@ -2,8 +2,8 @@
     <v-layout row wrap>
         <v-flex xs4 class="mb-3" v-for="c in courses" :key="c.id">
             <v-card class="mx-1">
-                <v-card-media :src="`${c.image}`" height="200px">
-                </v-card-media><!--/uploads/photos/-->
+                <v-card-media :src="`/uploads/photos/${c.image}`" height="200px">
+                </v-card-media>
                 <v-card-title primary-title>
                     <div>
                         <h3 class="headline mb-0">{{ c.name }}</h3>

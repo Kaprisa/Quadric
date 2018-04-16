@@ -7,7 +7,7 @@
                 <h1 class="glitched">Quadric</h1>
             </div>
             <v-spacer/>
-            <v-btn color="teal" dark href="/login">Вход</v-btn>
+            <v-btn color="teal" dark href="/academy">Вход</v-btn>
         </v-toolbar>
         <v-content>
             <section>

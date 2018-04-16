@@ -71,7 +71,7 @@
                   Object.keys(o).forEach(k => {
                       this.lessons[o[k]].props = { [k]: this.lesson[k] }
                   })
-                  this.lessons[5].props['dir'] = this.lesson.name
+                  //this.lessons[5].props['dir'] = this.course.course.name
                   this.lessons = { ...this.lessons }
               }
           }
@@ -82,6 +82,7 @@
         computed: {
             ...mapGetters({
                 lesson: 'lesson',
+                //course: 'course',
                 loadingLesson: 'loadingLesson'
             })
         },

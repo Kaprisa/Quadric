@@ -44,17 +44,13 @@ class ApiController extends Controller
 
     public function answer(Request $request, $id)
     {
-//        Auth::guard('api')->user()->questions()->updateOrCreate(['id' => $id], [
-//            'attempts' => $request->attempts,
-//            'correct' => $request->correct
-//        ]);
         Auth::guard('api')
             ->user()
             ->questions()
             ->sync(
                 [
                     $id => [
-                        'attempts' => $request->attempts,
+                        'attempts' => $request->has('attempts') ? $request->attempts : 0,
                         'correct' => $request->correct
                     ]
                 ]
