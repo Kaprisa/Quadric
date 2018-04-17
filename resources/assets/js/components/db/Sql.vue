@@ -6,7 +6,7 @@
             theme="light"
             mode="text/x-mysql"
             queryName="SQL"
-            example="SELECT * FROM sports"
+            example="SELECT * FROM users"
         />
         <query-executor
                 url="/api/php/query"
@@ -14,7 +14,7 @@
                 mode="text/x-php"
                 queryName="PHP"
                 text="@return array $data"
-                example="$data = App\Sub::all();"
+                example="$data = App\User::all();"
         />
     </v-container>
 </template>

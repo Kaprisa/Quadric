@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Course;
 use App\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CoursesController extends Controller
 {
@@ -21,7 +22,8 @@ class CoursesController extends Controller
             'description' => $request->description,
             'image' => $request->image,
             'category_id' => $request->category_id,
-            'active' => $request->active
+            'active' => $request->active,
+            'user_id' => Auth::guard('api')->user()->id
         ]);
 
         return response()->json($course->id, 200);

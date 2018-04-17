@@ -20,6 +20,7 @@ class CreateCoursesTable extends Migration
             $table->string('image')->nullable();
             $table->integer('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->boolean('active')->default(0);
+            $table->integer('user_id')->unsigned()->references('id')->on('users');
             $table->timestamps();
         });
     }

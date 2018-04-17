@@ -21,6 +21,7 @@ export default class Auth {
     check(token) {
         this.axios.get('/api/check').then(res => {
             Auth.pending = false
+            this.user = res.data
             this.token = token
             this.axios.defaults.headers.common['Authorization'] = this.token
             Auth.authenticated = true
@@ -80,5 +81,6 @@ export default class Auth {
         this.axios.defaults.headers.common['Authorization'] = this.token
         localStorage.setItem('token', this.token)
         Auth.authenticated = true
+        this.user = res.data.data
     }
 }

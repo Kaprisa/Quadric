@@ -9,22 +9,22 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'avatar'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
+    protected $with = ['roles'];
+
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
+    ];
+
+    protected $appends = [
+        'points'
     ];
 
     public function generateToken()
@@ -38,6 +38,26 @@ class User extends Authenticatable
     public function questions()
     {
         return $this->belongsToMany(Question::class)->withPivot(['attempts', 'correct']);
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function hasRole($role)
+    {
+        return $this->roles()->pluck('name')->contains($role);
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class);
+    }
+
+    public function getPointsAttribute()
+    {
+        return $this->questions()->withPivot(['correct'])->where('correct', true)->sum('points');
     }
 
 }

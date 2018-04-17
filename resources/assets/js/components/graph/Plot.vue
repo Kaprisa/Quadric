@@ -182,21 +182,21 @@
             },
             linear() {
                 this.path = 'M 0 90 '
-                this.data.forEach(e => {
-                    this.path += `L ${Math.floor(((new Date(e.date).getTime()) - this.minX) / this.range)} ${Math.floor(100 - (e.close * 100) / (this.params.max - this.params.min))} `
-                })
+                // this.data.forEach(e => {
+                //     this.path += `L ${Math.floor(((new Date(e.date).getTime()) - this.minX) / this.range)} ${Math.floor(100 - (e.close * 100) / (this.params.max - this.params.min))} `
+                // })
             },
             changeCoordinates() {
                 this.candleWidth = 100 / this.data.length
-                this.data.forEach(e => {
-                    let t = {
-                        x: ((new Date(e.date).getTime()) - this.minX) / this.range,
-                    }
-                    Object.keys(e).forEach(key => {
-                        if (key !== 'date') t[key] = this.toPercents(e[key])
-                    })
-                    this.coordinates.push(t)
-                })
+                // this.data.forEach(e => {
+                //     let t = {
+                //         x: ((new Date(e.date).getTime()) - this.minX) / this.range,
+                //     }
+                //     Object.keys(e).forEach(key => {
+                //         if (key !== 'date') t[key] = this.toPercents(e[key])
+                //     })
+                //     this.coordinates.push(t)
+                // })
             }
         }
     }

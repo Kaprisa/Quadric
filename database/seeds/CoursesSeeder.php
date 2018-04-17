@@ -28,7 +28,8 @@ class CoursesSeeder extends Seeder
                     'description' => $faker->text,
                     'image' => $faker->imageUrl(640, 480, 'cats'),
                     'category_id' => $in_c->id,
-                    'active' => true
+                    'active' => true,
+                    'user_id' => 1
                 ]);
                 for ($k = 0 ; $k < 5 ; $k ++) {
                     $block = Block::Create([
@@ -44,7 +45,8 @@ class CoursesSeeder extends Seeder
                             'name' => $faker->name,
                             'resourses' => json_encode(['http:://hello.ru']),
                             'sort' => $j,
-                            'text' => $faker->text(1000),
+                            'text1' => $faker->text(5000),
+                            'text2' => $faker->text(1000),
                             'video' => 'https://youtu.be/taicWTD3cEA'
                         ]);
 

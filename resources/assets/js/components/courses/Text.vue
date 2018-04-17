@@ -1,5 +1,5 @@
 <template>
-    <div v-html="props.text">
+    <div v-html="props.text" style="height: 90%; overflow-y: auto;">
     </div>
 </template>
 

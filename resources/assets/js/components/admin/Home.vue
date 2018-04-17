@@ -63,26 +63,37 @@
                         </v-list-tile-content>
                     </v-list-tile>
                 </template>
+                <v-list-group
+                        prepend-icon="gamepad"
+                        no-action
+                >
+                    <v-list-tile slot="activator">
+                        <v-list-tile-content>
+                            <v-list-tile-title>База данных</v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                    <v-list-tile @click="$router.push(`/admin/db/sql`)">
+                        <v-list-tile-content>
+                            <v-list-tile-title>Мастер запросов</v-list-tile-title>
+                        </v-list-tile-content>
+                        <v-list-tile-action>
+                            <v-icon>code</v-icon>
+                        </v-list-tile-action>
+                    </v-list-tile>
+                </v-list-group>
             </v-list>
         </v-navigation-drawer>
         <v-toolbar
-                color="blue darken-3"
+                color="teal lighten-3"
                 dark
                 app
                 :clipped-left="$vuetify.breakpoint.lgAndUp"
                 fixed
         >
-            <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
+            <v-toolbar-title class="ml-0 pl-3">
                 <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-                <span class="hidden-sm-and-down">Google Contacts</span>
+                <span class="hidden-sm-and-down">Панель администрирования</span>
             </v-toolbar-title>
-            <v-text-field
-                    flat
-                    solo-inverted
-                    prepend-icon="search"
-                    label="Search"
-                    class="hidden-sm-and-down"
-            ></v-text-field>
             <v-spacer></v-spacer>
             <v-btn icon>
                 <v-icon>apps</v-icon>
@@ -90,17 +101,9 @@
             <v-btn icon>
                 <v-icon>notifications</v-icon>
             </v-btn>
-            <v-btn icon large>
-                <v-avatar size="32px" tile>
-                    <img
-                            src="https://vuetifyjs.com/static/doc-images/logo.svg"
-                            alt="Vuetify"
-                    >
-                </v-avatar>
-            </v-btn>
         </v-toolbar>
         <v-content>
-
+            <router-view/>
         </v-content>
         <v-btn
                 fab
@@ -118,7 +121,7 @@
                 <v-card-title
                         class="grey lighten-4 py-4 title"
                 >
-                    Create contact
+                    Создать пользователя
                 </v-card-title>
                 <v-container grid-list-sm class="pa-4">
                     <v-layout row wrap>
@@ -131,7 +134,7 @@
                                     >
                                 </v-avatar>
                                 <v-text-field
-                                        placeholder="Name"
+                                        placeholder="Имя"
                                 ></v-text-field>
                             </v-layout>
                         </v-flex>
@@ -185,22 +188,22 @@
             dialog: false,
             drawer: null,
             items: [
-                { icon: 'contacts', text: 'Contacts' },
-                { icon: 'history', text: 'Frequently contacted' },
-                { icon: 'content_copy', text: 'Duplicates' },
+                { icon: 'contacts', text: 'Пользователи' },
+                { icon: 'history', text: 'История' },
+                { icon: 'palette', text: 'Темы' },
                 {
                     icon: 'keyboard_arrow_up',
                     'icon-alt': 'keyboard_arrow_down',
-                    text: 'Labels',
+                    text: 'Задачи',
                     model: true,
                     children: [
-                        { icon: 'add', text: 'Create label' }
+                        { icon: 'add', text: 'Создать задачу' }
                     ]
                 },
                 {
                     icon: 'keyboard_arrow_up',
                     'icon-alt': 'keyboard_arrow_down',
-                    text: 'More',
+                    text: 'Больше',
                     model: false,
                     children: [
                         { text: 'Import' },
@@ -210,12 +213,13 @@
                         { text: 'Other contacts' }
                     ]
                 },
-                { icon: 'settings', text: 'Settings' },
-                { icon: 'chat_bubble', text: 'Send feedback' },
-                { icon: 'help', text: 'Help' },
-                { icon: 'phonelink', text: 'App downloads' },
-                { icon: 'keyboard', text: 'Go to the old version' }
+                { icon: 'settings', text: 'Настройки' },
+                { icon: 'grade', text: 'Роли' },
+                { icon: 'perm_data_setting', text: 'Разрешения' },
+                { icon: 'folder', text: 'Файлы' }
             ]
         })
     }
 </script>
+
+

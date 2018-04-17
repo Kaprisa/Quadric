@@ -27,6 +27,7 @@ class ApiController extends Controller
     public function removeFile(Request $request, $dir)
     {
         Storage::disk('uploads')->delete($dir.'/'.$request->name);
+        return null;
     }
 
     public function upload_video(Request $request, $dir)
@@ -55,6 +56,26 @@ class ApiController extends Controller
                     ]
                 ]
             );
-        return response()->json(null, 200);
+        return null;
+    }
+
+    public function userAddCourse(Request $request)
+    {
+        Auth::guard('api')
+            ->user()
+            ->courses()
+            ->attach($request->id);
+
+        Return null;
+    }
+
+    public function userRemoveCourse($id)
+    {
+        Auth::guard('api')
+            ->user()
+            ->courses()
+            ->detach($id);
+
+        Return null;
     }
 }

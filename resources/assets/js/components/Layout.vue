@@ -5,7 +5,6 @@
                 v-model="drawer"
                 right
                 app
-                v-if="!($route.meta.type === 'auth')"
         >
             <v-list dense>
                 <v-list-tile @click="$router.push('/')">
@@ -14,6 +13,14 @@
                     </v-list-tile-action>
                     <v-list-tile-content>
                         <v-list-tile-title>Home</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile @click="$router.push('/profile')">
+                    <v-list-tile-action>
+                        <v-icon>account_circle</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Профиль</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-group
@@ -27,18 +34,10 @@
                     </v-list-tile>
                     <v-list-tile @click="$router.push(`/courses`)">
                         <v-list-tile-content>
-                            <v-list-tile-title>Мои курсы</v-list-tile-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action>
-                            <v-icon>bubble_chart</v-icon>
-                        </v-list-tile-action>
-                    </v-list-tile>
-                    <v-list-tile @click="$router.push(`/courses`)">
-                        <v-list-tile-content>
                             <v-list-tile-title>Каталог</v-list-tile-title>
                         </v-list-tile-content>
                         <v-list-tile-action>
-                            <v-icon>bubble_chart</v-icon>
+                            <v-icon>view_list</v-icon>
                         </v-list-tile-action>
                     </v-list-tile>
                     <v-list-tile @click="$router.push(`/courses/add`)">
@@ -50,13 +49,13 @@
                         </v-list-tile-action>
                     </v-list-tile>
                 </v-list-group>
-                <v-list-group
+               <!-- <v-list-group
                         prepend-icon="graphic_eq"
                         no-action
                 >
                     <v-list-tile slot="activator">
                         <v-list-tile-content>
-                            <v-list-tile-title>Анализ</v-list-tile-title>
+                            <v-list-tile-title>Статистика</v-list-tile-title>
                         </v-list-tile-content>
                     </v-list-tile>
                     <v-list-tile @click="$router.push(`/analysis/chart`)">
@@ -67,25 +66,7 @@
                             <v-icon>bubble_chart</v-icon>
                         </v-list-tile-action>
                     </v-list-tile>
-                </v-list-group>
-                <v-list-group
-                        prepend-icon="gamepad"
-                        no-action
-                >
-                    <v-list-tile slot="activator">
-                        <v-list-tile-content>
-                            <v-list-tile-title>База данных</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                    <v-list-tile @click="$router.push(`/db/sql`)">
-                        <v-list-tile-content>
-                            <v-list-tile-title>Мастер запросов</v-list-tile-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action>
-                            <v-icon>code</v-icon>
-                        </v-list-tile-action>
-                    </v-list-tile>
-                </v-list-group>
+                </v-list-group>-->
             </v-list>
         </v-navigation-drawer>
         <v-toolbar color="teal lighten-3" dark scroll-off-screen app>
@@ -98,9 +79,57 @@
                 <router-view/>
             </v-container>
         </v-content>
+        <v-menu
+                offset-x
+                :close-on-content-click="false"
+                :nudge-width="200"
+                v-model="menu"
+        >
+            <v-btn
+                    color="pink"
+                    dark
+                    fixed
+                    bottom
+                    right
+                    fab
+                    slot="activator"
+            >
+                <v-icon>settings</v-icon>
+            </v-btn>
+            <v-card>
+                <v-list>
+                    <v-list-tile avatar>
+                        <v-list-tile-content>
+                            <v-list-tile-title>Настройки</v-list-tile-title>
+                            <v-list-tile-sub-title>Настройте как вам удобно</v-list-tile-sub-title>
+                        </v-list-tile-content>
+                        <v-list-tile-action>
+                            <v-btn
+                                    icon
+                            >
+                                <v-icon>favorite</v-icon>
+                            </v-btn>
+                        </v-list-tile-action>
+                    </v-list-tile>
+                </v-list>
+                <v-divider></v-divider>
+                <!--<v-list>-->
+                    <!--<v-list-tile>-->
+                        <!--<v-list-tile-action>-->
+                            <!--<v-switch v-model="theme" color="teal"></v-switch>-->
+                        <!--</v-list-tile-action>-->
+                        <!--<v-list-tile-title>Темная тема</v-list-tile-title>-->
+                    <!--</v-list-tile>-->
+                <!--</v-list>-->
+                <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="pink" flat @click="menu = false">Ок</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-menu>
         <v-footer color="teal lighten-3" app>
             <v-spacer/>
-            <span class="white--text">&copy; 2018</span>
+            <span class="white--text mr-2">Made by Kseniya &copy; 2018</span>
         </v-footer>
     </v-app>
 </template>
@@ -110,7 +139,9 @@
     export default {
         name: 'layout',
         data: () => ({
-            drawer: true
+            drawer: true,
+            menu: false,
+            theme: false
         })
     }
 </script>

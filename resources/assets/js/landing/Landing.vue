@@ -21,14 +21,15 @@
                         <img src="/svg/desctop.svg" alt="Quadric.edu" height="200">
                         <h1 class="white--text mb-2 display-1 text-xs-center">Образование online</h1>
                         <div class="subheading mb-3 text-xs-center">Всегда знай, что ты лучший!</div>
-                        <div class="subheading mb-3 text-xs-center">Ты способен поразить мир своими знаниями!</div>
+                        <div class="subheading mb-3 text-xs-center">Ты способен знать все и обо всем!</div>
                         <div class="subheading mb-3 text-xs-center">А мы тебе поможем!</div>
                         <v-btn
                                 class="blue lighten-2 mt-5"
                                 dark
                                 large
+                                href="/academy"
                         >
-                            Готов? Поехали! Давай узнаем нашу жизнь!
+                            Готов? Поехали!
                         </v-btn>
                     </v-layout>
                 </v-parallax>
@@ -50,7 +51,7 @@
                                     <v-list-tile>
                                         <v-list-tile-content>
                                             <v-list-tile-title>Учеба в любое удобное время</v-list-tile-title>
-                                            <v-list-tile-sub-title>Больше не нужно сидеть в университете
+                                            <v-list-tile-sub-title>Учись в удобной для тебя обстановке
                                             </v-list-tile-sub-title>
                                         </v-list-tile-content>
                                     </v-list-tile>
@@ -87,42 +88,6 @@
                                         </v-card-media>
                                     </v-card>
                                 </v-flex>
-                                <!--<v-container fluid grid-list-md>-->
-                                    <!--<v-layout row wrap>-->
-                                        <!--<v-flex-->
-                                                <!--v-bind="{ [`xs${card.flex}`]: true }"-->
-                                                <!--v-for="card in cards"-->
-                                                <!--:key="card.title"-->
-                                        <!--&gt;-->
-                                            <!--<v-card>-->
-                                                <!--<v-card-media-->
-                                                        <!--:src="card.src"-->
-                                                        <!--height="200px"-->
-                                                <!--&gt;-->
-                                                    <!--<v-container fill-height fluid>-->
-                                                        <!--<v-layout fill-height>-->
-                                                            <!--<v-flex xs12 align-end flexbox>-->
-                                                                <!--<span class="headline white&#45;&#45;text" v-text="card.title"/>-->
-                                                            <!--</v-flex>-->
-                                                        <!--</v-layout>-->
-                                                    <!--</v-container>-->
-                                                <!--</v-card-media>-->
-                                                <!--<v-card-actions>-->
-                                                    <!--<v-spacer></v-spacer>-->
-                                                    <!--<v-btn icon>-->
-                                                        <!--<v-icon>favorite</v-icon>-->
-                                                    <!--</v-btn>-->
-                                                    <!--<v-btn icon>-->
-                                                        <!--<v-icon>bookmark</v-icon>-->
-                                                    <!--</v-btn>-->
-                                                    <!--<v-btn icon>-->
-                                                        <!--<v-icon>share</v-icon>-->
-                                                    <!--</v-btn>-->
-                                                <!--</v-card-actions>-->
-                                            <!--</v-card>-->
-                                        <!--</v-flex>-->
-                                    <!--</v-layout>-->
-                                <!--</v-container>-->
                                 <v-flex d-flex>
                                     <v-card color="green" dark>
                                         <v-card-media height="100%" src="/images/top/features_2.png">
@@ -177,10 +142,10 @@
                         <v-flex xs5>
                             <v-card class="pt-3" height="100%" color="red">
                                 <v-card-title class="white--text">
-                                    <h1 class="display-1 mb-4">Мы разработали лучшие оразовательные программы!</h1>
+                                    <h1 class="display-1 mb-4">Мы разработали лучшие образовательные программы!</h1>
                                 </v-card-title>
                                 <v-card-text class="white--text body-1">
-                                    Мы разработали лучшие образовательные программы для тебя и твоих друзей и родных!
+                                    Мы разработали лучшие образовательные программы для тебя, твоих друзей и родных!
                                     Здесь ты найдешь очень увлекательные и полезные уроки!
                                     С каждым днем их становится все больше и больше!
                                     Наша цель - сделать нашу страну богатой самыми умными людьми!
@@ -343,7 +308,7 @@
                     </div>
                 </v-layout>
                 <div class="px-1" style="text-align: right">
-                    <span class="caption">Made by Kseniya @2018</span>
+                    <span class="caption">Made by Kseniya &copy; 2018</span>
                 </div>
             </footer>
         </v-content>
@@ -361,7 +326,7 @@
                 '4.jpeg',
             ],
             cards: [
-                {title: 'Следи за свом прогрессом', src: '/images/gr.jpeg'},
+                {title: 'Следи за своим прогрессом', src: '/images/gr.jpeg'},
                 {title: 'Удобный интерфейс', src: '/images/ws.jpeg'},
                 {title: 'Слушайте нас в любое время', src: '/images/mobile.jpeg'},
                 {title: 'Учеба это интересно', src: '/images/dc.jpeg'}

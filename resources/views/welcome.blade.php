@@ -23,7 +23,7 @@
 </head>
 <body>
 <div id="app">
-    <layout></layout>
+    {{--<app></app>--}}
 </div>
 <script src="{{ asset('js/app.js', $secure) }}"></script>
 </body>

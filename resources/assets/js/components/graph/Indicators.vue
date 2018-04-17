@@ -31,9 +31,6 @@
             indicators(v) {
                 this.paths = []
                 v.forEach(i => this.add(i.name))
-                /*if (ov.length === 0) return nv
-                ov = ov.filter(i => !nv.contains(i))
-                nv.filter(i => !ov.contains(i)).forEach(i => this.add(i.name))*/
             }
         },
         methods: {

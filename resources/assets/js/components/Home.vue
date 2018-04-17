@@ -5,15 +5,35 @@
                 <v-card-media :src="`/uploads/photos/${c.image}`" height="200px">
                 </v-card-media>
                 <v-card-title primary-title>
-                    <div>
-                        <h3 class="headline mb-0">{{ c.name }}</h3>
+                   <h3 class="headline mb-0 mr-2">{{ c.name }}</h3>
+                    <div v-if="c.editable">
+                        <v-icon style="cursor: pointer;" color="blue" @click="$router.push(`/courses/${c.id}/edit`)">edit</v-icon>
+                        <v-icon style="cursor: pointer;" color="red" @click="removeCourse(c.id)">delete</v-icon>
                     </div>
                 </v-card-title>
                 <v-card-actions>
-                    <v-btn @click="$router.push(`/courses/${c.id}`)" flat color="orange">Учиться!</v-btn>
-                    <v-btn flat color="orange">Поступить</v-btn>
-                    <v-btn fab dark small flat color="blue" @click="$router.push(`/courses/${c.id}/edit`)"><v-icon>edit</v-icon></v-btn>
-                    <v-btn fab dark small flat color="red" @click="removeCourse(c.id)"><v-icon>delete</v-icon></v-btn>
+                    <v-btn dark @click="$router.push(`/courses/${c.id}`)" :disabled="!c.studied" color="amber">Учиться</v-btn>
+                    <v-spacer/>
+                    <v-btn
+                            dark
+                            fab
+                            small
+                            v-if="!c.studied"
+                            @click="userAddCourse(c)"
+                            color="pink"
+                    >
+                        <v-icon>add</v-icon>
+                    </v-btn>
+                    <v-btn
+                            v-else
+                            dark
+                            fab
+                            small
+                            @click="userRemoveCourse(c)"
+                            color="red"
+                    >
+                        <v-icon>delete</v-icon>
+                    </v-btn>
                 </v-card-actions>
             </v-card>
         </v-flex>
@@ -54,6 +74,26 @@
             ...mapActions([
                 'getCourses'
             ]),
+            userAddCourse(course) {
+               axios.post('/api/user/courses/add', { id: course.id }).then(_ => {
+                   course.studied = true
+                   this.snackbar = {
+                       visible: true,
+                       text: 'Курс успешно добавлен.',
+                       error: false
+                   }
+               }).catch(this.processError)
+            },
+            userRemoveCourse(course) {
+                axios.delete(`/api/user/courses/${course.id}`).then(_ => {
+                    course.studied = false
+                    this.snackbar = {
+                        visible: true,
+                        text: 'Курс успешно удален.',
+                        error: false
+                    }
+                }).catch(this.processError)
+            },
             removeCourse(id) {
                axios.delete(`/api/courses/${id}`).then(_ => {
                   this.snackbar = {
@@ -62,14 +102,15 @@
                       error: false
                   }
                   this.courses.splice(this.courses.findIndex(c => c.id === id), 1)
-               }).catch(({ response }) => {
-                   const errors = response && response.data && response.data.errors
-                   this.snackbar = {
-                       visible: true,
-                       text: errors ? errors[Object.keys(errors)[0]] : 'Ошибка сервера',
-                       error: true
-                   }
-               })
+               }).catch(this.processError)
+            },
+            processError({ response }) {
+                const errors = response && response.data && response.data.errors
+                this.snackbar = {
+                    visible: true,
+                    text: errors ? errors[Object.keys(errors)[0]] : 'Ошибка сервера',
+                    error: true
+                }
             }
         }
     }

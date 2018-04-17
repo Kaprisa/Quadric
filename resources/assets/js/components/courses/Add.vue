@@ -166,8 +166,12 @@
                                         :rules="[() => !!lesson.name || 'Укажите название урока']"
                                 ></v-text-field>
                                 <v-editor
-                                        @change="(v) => lesson.text = v"
-                                        :value="lesson.text"
+                                        @change="(v) => lesson.text1 = v"
+                                        :value="lesson.text1"
+                                ></v-editor>
+                                <v-editor
+                                        @change="(v) => lesson.text2 = v"
+                                        :value="lesson.text2"
                                 ></v-editor>
                                 <v-card-title>
                                     Ссылки на дополнительные ресурсы

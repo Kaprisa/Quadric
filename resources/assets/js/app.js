@@ -5,7 +5,8 @@ import 'vuetify/dist/vuetify.min.css'
 
 Vue.use(Vuetify)
 
-Vue.component('layout', require('./components/Layout'));
+//Vue.component('app', require('./components/App'));
+import App from './components/App'
 
 import store from './store'
 
@@ -17,6 +18,10 @@ import './auth'
 
 const app = new Vue({
     el: '#app',
+    components: {
+        App
+    },
+    template: '<app/>',
     store,
     router,
 })

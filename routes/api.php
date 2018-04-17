@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,20 +47,17 @@ Route::post('/blocks/{id}/lessons/save', 'LessonsController@save');
 Route::get('/lesson/{id}', 'LessonsController@get');
 Route::delete('/lessons/{id}', 'LessonsController@delete');
 
+Route::post('/user/courses/add', 'ApiController@userAddCourse');
+Route::delete('/user/courses/{id}', 'ApiController@userRemoveCourse');
 
-
-
-
-
-
-
-
-
-
+Route::post('/sql/query', 'DataController@sql_query');
+Route::post('/php/query', 'DataController@php_query');
+//Route::get('/tables', 'DataController@getTables');
 
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/check', function() {
-        return response()->json(null, 200);
+        $user = Auth::guard('api')->user();
+        return response()->json($user, 200);
     });
 });

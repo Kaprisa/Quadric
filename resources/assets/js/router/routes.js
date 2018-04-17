@@ -6,24 +6,37 @@ import Sql from '../components/db/Sql'
 import Course from '../components/courses/Course'
 import AddCourse from '../components/courses/Add'
 import Login from '../components/Login'
-//import Landing from '../components/Landing'
+import Profile from '../components/Profile'
+import Layout from '../components/Layout'
 
 export default [
-    { path: '/', component: Home },
-    { path: '/courses', component: Home },
+
+    { path: '/', component: Layout, children: [
+
+        { path: '/academy', component: Home },
+        { path: '/courses', component: Home },
+        { path: '/profile', component: Profile },
+        { path: '/analysis/chart', component: Chart },
+        { path: '/courses/add', component: AddCourse },
+        { path: '/courses/:id/edit', component: AddCourse, props: { editing: true } },
+        { path: '/courses/:id', component: Course, props: { what: 'welcome' } },
+        { path: '/courses/:id/lessons/:lesson_id', component: Course, props: { what: 'lesson' } },
+
+    ]},
+
     { path: '/login', component: Login, props: { action: 'login' }, meta: { type: 'auth' } },
+
     { path: '/register', component: Login, props: { action: 'register' }, meta: { type: 'auth' } },
-    { path: '/admin', component: Admin },
-    { path: '/analysis/chart', component: Chart },
-    { path: '/db', component: Db, children: [
-            {
-                path: 'sql',
-                component: Sql
-            }
-        ]
-    },
-    { path: '/courses/add', component: AddCourse },
-    { path: '/courses/:id/edit', component: AddCourse, props: { editing: true } },
-    { path: '/courses/:id', component: Course, props: { what: 'welcome' } },
-    { path: '/courses/:id/lessons/:lesson_id', component: Course, props: { what: 'lesson' } },
+
+    { path: '/admin', component: Admin, children: [
+
+        { path: 'db', component: Db, children: [
+
+                { path: 'sql', component: Sql }
+
+            ]
+        },
+
+    ]},
+
 ]
