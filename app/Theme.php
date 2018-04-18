@@ -8,6 +8,7 @@ class Theme extends Model
 {
     protected $fillable = [
         'colors',
+        'name',
         'dark'
     ];
 

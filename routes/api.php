@@ -60,13 +60,22 @@ Route::put('/user/avatar', 'UsersController@avatar');
 Route::put('/user/profile', 'UsersController@profile');
 
 Route::get('/roles', 'SecurityController@roles');
-Route::post('/roles/add', 'SecurityController@addRole');
+Route::post('/roles/save', 'SecurityController@saveRole');
+Route::delete('/roles/{id}', 'SecurityController@removeRole');
 
 Route::post('/tasks/add', 'TasksController@add');
 
-
 Route::get('/tags', 'ApiController@tags');
-Route::get('/settings', 'ApiController@settings');
+
+Route::get('/settings', 'SettingsController@getAll');
+Route::post('/settings/save', 'SettingsController@save');
+Route::delete('/settings/{id}', 'SettingsController@delete');
+
+Route::get('/themes', 'ThemesController@getAll');
+Route::post('/themes/save', 'ThemesController@save');
+Route::delete('/themes/{id}', 'ThemesController@delete');
+
+Route::get('/directories', 'ApiController@getDirectories');
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/check', function() {

@@ -108,17 +108,6 @@
         <v-dialog width="50vw" v-model="action.dialog">
             <v-component :is="action.component" @error="processError" @success="processSuccess"></v-component>
         </v-dialog>
-        <v-btn
-                fab
-                bottom
-                right
-                color="pink"
-                dark
-                fixed
-                @click.stop="dialog = !dialog"
-        >
-            <v-icon>add</v-icon>
-        </v-btn>
         <snackbar :options="snackbar"></snackbar>
     </div>
 </template>
@@ -142,6 +131,7 @@
                 component: 'task'
             },
             items: [
+                { icon: 'keyboard_arrow_left', text: 'Назад в академию', link: '/' },
                 { icon: 'contacts', text: 'Пользователи', link: '/admin/users' },
                 { icon: 'history', text: 'История', link: '/admin/history' },
                 { icon: 'palette', text: 'Темы', link: '/admin/themes' },
@@ -160,11 +150,7 @@
                     text: 'Больше',
                     model: false,
                     children: [
-                        { text: 'Import' },
-                        { text: 'Export' },
-                        { text: 'Print' },
-                        { text: 'Undo changes' },
-                        { text: 'Other contacts' }
+                        { text: 'Something' },
                     ]
                 },
                 { icon: 'settings', text: 'Настройки', link: '/admin/settings' },

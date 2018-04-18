@@ -1,5 +1,42 @@
 <template>
-    <v-container>
+    <v-container style="position: relative;">
+        <v-btn
+                color="pink"
+                small
+                absolute
+                right
+                top
+                dark
+                fab
+                class="mt-4"
+                slot="activator"
+                @click="role = {}; dialog=true;"
+        >
+            <v-icon>add</v-icon>
+        </v-btn>
+        <v-dialog v-model="dialog" max-width="500px">
+            <v-card>
+                <v-card-title>
+                    <span class="headline">{{ role.id ? 'Редактировать' : 'Создать'}} роль</span>
+                </v-card-title>
+                <v-card-text>
+                    <v-text-field
+                            prepend-icon="visibility_off"
+                            placeholder="Имя"
+                            v-model="role.name"
+                    ></v-text-field>
+                    <v-text-field
+                            prepend-icon="visibility"
+                            v-model="role.display_name"
+                            placeholder="Видимое имя"
+                    ></v-text-field>
+                </v-card-text>
+                <v-card-actions>
+                    <v-spacer/>
+                    <v-btn flat @click="save">Сохранить</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
         <v-data-table
                 :headers="headers"
                 :items="roles"
@@ -10,79 +47,33 @@
                 <td>{{ props.item.name }}</td>
                 <td>{{ props.item.display_name }}</td>
                 <td>{{ props.item.created_at }}</td>
+                <td class="justify-center layout px-0">
+                    <v-btn icon @click="edit(props.item)">
+                        <v-icon color="teal">edit</v-icon>
+                    </v-btn>
+                    <v-btn icon @click="remove(props.item)">
+                        <v-icon color="red">delete</v-icon>
+                    </v-btn>
+                </td>
             </template>
         </v-data-table>
-        <v-dialog v-model="dialog" width="800px">
-            <v-card>
-                <v-card-title
-                        class="grey lighten-4 py-4 title"
-                >
-                    Создать роль
-                </v-card-title>
-                <v-container grid-list-sm class="pa-4">
-                    <v-layout row wrap>
-                        <v-flex xs12 align-center justify-space-between>
-                            <v-layout align-center>
-                                <v-avatar size="40px" class="mr-3">
-                                    <img
-                                            src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png"
-                                            alt=""
-                                    >
-                                </v-avatar>
-                                <v-text-field
-                                        placeholder="Имя"
-                                ></v-text-field>
-                            </v-layout>
-                        </v-flex>
-                        <v-flex xs6>
-                            <v-text-field
-                                    prepend-icon="business"
-                                    placeholder="Company"
-                            ></v-text-field>
-                        </v-flex>
-                        <v-flex xs6>
-                            <v-text-field
-                                    placeholder="Job title"
-                            ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12>
-                            <v-text-field
-                                    prepend-icon="mail"
-                                    placeholder="Email"
-                            ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12>
-                            <v-text-field
-                                    type="tel"
-                                    prepend-icon="phone"
-                                    placeholder="(000) 000 - 0000"
-                                    mask="phone"
-                            ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12>
-                            <v-text-field
-                                    prepend-icon="notes"
-                                    placeholder="Notes"
-                            ></v-text-field>
-                        </v-flex>
-                    </v-layout>
-                </v-container>
-                <v-card-actions>
-                    <v-btn flat color="primary">More</v-btn>
-                    <v-spacer></v-spacer>
-                    <v-btn flat color="primary" @click="dialog = false">Cancel</v-btn>
-                    <v-btn flat @click="dialog = false">Save</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
+        <snackbar :options="snackbar"></snackbar>
     </v-container>
 </template>
 <script>
-    import { mapActions, mapGetters } from 'vuex'
+    import {mapActions, mapGetters} from 'vuex'
+    import Snackbar from '../components/common/Snackbar'
+    import axios from 'axios'
+
     export default {
+        components: {
+            Snackbar
+        },
         data() {
             return {
                 dialog: false,
+                snackbar: {},
+                role: {},
                 headers: [
                     {
                         text: 'Название',
@@ -100,7 +91,8 @@
                         text: 'Дата создания',
                         align: 'left',
                         value: 'created_at'
-                    }
+                    },
+                    { text: 'Действия', align: 'left', value: 'name', sortable: false }
                 ]
             }
         },
@@ -115,7 +107,41 @@
         methods: {
             ...mapActions([
                 'getRoles'
-            ])
+            ]),
+            edit(item) {
+                this.role = item
+                this.dialog = true
+            },
+
+            remove(item) {
+                if (!item.id) return
+                axios.delete(`/api/roles/${item.id}`).then(res => {
+                    this.processSuccess('Роль успешно удалена.')
+                    this.roles.splice(this.roles.indexOf(item), 1)
+                }).catch(this.processError)
+            },
+            save() {
+                this.dialog = false
+                axios.post('/api/roles/save', this.role).then(res => {
+                    if (!this.role.id) this.roles.push(res.data)
+                    this.processSuccess('Роль успешно сохранена!')
+                }).catch(this.processError)
+            },
+            processError({response}) {
+                const errors = response && response.data && response.data.errors
+                this.snackbar = {
+                    visible: true,
+                    text: errors ? errors[Object.keys(errors)[0]] : 'Ошибка сервера',
+                    error: true
+                }
+            },
+            processSuccess(msg) {
+                this.snackbar = {
+                    visible: true,
+                    text: msg,
+                    error: false
+                }
+            }
         }
     }
 </script>

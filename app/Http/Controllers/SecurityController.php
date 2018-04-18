@@ -13,12 +13,18 @@ class SecurityController extends Controller
         return response()->json($roles, 200);
     }
 
-    public function addRole(Request $request)
+    public function saveRole(Request $request)
     {
-       Role::create([
+       $role = Role::updateOrCreate([ 'id' => $request->id ], [
            'name' => $request->name,
            'display_name' => $request->display_name
        ]);
-       return null;
+       return response()->json($role, 200);
+    }
+
+    public function removeRole($id)
+    {
+        Role::destroy($id);
+        return null;
     }
 }

@@ -16,6 +16,8 @@ export default new Vuex.Store({
         users: f('Users'),
         roles: f('Roles'),
         tags: f('Tags'),
-        settings: f('Settings')
+        settings: f('Settings'),
+        themes: f('Themes'),
+        directories: f('Directories')
     }
 })

@@ -12,7 +12,7 @@
     >
         <v-text-field
                 slot="activator"
-                label="Цвет"
+                :label="label"
                 v-model="color"
                 prepend-icon="color_lens"
                 class="input-group--focused"
@@ -39,12 +39,13 @@
         data() {
             return {
                 colors,
-                color: 'pink',
+                color: this.vcolor,
                 picker: null
             }
         },
         props: {
-            vcolor: String
+          label: String,
+          vcolor: String
         },
         methods: {
             changeColor(color, i) {
