@@ -11,6 +11,11 @@ export default new Vuex.Store({
         courses: f('Courses'),
         coursesAddInfo: f('CoursesAddInfo'),
         block: f('Block'),
-        lesson: f('Lesson')
+        lesson: f('Lesson'),
+        user: f('User'),
+        users: f('Users'),
+        roles: f('Roles'),
+        tags: f('Tags'),
+        settings: f('Settings')
     }
 })

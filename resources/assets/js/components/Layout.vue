@@ -1,5 +1,5 @@
 <template>
-    <v-app id="inspire">
+    <div>
         <v-navigation-drawer
                 fixed
                 v-model="drawer"
@@ -21,6 +21,14 @@
                     </v-list-tile-action>
                     <v-list-tile-content>
                         <v-list-tile-title>Профиль</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
+                <v-list-tile v-if="user.is_admin" @click="$router.push('/admin')">
+                    <v-list-tile-action>
+                        <v-icon>widgets</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Панель администрирования</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-group
@@ -49,24 +57,24 @@
                         </v-list-tile-action>
                     </v-list-tile>
                 </v-list-group>
-               <!-- <v-list-group
-                        prepend-icon="graphic_eq"
-                        no-action
-                >
-                    <v-list-tile slot="activator">
-                        <v-list-tile-content>
-                            <v-list-tile-title>Статистика</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                    <v-list-tile @click="$router.push(`/analysis/chart`)">
-                        <v-list-tile-content>
-                            <v-list-tile-title>График</v-list-tile-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action>
-                            <v-icon>bubble_chart</v-icon>
-                        </v-list-tile-action>
-                    </v-list-tile>
-                </v-list-group>-->
+                <!-- <v-list-group
+                         prepend-icon="graphic_eq"
+                         no-action
+                 >
+                     <v-list-tile slot="activator">
+                         <v-list-tile-content>
+                             <v-list-tile-title>Статистика</v-list-tile-title>
+                         </v-list-tile-content>
+                     </v-list-tile>
+                     <v-list-tile @click="$router.push(`/analysis/chart`)">
+                         <v-list-tile-content>
+                             <v-list-tile-title>График</v-list-tile-title>
+                         </v-list-tile-content>
+                         <v-list-tile-action>
+                             <v-icon>bubble_chart</v-icon>
+                         </v-list-tile-action>
+                     </v-list-tile>
+                 </v-list-group>-->
             </v-list>
         </v-navigation-drawer>
         <v-toolbar color="teal lighten-3" dark scroll-off-screen app>
@@ -114,12 +122,12 @@
                 </v-list>
                 <v-divider></v-divider>
                 <!--<v-list>-->
-                    <!--<v-list-tile>-->
-                        <!--<v-list-tile-action>-->
-                            <!--<v-switch v-model="theme" color="teal"></v-switch>-->
-                        <!--</v-list-tile-action>-->
-                        <!--<v-list-tile-title>Темная тема</v-list-tile-title>-->
-                    <!--</v-list-tile>-->
+                <!--<v-list-tile>-->
+                <!--<v-list-tile-action>-->
+                <!--<v-switch v-model="theme" color="teal"></v-switch>-->
+                <!--</v-list-tile-action>-->
+                <!--<v-list-tile-title>Темная тема</v-list-tile-title>-->
+                <!--</v-list-tile>-->
                 <!--</v-list>-->
                 <v-card-actions>
                     <v-spacer></v-spacer>
@@ -131,10 +139,11 @@
             <v-spacer/>
             <span class="white--text mr-2">Made by Kseniya &copy; 2018</span>
         </v-footer>
-    </v-app>
+    </div>
 </template>
 
 <script>
+    import { mapActions, mapGetters } from 'vuex'
 
     export default {
         name: 'layout',
@@ -142,6 +151,19 @@
             drawer: true,
             menu: false,
             theme: false
-        })
+        }),
+        mounted() {
+            this.getUser()
+        },
+        computed: {
+            ...mapGetters({
+                user: 'user'
+            })
+        },
+        methods: {
+            ...mapActions([
+                'getUser'
+            ])
+        }
     }
 </script>

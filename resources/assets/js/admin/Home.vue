@@ -20,7 +20,7 @@
                             </v-subheader>
                         </v-flex>
                         <v-flex xs6 class="text-xs-center">
-                            <a href="#!" class="body-2 black--text">EDIT</a>
+                            <a class="body-2 black--text">EDIT</a>
                         </v-flex>
                     </v-layout>
                     <v-list-group
@@ -40,7 +40,7 @@
                         <v-list-tile
                                 v-for="(child, i) in item.children"
                                 :key="i"
-                                @click=""
+                                @click="callAction(child.component)"
                         >
                             <v-list-tile-action v-if="child.icon">
                                 <v-icon>{{ child.icon }}</v-icon>
@@ -52,7 +52,7 @@
                             </v-list-tile-content>
                         </v-list-tile>
                     </v-list-group>
-                    <v-list-tile v-else @click="" :key="item.text">
+                    <v-list-tile v-else @click="$router.push(item.link)" :key="item.text">
                         <v-list-tile-action>
                             <v-icon>{{ item.icon }}</v-icon>
                         </v-list-tile-action>
@@ -105,6 +105,9 @@
         <v-content>
             <router-view/>
         </v-content>
+        <v-dialog width="50vw" v-model="action.dialog">
+            <v-component :is="action.component" @error="processError" @success="processSuccess"></v-component>
+        </v-dialog>
         <v-btn
                 fab
                 bottom
@@ -116,88 +119,39 @@
         >
             <v-icon>add</v-icon>
         </v-btn>
-        <v-dialog v-model="dialog" width="800px">
-            <v-card>
-                <v-card-title
-                        class="grey lighten-4 py-4 title"
-                >
-                    Создать пользователя
-                </v-card-title>
-                <v-container grid-list-sm class="pa-4">
-                    <v-layout row wrap>
-                        <v-flex xs12 align-center justify-space-between>
-                            <v-layout align-center>
-                                <v-avatar size="40px" class="mr-3">
-                                    <img
-                                            src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png"
-                                            alt=""
-                                    >
-                                </v-avatar>
-                                <v-text-field
-                                        placeholder="Имя"
-                                ></v-text-field>
-                            </v-layout>
-                        </v-flex>
-                        <v-flex xs6>
-                            <v-text-field
-                                    prepend-icon="business"
-                                    placeholder="Company"
-                            ></v-text-field>
-                        </v-flex>
-                        <v-flex xs6>
-                            <v-text-field
-                                    placeholder="Job title"
-                            ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12>
-                            <v-text-field
-                                    prepend-icon="mail"
-                                    placeholder="Email"
-                            ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12>
-                            <v-text-field
-                                    type="tel"
-                                    prepend-icon="phone"
-                                    placeholder="(000) 000 - 0000"
-                                    mask="phone"
-                            ></v-text-field>
-                        </v-flex>
-                        <v-flex xs12>
-                            <v-text-field
-                                    prepend-icon="notes"
-                                    placeholder="Notes"
-                            ></v-text-field>
-                        </v-flex>
-                    </v-layout>
-                </v-container>
-                <v-card-actions>
-                    <v-btn flat color="primary">More</v-btn>
-                    <v-spacer></v-spacer>
-                    <v-btn flat color="primary" @click="dialog = false">Cancel</v-btn>
-                    <v-btn flat @click="dialog = false">Save</v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
+        <snackbar :options="snackbar"></snackbar>
     </div>
 </template>
 
 <script>
+    import Task from './actions/Task'
+    import Snackbar from '../components/common/Snackbar'
+    import { mapActions } from 'vuex'
+
     export default {
+        components: {
+            Task,
+            Snackbar
+        },
         data: () => ({
             dialog: false,
             drawer: null,
+            snackbar: {},
+            action: {
+                dialog: false,
+                component: 'task'
+            },
             items: [
-                { icon: 'contacts', text: 'Пользователи' },
-                { icon: 'history', text: 'История' },
-                { icon: 'palette', text: 'Темы' },
+                { icon: 'contacts', text: 'Пользователи', link: '/admin/users' },
+                { icon: 'history', text: 'История', link: '/admin/history' },
+                { icon: 'palette', text: 'Темы', link: '/admin/themes' },
                 {
                     icon: 'keyboard_arrow_up',
                     'icon-alt': 'keyboard_arrow_down',
                     text: 'Задачи',
                     model: true,
                     children: [
-                        { icon: 'add', text: 'Создать задачу' }
+                        { icon: 'add', text: 'Создать задачу', component: 'task' }
                     ]
                 },
                 {
@@ -213,12 +167,44 @@
                         { text: 'Other contacts' }
                     ]
                 },
-                { icon: 'settings', text: 'Настройки' },
-                { icon: 'grade', text: 'Роли' },
-                { icon: 'perm_data_setting', text: 'Разрешения' },
-                { icon: 'folder', text: 'Файлы' }
+                { icon: 'settings', text: 'Настройки', link: '/admin/settings' },
+                { icon: 'grade', text: 'Роли', link: '/admin/roles' },
+                { icon: 'perm_data_setting', text: 'Разрешения', link: '/admin/permissions' },
+                { icon: 'folder', text: 'Файлы', link: '/admin/files' }
             ]
-        })
+        }),
+        mounted() {
+            this.getUsers()
+        },
+        methods: {
+            callAction(component) {
+                if (component) {
+                    this.action = {
+                        dialog: true,
+                        component
+                    }
+                }
+            },
+            ...mapActions([
+                'getUsers'
+            ]),
+            processError({ response }) {
+                const errors = response && response.data && response.data.errors
+                this.snackbar = {
+                    visible: true,
+                    text: errors ? errors[Object.keys(errors)[0]] : 'Ошибка сервера',
+                    error: true
+                }
+            },
+            processSuccess(msg, res, cb = null) {
+                this.snackbar = {
+                    visible: true,
+                    text: msg,
+                    error: false
+                }
+                if (cb) cb()
+            }
+        }
     }
 </script>
 

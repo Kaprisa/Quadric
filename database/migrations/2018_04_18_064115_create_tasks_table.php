@@ -1,11 +1,10 @@
 <?php
 
-use App\Role;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateTasksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,15 +13,12 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
+            $table->text('description')->nullable();
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->string('api_token', 60)->unique()->nullable();
-            $table->string('avatar')->default('avatar.png');
-            $table->string('phone')->nullable();
-            $table->rememberToken();
+            $table->integer('executor_id')->unsigned()->references('id')->on('users');
+            $table->integer('creator_id')->unsigned()->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -34,6 +30,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('tasks');
     }
 }

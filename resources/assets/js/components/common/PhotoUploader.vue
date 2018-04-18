@@ -98,14 +98,3 @@
         },
     }
 </script>
-
-<style lang="scss">
-    .input-file {
-        opacity: 0;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        cursor: pointer;
-        z-index: 5;
-    }
-</style>

@@ -10,6 +10,10 @@
                         <v-icon style="cursor: pointer;" color="blue" @click="$router.push(`/courses/${c.id}/edit`)">edit</v-icon>
                         <v-icon style="cursor: pointer;" color="red" @click="removeCourse(c.id)">delete</v-icon>
                     </div>
+                    <v-spacer/>
+                    <span v-if="c.studied">
+                        {{ c.user_points }} / {{ c.points }}
+                    </span>
                 </v-card-title>
                 <v-card-actions>
                     <v-btn dark @click="$router.push(`/courses/${c.id}`)" :disabled="!c.studied" color="amber">Учиться</v-btn>

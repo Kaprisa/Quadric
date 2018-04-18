@@ -1,13 +1,24 @@
+import Layout from '../components/Layout'
 import Home from '../components/Home'
-import Admin from '../components/admin/Home'
-import Chart from '../components/graph/Chart'
-import Db from '../components/db/Db'
-import Sql from '../components/db/Sql'
+import Profile from '../components/Profile'
+
 import Course from '../components/courses/Course'
 import AddCourse from '../components/courses/Add'
+
+import Chart from '../components/graph/Chart'
+
 import Login from '../components/Login'
-import Profile from '../components/Profile'
-import Layout from '../components/Layout'
+
+import Admin from '../admin/Home'
+import Db from '../admin/db/Db'
+import Sql from '../admin/db/Sql'
+import Users from '../admin/Users'
+import Roles from '../admin/Roles'
+import Permissions from '../admin/Permissions'
+import Settings from '../admin/Settings'
+import Themes from '../admin/Themes'
+import Files from '../admin/Files'
+import History from '../admin/History'
 
 export default [
 
@@ -36,6 +47,13 @@ export default [
 
             ]
         },
+        { path: 'users', component: Users },
+        { path: 'roles', component: Roles },
+        { path: 'permissions', component: Permissions },
+        { path: 'settings', component: Settings },
+        { path: 'themes', component: Themes },
+        { path: 'files', component: Files },
+        { path: 'history', component: History },
 
     ]},
 

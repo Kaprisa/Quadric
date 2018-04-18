@@ -39,11 +39,11 @@ class Lesson extends Model
 
     public function getTotalsAttribute()
     {
-      return $this->questions()->sum('points');
-//        Auth::guard('api')
-//            ->user()
-//            ->questions()
-//            ->where('lesson_id', '=', $this->id);
-
+      $total = $this->questions()->sum('points');
+      $user_total = $this->questions->where('correct', true)->sum('points');
+      return [
+        'total' => $total,
+        'user_total' => $user_total
+      ];
     }
 }

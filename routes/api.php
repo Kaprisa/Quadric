@@ -54,6 +54,19 @@ Route::post('/sql/query', 'DataController@sql_query');
 Route::post('/php/query', 'DataController@php_query');
 //Route::get('/tables', 'DataController@getTables');
 
+Route::get('/user', 'UsersController@get');
+Route::get('/users', 'UsersController@getAll');
+Route::put('/user/avatar', 'UsersController@avatar');
+Route::put('/user/profile', 'UsersController@profile');
+
+Route::get('/roles', 'SecurityController@roles');
+Route::post('/roles/add', 'SecurityController@addRole');
+
+Route::post('/tasks/add', 'TasksController@add');
+
+
+Route::get('/tags', 'ApiController@tags');
+Route::get('/settings', 'ApiController@settings');
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/check', function() {

@@ -13,7 +13,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'avatar'
+        'avatar',
+        'phone'
     ];
 
     protected $with = ['roles'];
@@ -24,7 +25,8 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-        'points'
+        'points',
+        'is_admin'
     ];
 
     public function generateToken()
@@ -58,6 +60,25 @@ class User extends Authenticatable
     public function getPointsAttribute()
     {
         return $this->questions()->withPivot(['correct'])->where('correct', true)->sum('points');
+    }
+
+    public function getIsAdminAttribute()
+    {
+        return $this->hasRole('admin');
+    }
+
+    public function theme() {
+        return $this->hasOne(Theme::class);
+    }
+
+    public function history()
+    {
+        return $this->hasMany(History::class);
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'executor_id');
     }
 
 }

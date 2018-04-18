@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Setting;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -51,7 +53,7 @@ class ApiController extends Controller
             ->sync(
                 [
                     $id => [
-                        'attempts' => $request->has('attempts') ? $request->attempts : 0,
+                        'attempts' => $request->has('attempts') && $request->attempts ? $request->attempts : 0,
                         'correct' => $request->correct
                     ]
                 ]
@@ -59,23 +61,15 @@ class ApiController extends Controller
         return null;
     }
 
-    public function userAddCourse(Request $request)
+    public function tags()
     {
-        Auth::guard('api')
-            ->user()
-            ->courses()
-            ->attach($request->id);
-
-        Return null;
+        $tags = Tag::all();
+        return response()->json($tags, 200);
     }
 
-    public function userRemoveCourse($id)
+    public function settings()
     {
-        Auth::guard('api')
-            ->user()
-            ->courses()
-            ->detach($id);
-
-        Return null;
+        $settings = Setting::all();
+        return response()->json($settings, 200);
     }
 }

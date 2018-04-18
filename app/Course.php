@@ -19,7 +19,9 @@ class Course extends Model
 
     protected $appends = [
         'editable',
-        'studied'
+        'studied',
+        'points',
+        'user_points'
     ];
 
     public function blocks()
@@ -51,5 +53,23 @@ class Course extends Model
     public function getStudiedAttribute()
     {
         return Auth::guard('api')->user()->courses()->pluck('id')->contains($this->id);
+    }
+
+    public function getQuestionsAttribute()
+    {
+        return Lesson::whereIn('block_id', $this->blocks()->pluck('id'))
+            ->get()
+            ->pluck('questions')
+            ->flatten();
+    }
+
+    public function getPointsAttribute()
+    {
+        return $this->questions->sum('points');
+    }
+
+    public function getUserPointsAttribute()
+    {
+        return $this->questions->where('correct', true)->sum('points');
     }
 }
