@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Theme;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ThemesController extends Controller
 {
@@ -16,12 +17,16 @@ class ThemesController extends Controller
     public function save(Request $request)
     {
         $theme = Theme::updateOrCreate(
-            [ 'name' => $request->name ],
+            [ 'id' => $request->id ],
             [
+                'name' => $request->name,
                 'colors' => json_encode($request->colors)
             ]
         );
-        return null;
+        $user = Auth::guard('api')->user();
+        $user->theme_id = $theme->id;
+        $user->save();
+        return response()->json($theme, 200);
     }
 
     public function delete($id)

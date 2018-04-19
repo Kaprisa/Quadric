@@ -5,6 +5,7 @@
                 v-model="drawer"
                 right
                 app
+                :dark="user.theme && user.theme.dark === 1"
         >
             <v-list dense>
                 <v-list-tile @click="$router.push('/')">
@@ -121,17 +122,10 @@
                     </v-list-tile>
                 </v-list>
                 <v-divider></v-divider>
-                <!--<v-list>-->
-                <!--<v-list-tile>-->
-                <!--<v-list-tile-action>-->
-                <!--<v-switch v-model="theme" color="teal"></v-switch>-->
-                <!--</v-list-tile-action>-->
-                <!--<v-list-tile-title>Темная тема</v-list-tile-title>-->
-                <!--</v-list-tile>-->
-                <!--</v-list>-->
+                <theme-generator></theme-generator>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="pink" flat @click="menu = false">Ок</v-btn>
+                    <v-btn color="primary" flat @click="menu = false">Ок</v-btn>
                 </v-card-actions>
             </v-card>
         </v-menu>
@@ -144,20 +138,35 @@
 
 <script>
     import { mapActions, mapGetters } from 'vuex'
+    import ThemeGenerator from './common/ThemeGenerator'
 
     export default {
         name: 'layout',
         data: () => ({
             drawer: true,
             menu: false,
-            theme: false
+            theme: false,
+            showThemes: false
         }),
+        components: {
+           ThemeGenerator
+        },
         mounted() {
             this.getUser()
         },
+        watch: {
+          loadingUser(v) {
+              if (!v) {
+                  if (this.user.theme) {
+                      this.$vuetify.theme = this.user.theme.colors
+                  }
+              }
+          }
+        },
         computed: {
             ...mapGetters({
-                user: 'user'
+                user: 'user',
+                loadingUser: 'loadingUser'
             })
         },
         methods: {

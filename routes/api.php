@@ -75,7 +75,9 @@ Route::get('/themes', 'ThemesController@getAll');
 Route::post('/themes/save', 'ThemesController@save');
 Route::delete('/themes/{id}', 'ThemesController@delete');
 
-Route::get('/directories', 'ApiController@getDirectories');
+Route::get('/directories', 'FilesController@getDirectories');
+Route::post('/files/read', 'FilesController@getFile');
+Route::post('/files/remove', 'FilesController@removeFile');
 
 Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/check', function() {

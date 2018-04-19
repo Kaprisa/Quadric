@@ -7,8 +7,6 @@ use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 
 class ApiController extends Controller
 {
@@ -69,35 +67,5 @@ class ApiController extends Controller
         return response()->json($tags, 200);
     }
 
-    public function getDirectories()
-    {
-//        $root = public_path();
-//
-//        $iter = new RecursiveIteratorIterator(
-//            new RecursiveDirectoryIterator($root, RecursiveDirectoryIterator::SKIP_DOTS),
-//            RecursiveIteratorIterator::SELF_FIRST,
-//            RecursiveIteratorIterator::CATCH_GET_CHILD // Ignore "Permission denied"
-//        );
-//
-//        //$paths = array($root);
-//        foreach ($iter as $path => $dir) {
-//            //if ($dir->isDir()) {
-//                $paths[] = $path;
-//            //}
-//        }
-        $ritit = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(public_path()), RecursiveIteratorIterator::CHILD_FIRST);
-        $r = array();
-        foreach ($ritit as $splFileInfo) {
-            $path = $splFileInfo->isDir()
-                ? array($splFileInfo->getFilename() => array())
-                : array($splFileInfo->getFilename());
 
-            for ($depth = $ritit->getDepth() - 1; $depth >= 0; $depth--) {
-                $path = array($ritit->getSubIterator($depth)->current()->getFilename() => $path);
-            }
-            $r = array_merge_recursive($r, $path);
-        }
-
-        return response()->json($r, 200);
-    }
 }

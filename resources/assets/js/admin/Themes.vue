@@ -1,45 +1,75 @@
 <template>
-    <v-container>
-        <v-card class="elevation-12">
-            <v-card-media src="/images/new_york.jpeg" height="15vh">
-            </v-card-media>
-            <v-layout row wrap class="px-3 py-2" justify-space-around>
-                <v-flex xs11 class="layout">
-                    <v-select
-                            placeholder="Название"
-                            v-model="theme.name"
-                            :items="themes"
-                            v-if="editing"
-                    ></v-select>
-                    <v-text-field
-                            v-else
-                            placeholder="Название"
-                            v-model="theme.name"
-                    ></v-text-field>
-                    <v-tooltip bottom>
-                        <v-btn
-                                @click="editing = !editing"
-                                small
-                                dark
-                                fab
-                                color="pink"
-                                slot="activator"
-                                v-if="themes.length"
-                        >
-                            <v-icon>{{ editing ? 'add' : 'edit'}}</v-icon>
-                        </v-btn>
-                        <span>Выбрать для редактирования</span>
-                    </v-tooltip>
-                </v-flex>
-                <v-flex xs5 v-for="v, k in theme.colors" :key="k">
-                    <color-picker :vcolor="k" :label="k" @change="(color) => theme.colors[k] = color"></color-picker>
-                </v-flex>
-            </v-layout>
-            <v-card-actions>
-                <v-spacer/>
-                <v-btn @click="save" color="teal" dark>Сохранить</v-btn>
-            </v-card-actions>
-        </v-card> 
+    <v-container style="position: relative;">
+
+        <v-dialog v-model="dialog">
+            <v-btn
+                    color="pink"
+                    small
+                    absolute
+                    right
+                    top
+                    dark
+                    fab
+                    class="mt-4"
+                    slot="activator"
+                    @click="init(); dialog=true;"
+            >
+                <v-icon>add</v-icon>
+            </v-btn>
+            <v-card class="elevation-12">
+                <v-card-media src="/images/new_york.jpeg" height="15vh">
+                </v-card-media>
+                <v-layout row wrap class="px-3 py-2" justify-space-around>
+                    <v-flex xs11 class="layout">
+                        <v-select
+                                placeholder="Название"
+                                v-model="item.name"
+                                :items="themes"
+                                v-if="editing"
+                        ></v-select>
+                        <v-text-field
+                                v-else
+                                placeholder="Название"
+                                v-model="item.name"
+                        ></v-text-field>
+                    </v-flex>
+                    <v-flex xs5 v-for="v, k in item.colors" :key="k">
+                        <color-picker :vcolor="k" :label="k" @change="(color) => item.colors[k] = color"></color-picker>
+                    </v-flex>
+                </v-layout>
+                <v-card-actions>
+                    <v-spacer/>
+                    <v-btn @click="save" color="teal" dark>Сохранить</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
+        <v-data-table
+                :headers="headers"
+                :items="themes"
+                hide-actions
+                class="elevation-1"
+        >
+            <template slot="items" slot-scope="props">
+                <td>{{ props.item.name }}</td>
+                <td
+                        v-for="c, i in themeMap"
+                        :key="`${props.item.name} ${i} ${props.item.colors[c]}`"
+                        :style="`background-color: ${props.item.colors[c]};`"
+                        class="text-xs-center white--text body-2"
+                >
+                    {{ props.item.colors[c] }}
+                </td>
+                <td class="justify-center layout px-0">
+                    <v-btn icon @click="item = props.item; dialog = true;">
+                        <v-icon color="teal">edit</v-icon>
+                    </v-btn>
+                    <v-btn icon @click="remove(props.item)">
+                        <v-icon color="red">delete</v-icon>
+                    </v-btn>
+                </td>
+            </template>
+        </v-data-table>
+        <snackbar :options="snackbar"></snackbar>
     </v-container>
 </template>
 
@@ -55,24 +85,28 @@
             Snackbar
         },
         data() {
+            const themeMap = [
+                'primary',
+                'secondary',
+                'accent',
+                'error',
+                'warning',
+                'info',
+                'success'
+            ]
             return {
                 snackbar: {},
                 editing: false,
-                theme: {
-                    colors: {
-                        primary: 'blue',
-                        secondary: 'pink',
-                        accent: 'teal',
-                        error: 'red',
-                        warning: 'yellow',
-                        info: 'blue',
-                        success: 'green'
-                    },
-                }
+                dialog: false,
+                themeMap,
+                headers: [ { text: 'Название', align: 'left', value: 'name', sortable: false } ]
+                    .concat(themeMap.map(c => ({ text: c, align: 'center', value: 'name', sortable: false }))),
+                item: {}
             }
         },
         mounted() {
-           this.getThemes()
+            this.init()
+            this.getThemes()
         },
         computed: {
             ...mapGetters({
@@ -83,9 +117,29 @@
             ...mapActions([
                 'getThemes'
             ]),
+            init() {
+               this.item = {
+                   colors: {
+                       primary: 'blue',
+                       secondary: 'pink',
+                       accent: 'teal',
+                       error: 'red',
+                       warning: 'yellow',
+                       info: 'blue',
+                       success: 'green'
+                   },
+               }
+            },
+            remove(item) {
+                if (!item.id) return
+                axios.delete(`/api/themes/${item.id}`).then(res => {
+                    this.processSuccess('Тема успешно удалена.')
+                    this.themes.splice(this.themes.indexOf(item), 1)
+                }).catch(this.processError)
+            },
             save() {
                 axios.post('/api/themes/save', this.item).then(res => {
-                    if (!this.item.id) this.settings.push(res.data)
+                    if (!this.item.id) this.themes.push(res.data)
                     this.processSuccess('Тема успешно сохранена!')
                 }).catch(this.processError)
             },

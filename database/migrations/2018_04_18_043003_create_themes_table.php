@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -20,6 +21,8 @@ class CreateThemesTable extends Migration
             $table->boolean('dark')->default(0);
             $table->timestamps();
         });
+
+        Artisan::call('db:seed', ['--class' => ThemesSeeder::class]);
     }
 
     /**

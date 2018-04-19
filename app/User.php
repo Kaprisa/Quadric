@@ -17,7 +17,7 @@ class User extends Authenticatable
         'phone'
     ];
 
-    protected $with = ['roles'];
+    protected $with = ['roles', 'theme'];
 
     protected $hidden = [
         'password',
@@ -68,7 +68,7 @@ class User extends Authenticatable
     }
 
     public function theme() {
-        return $this->hasOne(Theme::class);
+        return $this->belongsTo(Theme::class);
     }
 
     public function history()

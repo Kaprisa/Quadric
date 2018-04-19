@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('api_token', 60)->unique()->nullable();
             $table->string('avatar')->default('avatar.png');
+            $table->integer('theme_id')->unsigned()->references('id')->on('themes')->default(1);
             $table->string('phone')->nullable();
             $table->rememberToken();
             $table->timestamps();

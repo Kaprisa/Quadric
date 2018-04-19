@@ -12,8 +12,8 @@ class Theme extends Model
         'dark'
     ];
 
-    public function getColorsAttribute()
+    public function getColorsAttribute($val)
     {
-        return json_decode($this->colors);
+        return json_decode($val);
     }
 }
