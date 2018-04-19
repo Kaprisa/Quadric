@@ -3,7 +3,7 @@
         <v-layout align-center justify-center>
             <v-flex xs12 sm8 md4>
                 <v-card class="elevation-12">
-                    <v-toolbar dark color="primary">
+                    <v-toolbar dark color="teal lighten-3">
                         <v-toolbar-title>{{ action === 'login' ? 'Авторизация' : 'Регистрация'}}</v-toolbar-title>
                         <v-spacer></v-spacer>
                     </v-toolbar>
@@ -38,9 +38,9 @@
                         </v-form>
                     </v-card-text>
                     <v-card-actions>
-                        <v-btn color="primary" @click="$router.push(action === 'login' ? '/register' : '/login')">{{ action === 'login' ? 'Регистрация' : 'Авторизация'}}</v-btn>
+                        <v-btn color="teal lighten-3" dark @click="$router.push(action === 'login' ? '/register' : '/login')">{{ action === 'login' ? 'Регистрация' : 'Авторизация'}}</v-btn>
                         <v-spacer></v-spacer>
-                        <v-btn color="primary" @click="submit()">{{ action === 'login' ? 'Войти' : 'Зарегистрироваться'}}</v-btn>
+                        <v-btn color="teal lighten-3" dark @click="submit()">{{ action === 'login' ? 'Войти' : 'Зарегистрироваться'}}</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-flex>
@@ -78,11 +78,6 @@
                     this.error = err
                     this.snackbar = true
                 })
-                /*this.$axios.post(`/${this.action}`, this.user).then(res => {
-                    this.$router.push('/')
-                }).catch(err => {
-                    console.error(err)
-                })*/
             }
         },
     }

@@ -26,7 +26,7 @@
                         </v-flex>
                         <v-flex xs1>
                             <v-btn @click="categoryDialog = true" fab dark
-                                   color="light-green">
+                                   color="accent">
                                 <v-icon dark>add</v-icon>
                             </v-btn>
                         </v-flex>
@@ -78,7 +78,7 @@
                             @click="blocks.push({ name: 'Название', sort: blocks.length + 1, active: true })"
                             fab
                             dark
-                            color="light-green"
+                            color="accent"
                     >
                         <v-icon dark>add</v-icon>
                     </v-btn>
@@ -110,13 +110,13 @@
                         </td>
                         <td>
                             <v-btn v-if="props.item.id" @click="lessonDialog = true; block_id = props.item.id; getBlock(block_id)"  small fab dark
-                                   :color="props.item.sort % 2 === 0 ? 'blue' : 'amber'">
+                                   :color="props.item.sort % 2 === 0 ? 'secondary' : 'accent'">
                                 <v-icon dark>add</v-icon>
                             </v-btn>
                         </td>
                         <td>
                             <v-btn @click="saveBlock(props.item)" small fab dark
-                                   :color="props.item.sort % 2 === 0 ? 'green' : 'teal'">
+                                   :color="props.item.sort % 2 === 0 ? 'accent' : 'secondary'">
                                 <v-icon dark>save</v-icon>
                             </v-btn>
                         </td>
@@ -133,7 +133,7 @@
         <snackbar :options="snackbar"></snackbar>
         <v-dialog v-model="lessonDialog" v-if="block" fullscreen transition="dialog-bottom-transition" :overlay="false">
             <v-card>
-                <v-toolbar dark color="teal" class="mb-5">
+                <v-toolbar dark color="secondary" class="mb-5">
                     <v-btn icon @click.native="lessonDialog = false" dark>
                         <v-icon>close</v-icon>
                     </v-btn>

@@ -23,7 +23,7 @@
                         <v-flex xs5 class="layout column align-center" style="margin-top: 100px;">
                             <span class="headline">{{ user ? user.name : ''}}</span>
                             <v-chip>
-                                <v-avatar class="teal"><v-icon dark>euro_symbol</v-icon></v-avatar>
+                                <v-avatar class="success"><v-icon dark>euro_symbol</v-icon></v-avatar>
                                 {{ user.points }}
                             </v-chip>
                         </v-flex>
@@ -46,7 +46,7 @@
                                         mask="phone_iphone"
                                         v-model="user.phone"
                                 ></v-text-field>
-                                <v-btn @click="saveProfile" color="teal" dark>Сохранить</v-btn>
+                                <v-btn @click="saveProfile" color="secondary" dark>Сохранить</v-btn>
                             </v-layout>
                         </v-flex>
                     </v-layout>

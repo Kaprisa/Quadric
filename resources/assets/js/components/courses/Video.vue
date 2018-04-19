@@ -14,7 +14,7 @@
         <v-toolbar card color="primary" >
             <v-icon @click="changePlay()"dense dark style="cursor: pointer;" size="30px">{{ play ? 'pause' : 'play_arrow'}}</v-icon>
             <div style="color: white; flex-basis: 50px;" class="body-1">{{ time }}</div>
-            <v-progress-linear @click="changeVideoTrack" class="ml-1" color="yellow" v-model="val"></v-progress-linear>
+            <v-progress-linear @click="changeVideoTrack" class="ml-1" color="accent" v-model="val"></v-progress-linear>
             <v-icon @click="fullScreen()" dark>fullscreen</v-icon>
             <v-menu
                     offset-x
@@ -56,7 +56,7 @@
                     </v-list>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="yellow" flat @click="menu = false">Ок</v-btn>
+                        <v-btn color="accent" flat @click="menu = false">Ок</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-menu>

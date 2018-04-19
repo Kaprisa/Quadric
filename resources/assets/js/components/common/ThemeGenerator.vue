@@ -1,39 +1,39 @@
 <template>
     <v-dialog v-model="dialog">
         <v-btn
-                color="pink"
+                color="secondary"
                 small
                 dark
                 fab
                 slot="activator"
-                @click="init(); dialog=true;"
+                @click="dialog=true;"
         >
             <v-icon>palette</v-icon>
         </v-btn>
         <v-card class="elevation-12">
             <v-card-media src="/images/new_york.jpeg" height="15vh">
             </v-card-media>
-            <v-layout row wrap class="px-3 py-2" justify-space-around>
+            <v-layout v-if="user.theme" row wrap class="px-3 py-2" justify-space-around>
                 <v-flex xs11 class="layout">
-                    <v-select
-                            placeholder="Название"
-                            v-model="item.name"
-                            :items="themes"
-                            v-if="editing"
-                    ></v-select>
                     <v-text-field
-                            v-else
                             placeholder="Название"
-                            v-model="item.name"
+                            v-model="user.theme.name"
                     ></v-text-field>
                 </v-flex>
-                <v-flex xs5 v-for="v, k in item.colors" :key="k">
-                    <color-picker :vcolor="k" :label="k" @change="(color) => item.colors[k] = color"></color-picker>
+                <v-flex xs5 v-for="v, k in user.theme.colors" :key="k">
+                    <color-picker :vcolor="k" :label="v" @change="(color) => user.theme.colors[k] = color"></color-picker>
                 </v-flex>
             </v-layout>
+            <div style="width: 150px; margin: auto;">
+                <v-switch
+                        label="Темная"
+                        v-if="user.theme"
+                        v-model="user.theme.dark"
+                ></v-switch>
+            </div>
             <v-card-actions>
                 <v-spacer/>
-                <v-btn @click="save" color="teal" dark>Сохранить</v-btn>
+                <v-btn @click="save" color="primary" dark>Сохранить</v-btn>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -41,7 +41,7 @@
 
 <script>
     import ColorPicker from './ColorPicker'
-    import {mapActions, mapGetters} from 'vuex'
+    import { mapGetters} from 'vuex'
     import Snackbar from './Snackbar'
     import axios from 'axios'
 
@@ -64,13 +64,8 @@
                 snackbar: {},
                 editing: false,
                 dialog: false,
-                themeMap,
-                item: {}
+                themeMap
             }
-        },
-        mounted() {
-            this.init()
-            this.getThemes()
         },
         computed: {
             ...mapGetters({
@@ -79,27 +74,10 @@
             })
         },
         methods: {
-            ...mapActions([
-                'getThemes'
-            ]),
-            init() {
-                this.item = {
-                    colors: {
-                        primary: '#1976D2',
-                        secondary: '#424242',
-                        accent: '#82B1FF',
-                        error: '#FF5252',
-                        info: '#2196F3',
-                        success: '#4CAF50',
-                        warning: '#FFC107'
-                    },
-                }
-            },
 
             save() {
-                axios.post('/api/themes/save', this.item).then(res => {
-                    if (!this.item.id) this.themes.push(res.data)
-                    this.processSuccess('Тема успешно сохранена!')
+                axios.post('/api/user/themes/save', this.user.theme).then(res => {
+                    this.processSuccess('Ваша тема успешно сохранена!')
                 }).catch(this.processError)
             },
 
@@ -113,14 +91,13 @@
                 this.dialog = false
             },
 
-            processSuccess(msg, cb = null) {
+            processSuccess(msg) {
                 this.snackbar = {
                     visible: true,
                     text: msg,
                     error: false
                 }
                 this.dialog = false
-                if (cb) cb()
             }
         }
     }

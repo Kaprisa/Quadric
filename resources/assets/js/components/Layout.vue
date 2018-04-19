@@ -78,8 +78,8 @@
                  </v-list-group>-->
             </v-list>
         </v-navigation-drawer>
-        <v-toolbar color="teal lighten-3" dark scroll-off-screen app>
-            <v-spacer/>
+        <v-toolbar color="primary" dark scroll-off-screen app>
+            <v-spacer/><!--teal lighten-3-->
             <v-toolbar-title>Academy</v-toolbar-title>
             <v-toolbar-side-icon @click.stop="drawer = !drawer"/>
         </v-toolbar>
@@ -95,7 +95,7 @@
                 v-model="menu"
         >
             <v-btn
-                    color="pink"
+                    color="accent"
                     dark
                     fixed
                     bottom
@@ -125,11 +125,11 @@
                 <theme-generator></theme-generator>
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" flat @click="menu = false">Ок</v-btn>
+                    <v-btn color="secondary" flat @click="menu = false">Ок</v-btn>
                 </v-card-actions>
             </v-card>
         </v-menu>
-        <v-footer color="teal lighten-3" app>
+        <v-footer color="primary" app>
             <v-spacer/>
             <span class="white--text mr-2">Made by Kseniya &copy; 2018</span>
         </v-footer>

@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-card height="80vh" @contextmenu="show">
+        <v-card height="80vh">
             <v-toolbar card color="amber">
                 <v-breadcrumbs>
                     <v-icon slot="divider">forward</v-icon>
@@ -80,16 +80,8 @@
                 :position-y="y"
         >
             <v-list dense>
-                <v-list-tile v-if="ed_file" @click="removeFile">
+                <v-list-tile @click="removeFile">
                     <v-list-tile-title>Удалить</v-list-tile-title>
-                </v-list-tile>
-                <v-list-tile>
-                    <v-icon class="mr-1">add</v-icon>
-                    <v-list-tile-title>Создать файл</v-list-tile-title>
-                </v-list-tile>
-                <v-list-tile>
-                    <v-icon class="mr-1">create_new_dir</v-icon>
-                    <v-list-tile-title>Создать директорию</v-list-tile-title>
                 </v-list-tile>
             </v-list>
         </v-menu>

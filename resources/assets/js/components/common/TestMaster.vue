@@ -1,6 +1,6 @@
 <template>
     <v-dialog v-model="dialog" width="70vw">
-        <v-btn slot="activator" color="green" dark>Тест</v-btn>
+        <v-btn slot="activator" color="info" dark>Тест</v-btn>
         <v-card>
             <v-card-title>
                 <span class="subheading">Тест</span>
@@ -10,16 +10,16 @@
                         fab
                         dark
                         small
-                        color="green"
+                        color="info"
                 >
                     <v-icon dark>add</v-icon>
                 </v-btn>
             </v-card-title>
             <v-tabs
                     v-model="active"
-                    color="teal"
+                    color="secondary"
                     dark
-                    slider-color="yellow"
+                    slider-color="accent"
                     centered
             >
                 <v-tab

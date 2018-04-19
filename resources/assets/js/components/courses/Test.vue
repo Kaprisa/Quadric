@@ -2,9 +2,9 @@
     <div style="position: relative; height: 100%;">
         <v-tabs
                 v-model="active"
-                color="teal"
+                color="secondary"
                 dark
-                slider-color="yellow"
+                slider-color="accent"
                 centered
         >
             <v-tab
@@ -17,34 +17,36 @@
             </v-tab>
             <v-tab-item v-for="q, index in props.questions" class="py-2 px-3" :key="`qb${index}`">
                 <span class="subheading">{{ q.text }}</span>
-                <v-radio-group v-if="q.type === 'test_single'" v-model="ex7" column>
-                    <v-radio
-                            :label="a.text"
-                            color="green"
-                            :value="i"
-                            @change="q.answers.forEach(u => u.checked = false); a.checked = true;"
-                            v-for="a, i in q.answers"
-                            :key="`a${i}`"
-                    ></v-radio>
-                </v-radio-group>
-                <div v-else>
-                    <v-checkbox
-                            :label="a.text"
-                            color="green"
-                            v-model="a.checked"
-                            v-for="a, i in q.answers"
-                            :key="`a${i}`"
-                            hide-details
-                    ></v-checkbox>
-                </div>
-                <v-btn @click="q.answers.forEach(a => a.checked = false)" color="blue" dark>Сброс</v-btn>
+                <!--<v-radio-group v-if="q.type === 'test_single'" v-model="ex7" column>-->
+                    <!--<v-radio-->
+                            <!--:label="a.text"-->
+                            <!--color="success"-->
+                            <!--:value="i"-->
+                            <!--@change="q.answers.forEach(u => u.checked = false); a.checked = true;"-->
+                            <!--v-for="a, i in q.answers"-->
+                            <!--:key="`a${i}`"-->
+                    <!--&gt;</v-radio>-->
+                <!--</v-radio-group>-->
+                <v-layout v-for="a, i in q.answers" :key="`a${i}`" row align-start class="mb-1 mt-2">
+                    <v-flex xs1>
+                        <v-checkbox
+                                color="success"
+                                v-model="a.checked"
+                                hide-details
+                        ></v-checkbox>
+                    </v-flex>
+                    <v-flex xs11>
+                        <span>{{ a.text }}</span>
+                    </v-flex>
+                </v-layout>
+                <v-btn @click="q.answers.forEach(a => a.checked = false)" color="info" dark>Сброс</v-btn>
                 <v-btn @click="check(q)" color="success">Проверить</v-btn>
                 <v-chip>
-                    <v-avatar class="teal"><v-icon dark>euro_symbol</v-icon></v-avatar>
+                    <v-avatar class="accent"><v-icon dark>euro_symbol</v-icon></v-avatar>
                     {{ q.correct ? q.points : 0 }} / {{ q.points }}
                 </v-chip>
                 <v-chip v-if="q.attempts">
-                    <v-avatar class="red">A</v-avatar>
+                    <v-avatar class="error">A</v-avatar>
                     {{ q.attempts }}
                 </v-chip>
             </v-tab-item>

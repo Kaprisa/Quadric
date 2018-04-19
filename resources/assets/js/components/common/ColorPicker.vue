@@ -44,8 +44,8 @@
             }
         },
         props: {
-          label: String,
-          vcolor: String
+            label: String,
+            vcolor: String
         },
         methods: {
             changeColor(color, i) {

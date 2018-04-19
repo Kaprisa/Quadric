@@ -7,8 +7,8 @@
                 <v-card-title primary-title>
                    <h3 class="headline mb-0 mr-2">{{ c.name }}</h3>
                     <div v-if="c.editable">
-                        <v-icon style="cursor: pointer;" color="blue" @click="$router.push(`/courses/${c.id}/edit`)">edit</v-icon>
-                        <v-icon style="cursor: pointer;" color="red" @click="removeCourse(c.id)">delete</v-icon>
+                        <v-icon style="cursor: pointer;" color="info" @click="$router.push(`/courses/${c.id}/edit`)">edit</v-icon>
+                        <v-icon style="cursor: pointer;" color="error" @click="removeCourse(c.id)">delete</v-icon>
                     </div>
                     <v-spacer/>
                     <span v-if="c.studied">
@@ -16,7 +16,7 @@
                     </span>
                 </v-card-title>
                 <v-card-actions>
-                    <v-btn dark @click="$router.push(`/courses/${c.id}`)" :disabled="!c.studied" color="amber">Учиться</v-btn>
+                    <v-btn dark @click="$router.push(`/courses/${c.id}`)" :disabled="!c.studied" color="secondary">Учиться</v-btn>
                     <v-spacer/>
                     <v-btn
                             dark
@@ -24,7 +24,7 @@
                             small
                             v-if="!c.studied"
                             @click="userAddCourse(c)"
-                            color="pink"
+                            color="accent"
                     >
                         <v-icon>add</v-icon>
                     </v-btn>
@@ -34,7 +34,7 @@
                             fab
                             small
                             @click="userRemoveCourse(c)"
-                            color="red"
+                            color="error"
                     >
                         <v-icon>delete</v-icon>
                     </v-btn>

@@ -1,6 +1,6 @@
 <template>
     <v-dialog v-model="dialog" width="30vw">
-        <v-btn dark color="amber" slot="activator">Фото</v-btn>
+        <v-btn dark color="accent" slot="activator">Фото</v-btn>
         <v-card>
             <form class="card" enctype="multipart/form-data">
                 <input type="file" :name="name" accept="image/*" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files[0])"

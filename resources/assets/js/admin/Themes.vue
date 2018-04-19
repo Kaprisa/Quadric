@@ -37,6 +37,12 @@
                         <color-picker :vcolor="k" :label="k" @change="(color) => item.colors[k] = color"></color-picker>
                     </v-flex>
                 </v-layout>
+                <div style="width: 150px; margin: auto;">
+                    <v-switch
+                            label="Темная"
+                            v-model="item.dark"
+                    ></v-switch>
+                </div>
                 <v-card-actions>
                     <v-spacer/>
                     <v-btn @click="save" color="teal" dark>Сохранить</v-btn>
@@ -120,13 +126,13 @@
             init() {
                this.item = {
                    colors: {
-                       primary: 'blue',
-                       secondary: 'pink',
-                       accent: 'teal',
-                       error: 'red',
-                       warning: 'yellow',
-                       info: 'blue',
-                       success: 'green'
+                       primary: '#1976D2',
+                       secondary: '#424242',
+                       accent: '#82B1FF',
+                       error: '#FF5252',
+                       info: '#2196F3',
+                       success: '#4CAF50',
+                       warning: '#FFC107'
                    },
                }
             },

@@ -14,23 +14,27 @@ class ThemesController extends Controller
         return response()->json($themes, 200);
     }
 
-    public function save(Request $request)
+    public function save(Request $request, $is_user = null)
     {
         $theme = Theme::updateOrCreate(
             [ 'id' => $request->id ],
             [
                 'name' => $request->name,
-                'colors' => json_encode($request->colors)
+                'colors' => json_encode($request->colors),
+                'dark' => $request->dark
             ]
         );
-        $user = Auth::guard('api')->user();
-        $user->theme_id = $theme->id;
-        $user->save();
+        if ($is_user) {
+            $user = Auth::guard('api')->user();
+            $user->theme_id = $theme->id;
+            $user->save();
+        }
         return response()->json($theme, 200);
     }
 
     public function delete($id)
     {
+        if ($id === 1) return response()->json([ 'errors' => [ 'Эту тему нельзя удалить, она стоит по умолчанию.' ]], 422);
         Theme::destroy($id);
         return null;
     }

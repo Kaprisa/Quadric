@@ -20,7 +20,7 @@ class ApiController extends Controller
             $paths[] = [
                 'originalName' => $f->getClientOriginalName(),
                 'size' => $f->getClientSize(),
-                'name' => str_replace($dir.'/', '', Storage::disk('uploads')->put($dir, $f)),
+                'name' => str_replace($dir . '/', '', Storage::disk('uploads')->put($dir, $f)),
             ];
         }
         return response()->json($is_arr ? $paths : $paths[0], 200);//
@@ -28,17 +28,17 @@ class ApiController extends Controller
 
     public function removeFile(Request $request, $dir)
     {
-        Storage::disk('uploads')->delete($dir.'/'.$request->name);
+        Storage::disk('uploads')->delete($dir . '/' . $request->name);
         return null;
     }
 
     public function upload_video(Request $request, $dir)
     {
-        if($request->hasFile('video')){
+        if ($request->hasFile('video')) {
 
             $file = $request->video;
             $filename = $file->getClientOriginalName();
-            $path = public_path().'/video/'.$dir;
+            $path = public_path() . '/video/' . $dir;
             $file->move($path, $filename);
             return response()->json($filename, 200);
         }
@@ -47,18 +47,12 @@ class ApiController extends Controller
 
     public function answer(Request $request, $id)
     {
-        Auth::guard('api')
-            ->user()
-            ->questions()
-            ->sync(
-                [
-                    $id => [
-                        'attempts' => $request->has('attempts') && $request->attempts ? $request->attempts : 0,
-                        'correct' => $request->correct
-                    ]
-                ]
-            );
-        return null;
+        $user = Auth::guard('api')->user();
+        if (!$user->questions->contains($id)) $user->questions()->attach($id);
+        $user->questions()->updateExistingPivot($id, [
+            'attempts' => $request->has('attempts') && $request->attempts ? $request->attempts : 0,
+            'correct' => $request->correct
+        ]);
     }
 
     public function tags()

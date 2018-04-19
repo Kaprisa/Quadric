@@ -47,9 +47,6 @@ Route::post('/blocks/{id}/lessons/save', 'LessonsController@save');
 Route::get('/lesson/{id}', 'LessonsController@get');
 Route::delete('/lessons/{id}', 'LessonsController@delete');
 
-Route::post('/user/courses/add', 'ApiController@userAddCourse');
-Route::delete('/user/courses/{id}', 'ApiController@userRemoveCourse');
-
 Route::post('/sql/query', 'DataController@sql_query');
 Route::post('/php/query', 'DataController@php_query');
 //Route::get('/tables', 'DataController@getTables');
@@ -58,6 +55,8 @@ Route::get('/user', 'UsersController@get');
 Route::get('/users', 'UsersController@getAll');
 Route::put('/user/avatar', 'UsersController@avatar');
 Route::put('/user/profile', 'UsersController@profile');
+Route::post('/user/courses/add', 'UsersController@addCourse');
+Route::delete('/user/courses/{id}', 'UsersController@removeCourse');
 
 Route::get('/roles', 'SecurityController@roles');
 Route::post('/roles/save', 'SecurityController@saveRole');
@@ -72,8 +71,9 @@ Route::post('/settings/save', 'SettingsController@save');
 Route::delete('/settings/{id}', 'SettingsController@delete');
 
 Route::get('/themes', 'ThemesController@getAll');
-Route::post('/themes/save', 'ThemesController@save');
 Route::delete('/themes/{id}', 'ThemesController@delete');
+Route::post('/themes/save', 'ThemesController@save');
+Route::post('/{user}/themes/save', 'ThemesController@save');
 
 Route::get('/directories', 'FilesController@getDirectories');
 Route::post('/files/read', 'FilesController@getFile');

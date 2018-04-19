@@ -1,6 +1,6 @@
 <template>
     <v-dialog v-model="dialog" width="60vw">
-        <v-btn dark color="amber" slot="activator">Видео</v-btn>
+        <v-btn dark color="accent" slot="activator">Видео</v-btn>
         <v-card>
             <form class="card" enctype="multipart/form-data">
                 <input :style="`height: ${uploaded || fileName ? '50%' : '100%'}`" type="file" :name="name" accept="video/mp4" :disabled="disabled" @change="filesChange($event.target.name, $event.target.files[0])"
