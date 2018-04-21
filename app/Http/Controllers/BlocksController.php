@@ -9,7 +9,8 @@ class BlocksController extends Controller
 {
     public function save(Request $request, $id)
     {
-        $block = Block::updateOrCreate([ 'id' => $request->id ], [
+        $check = $request->has('id') ? [ 'id' => $request->id ] : [ 'name' => $request->name, 'course_id' => $id ];
+        $block = Block::updateOrCreate($check, [
             'course_id' => $id,
             'name' => $request->name,
             'active' => $request->active,

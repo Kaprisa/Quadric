@@ -19,6 +19,12 @@ import Settings from '../admin/Settings'
 import Themes from '../admin/Themes'
 import Files from '../admin/Files'
 import History from '../admin/History'
+import HomeworkCheck from '../admin/HomeworkCheck'
+import Kanban from '../admin/Kanban'
+
+import GL from '../components/GL'
+import Editor from '../components/test/Editor'
+import Math from '../components/test/Math'
 
 export default [
 
@@ -54,7 +60,12 @@ export default [
         { path: 'themes', component: Themes },
         { path: 'files', component: Files },
         { path: 'history', component: History },
+        { path: 'homework', component: HomeworkCheck },
+        { path: 'tasks', component: Kanban },
 
     ]},
+    { path: '/gl', component: GL },
+    { path: '/editor', component: Editor },
+    { path: '/math', component: Math }
 
 ]

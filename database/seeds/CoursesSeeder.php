@@ -47,10 +47,9 @@ class CoursesSeeder extends Seeder
             'block_id' => $blocks[0]->id,
             'active' => true,
             'name' => 'Основные понятия и определения',
-            'resourses' => json_encode(['http:://hello.ru']),
+            'resources' => json_encode(['http:://hello.ru']),
             'sort' => 1,
-            'text1' => $faker->text(5000),
-            'text2' => $faker->text(1000),
+            'text' => $faker->text(5000),
             'video' => 'defs.mp4'
         ]);
 
@@ -138,61 +137,94 @@ class CoursesSeeder extends Seeder
             'lesson_id' => $lesson->id
         ]);
 
+        $lesson = Lesson::Create([
+            'block_id' => $blocks[0]->id,
+            'active' => true,
+            'name' => 'Задача Коши',
+            'resources' => json_encode(['http:://hello.ru']),
+            'sort' => 1,
+            'text' => $faker->text(5000),
+            'video' => 'defs.mp4'
+        ]);
 
-//        foreach ($categories as $c) {
-//            $in_c = Category::create([
-//                'name' => $c
-//            ]);
-//            for ($i = 0 ; $i < 5 ; $i ++) {
-//                $course = Course::Create([
-//                    'name' => $faker->name,
-//                    'description' => $faker->text,
-//                    'image' => $faker->imageUrl(640, 480, 'cats'),
-//                    'category_id' => $in_c->id,
-//                    'active' => true,
-//                    'user_id' => 1
-//                ]);
-//                for ($k = 0 ; $k < 5 ; $k ++) {
-//                    $block = Block::Create([
-//                        'course_id' => $course->id,
-//                        'name' => $faker->name,
-//                        'active' => true,
-//                        'sort' => $k
-//                    ]);
-//                    for ($j = 0 ; $j < 5 ; $j ++) {
-//                        $lesson = Lesson::Create([
-//                            'block_id' => $block->id,
-//                            'active' => true,
-//                            'name' => $faker->name,
-//                            'resourses' => json_encode(['http:://hello.ru']),
-//                            'sort' => $j,
-//                            'text1' => $faker->text(5000),
-//                            'text2' => $faker->text(1000),
-//                            'video' => 'https://youtu.be/taicWTD3cEA'
-//                        ]);
-//
-//                        for ($h = 0 ; $h < 10 ; $h ++) {
-//                            $answers = [];
-//                            for ($o = 0 ; $o < $faker->numberBetween(3, 7); $o ++) {
-//                                $answers[] = [
-//                                    'text' => $faker->text(70),
-//                                    'correct' => $faker->boolean
-//                                ];
-//                            }
-//                            $lesson->questions()->create([
-//                                'text' => $faker->text,
-//                                'type' => 'test',
-//                                'answer' => json_encode($answers),
-//                                'points' => $faker->numberBetween(0, 5),
-//                                'sort' => $h,
-//                                'active' => true,
-//                                'lesson_id' => $lesson->id
-//                            ]);
-//                        }
-//                    }
-//                }
-//
-//            }
-//        }
+        $answers = [
+            [
+                'text' => 'f(x, y) непрерывна в области D',
+                'correct' => true
+            ],
+            [
+                'text' => 'f(x, y) ограничена в области D',
+                'correct' => false
+            ],
+            [
+                'text' => 'f(x, y) монотонно возрастает в области D',
+                'correct' => false
+            ],
+            [
+                'text' => 'f(x, y) имеет частную производную по y, ограниченную в области D',
+                'correct' => true
+            ]
+        ];
+        $lesson->questions()->create([
+            'text' => 'Выберите условия теоремы существования и единственности решения задачи Коши для функции f(x,y), определенной в оюласти D',
+            'type' => 'test',
+            'answer' => json_encode($answers),
+            'points' => 5,
+            'sort' => 1,
+            'active' => true,
+            'lesson_id' => $lesson->id
+        ]);
+
+        $answers = [
+            [
+                'text' => '0',
+                'correct' => false
+            ],
+            [
+                'text' => '1',
+                'correct' => true
+            ],
+            [
+                'text' => 'Число, равное степени f(x,y)',
+                'correct' => false
+            ],
+            [
+                'text' => 'Число, равное порядку уравнения',
+                'correct' => false
+            ]
+        ];
+        $lesson->questions()->create([
+            'text' => 'Сколько решений может иметь задача Коши если функция f(x,y) непрерывна и удовлетворяет условию Липшица?',
+            'type' => 'test',
+            'answer' => json_encode($answers),
+            'points' => 5,
+            'sort' => 2,
+            'active' => true,
+            'lesson_id' => $lesson->id
+        ]);
+
+        $answers = [
+            [
+                'text' => 'Нахождение наименьшего радиусаокружности с центром в точке (x0, y0) и касающейся одной из интегральных кривых',
+                'correct' => false
+            ],
+            [
+                'text' => 'Нахождение изоклины, проходящей через заданную точку (x0, y0)',
+                'correct' => false
+            ],
+            [
+                'text' => 'Нахождение интегральной кривой, проходящей через заданную точку (x0, y0)',
+                'correct' => true
+            ]
+        ];
+        $lesson->questions()->create([
+            'text' => 'Какая геометрическая интерпретация задачи Коши?',
+            'type' => 'test',
+            'answer' => json_encode($answers),
+            'points' => 5,
+            'sort' => 3,
+            'active' => true,
+            'lesson_id' => $lesson->id
+        ]);
     }
 }

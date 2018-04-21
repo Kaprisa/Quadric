@@ -16,8 +16,9 @@ class ThemesController extends Controller
 
     public function save(Request $request, $is_user = null)
     {
+        $check = $request->has('id') ? [ 'id' => $request->id ] : [ 'name' => $request->name ];
         $theme = Theme::updateOrCreate(
-            [ 'id' => $request->id ],
+            $check,
             [
                 'name' => $request->name,
                 'colors' => json_encode($request->colors),

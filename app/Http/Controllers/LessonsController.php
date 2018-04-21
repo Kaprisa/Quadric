@@ -10,11 +10,12 @@ class LessonsController extends Controller
 {
     public function save(Request $request, $id)
     {
-        $lesson = Lesson::updateOrCreate([ 'id' => $request->id ], [
+        $check = $request->has('id') ? [ 'id' => $request->id ] : [ 'name' => $request->name, 'block_id' => $id ];
+        $lesson = Lesson::updateOrCreate($check, [
             'block_id' => $id,
             'active' => $request->active,
             'name' => $request->name,
-            'resourses' => json_encode($request->resourses),
+            'resources' => json_encode($request->resourses),
             'sort' => Lesson::count() + 1, //Todo исправить!!!
             'text' => $request->text,
             'video' => $request->video
@@ -28,11 +29,11 @@ class LessonsController extends Controller
                 'answer' => $q['type'] === 'Задача' ? $q['answer'] : json_encode($q['answers']),
                 'points' => $q['points'],
                 'sort' => $index + 1,
-                'active' => $q['active'],
                 'lesson_id' => $lesson->id
             ];
             if (array_has($q, 'controller')) $arr = array_merge($arr, ['controller' => $q['controller']]);
             if (array_has($q, 'comment')) $arr = array_merge($arr, ['comment' => $q['comment']]);
+            if (array_has($q, 'active')) $arr = array_merge($arr, ['active' => $q['active']]);
             Question::create($arr);
         }
 

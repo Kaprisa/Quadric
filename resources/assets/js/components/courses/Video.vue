@@ -7,12 +7,19 @@
             <v-icon>battery_full</v-icon>
             <span>12:30</span>
         </v-system-bar>
-        <video ref="video" width="100%" height="100%">
+        <video ref="video" width="100%" poster="/video/poster.jpg">
             <source v-if="course.course" :src="`/video/${course.course.name}/${props.video}`" type="video/mp4">
-            Your browser does not support HTML5 video.
+            Ваш браузер не поддерживает html5 видео.
         </video>
         <v-toolbar card color="primary" >
-            <v-icon @click="changePlay()"dense dark style="cursor: pointer;" size="30px">{{ play ? 'pause' : 'play_arrow'}}</v-icon>
+            <v-icon
+                    @click="changePlay()"
+                    dense
+                    style="cursor: pointer;"
+                    size="30px"
+            >
+                {{ play ? 'pause' : 'play_arrow'}}
+            </v-icon>
             <div style="color: white; flex-basis: 50px;" class="body-1">{{ time }}</div>
             <v-progress-linear @click="changeVideoTrack" class="ml-1" color="accent" v-model="val"></v-progress-linear>
             <v-icon @click="fullScreen()" dark>fullscreen</v-icon>
@@ -40,7 +47,7 @@
                         </v-list-tile>
                     </v-list>
                     <v-divider></v-divider>
-                    <v-list>
+                    <!--<v-list>-->
                         <!--<v-list-tile>-->
                             <!--<v-list-tile-action>-->
                                 <!--<v-switch v-model="message" color="purple"></v-switch>-->
@@ -53,7 +60,7 @@
                             <!--</v-list-tile-action>-->
                             <!--<v-list-tile-title>Enable hints</v-list-tile-title>-->
                         <!--</v-list-tile>-->
-                    </v-list>
+                    <!--</v-list>-->
                     <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="accent" flat @click="menu = false">Ок</v-btn>
@@ -87,6 +94,10 @@
                     this.time =  `${minutes > 9 ? '' : 0}${minutes}:${currentTime - minutes > 9 ? '' : 0}${Math.floor(currentTime - minutes)}`
                     this.val = (currentTime * 100) / video.duration
                 }
+            })
+            video.addEventListener('ended', () => {
+                this.play = false
+                this.time = '00:00'
             })
         },
         props: {

@@ -1,23 +1,19 @@
 <template>
-    <div style="position: relative;">
+    <div>
         <v-navigation-drawer
                 v-model="drawer"
                 app
                 left
-                width="250"
+                clipped
 
         >
-            <div class="cube__navigation teal lighten-3">
-                <v-icon @click="props.lesson.angleY -= 90" dark x-large>keyboard_arrow_left</v-icon>
-                <v-icon @click="props.lesson.angleY += 90" dark x-large>keyboard_arrow_right</v-icon>
-            </div>
-            <v-list dense>
+            <v-list dense v-if="course.course">
                 <v-list-tile @click="$router.push(`/courses/${course.course.id}`)">
                     <v-list-tile-action>
                         <v-icon>home</v-icon>
                     </v-list-tile-action>
                     <v-list-tile-content>
-                        <v-list-tile-title>Course</v-list-tile-title>
+                        <v-list-tile-title>{{ course.course.name }}</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
                 <v-list-group
@@ -38,35 +34,23 @@
                         <v-list-tile-content>
                             <v-list-tile-title>{{ lesson.name }}</v-list-tile-title>
                         </v-list-tile-content>
-                        <v-list-tile-action>
-                            <v-icon>bubble_chart</v-icon>
-                        </v-list-tile-action>
                     </v-list-tile>
                 </v-list-group>
             </v-list>
         </v-navigation-drawer>
-        <!--<lesson :angleY="angleY"></lesson>-->
-        <component :props="props[what]" :is="what"></component>
+        <component :is="what"></component>
     </div>
 </template>
 
 <script>
     import { mapActions, mapGetters } from 'vuex'
-    import Lesson from './Lesson'
+    import Lesson from './Lesson1'
     import Welcome from './Welcome'
 
     export default {
         data() {
             return {
-                drawer: true,
-                props: {
-                   lesson: {
-                       angleY: 0
-                   },
-                   welcome: {
-
-                   }
-                }
+                drawer: true
             }
         },
         props: {

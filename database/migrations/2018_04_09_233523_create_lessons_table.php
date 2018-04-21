@@ -16,11 +16,9 @@ class CreateLessonsTable extends Migration
         Schema::create('lessons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            //$table->integer('side');
             $table->string('video')->nullable();
-            $table->text('text1')->nullable();
-            $table->text('text2')->nullable();
-            $table->text('resourses')->nullable(); // Доп. ресурсы
+            $table->text('text')->nullable();
+            $table->text('resources')->nullable(); // Доп. ресурсы
             $table->integer('block_id')->references('id')->on('blocks')->onDelete('cascade');;
             $table->integer('sort');
             $table->boolean('active')->default(0);

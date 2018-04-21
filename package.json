@@ -16,7 +16,13 @@
         "laravel-mix": "^2.0"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^1.0.0-beta.3",
         "cherio": "^1.0.0-rc.2",
+        "editor.md": "^1.5.0",
+        "mathjax": "^2.7.4",
+        "showdown": "^1.8.6",
+        "simplemde": "^1.11.2",
+        "tinymce": "^4.7.11",
         "vue": "^2.5.13",
         "vue-codemirror": "^4.0.3",
         "vue-codemirror-lite": "^1.0.4",

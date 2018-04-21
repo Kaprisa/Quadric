@@ -12,7 +12,7 @@ class Lesson extends Model
        'block_id',
        'active',
        'name',
-       'resourses',
+       'resources',
        'sort',
        'text',
        'video'
@@ -32,7 +32,7 @@ class Lesson extends Model
         return $this->hasMany(Question::class);
     }
 
-    public function getResoursesAttribute($val)
+    public function getResourcesAttribute($val)
     {
         return json_decode($val);
     }

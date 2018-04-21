@@ -2,6 +2,9 @@
     <textarea ref="editor"></textarea>
 </template>
 <script>
+
+    /*import ClassicEditor from '@ckeditor/ckeditor5-editor-classic'*/
+
     export default {
         data() {
            return {

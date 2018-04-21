@@ -16,8 +16,8 @@ class CoursesController extends Controller
             'name' => 'required',
             'category_id' => 'required'
         ]);
-
-        $course = Course::updateOrCreate([ 'id' => $request->id ], [
+        $check = $request->has('id') ? [ 'id' => $request->id ] : [ 'name' => $request->name ];
+        $course = Course::updateOrCreate($check, [
             'name' => $request->name,
             'description' => $request->description,
             'image' => $request->image,

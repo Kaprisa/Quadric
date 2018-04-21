@@ -1,11 +1,12 @@
 <template>
-    <div style="position: relative; height: 100%;">
+    <div>
         <v-tabs
                 v-model="active"
                 color="secondary"
                 dark
                 slider-color="accent"
                 centered
+                show-arrows
         >
             <v-tab
                     v-for="q, index in props.questions"
@@ -39,7 +40,14 @@
                         <span>{{ a.text }}</span>
                     </v-flex>
                 </v-layout>
-                <v-btn @click="q.answers.forEach(a => a.checked = false)" color="info" dark>Сброс</v-btn>
+                <v-btn
+                        @click="q.answers.forEach(a => a.checked = false)"
+                        color="info"
+                        v-if="q.answered"
+                        dark
+                >
+                    Сброс
+                </v-btn>
                 <v-btn @click="check(q)" color="success">Проверить</v-btn>
                 <v-chip>
                     <v-avatar class="accent"><v-icon dark>euro_symbol</v-icon></v-avatar>
@@ -62,15 +70,10 @@
         name: 'test',
         data() {
             return {
-              answers: [
-                  'Поле',
-                  'Не знаю'
-              ],
                 snackbar: {},
                 page: 1,
-                ex4: 0,
                 ex7: 0,
-                active: 0
+                active: 1
             }
         },
         components: {
@@ -81,17 +84,17 @@
         },
         methods: {
             check(q) {
-                const isCorrect = q.answers.every(a => Boolean(a.checked) === Boolean(a.correct))
+                const isCorrect = q.answers.every(a => Boolean(a.checked) === Boolean(a.correct));
                 this.snackbar = {
                     visible: true,
                     text: isCorrect ? 'Правильно!' : 'Не правильно:( Подумайте немного.. У вас все получится! ',
                     error: !isCorrect
-                }
+                };
                 if (isCorrect) {
                     q.correct = true
                 } else {
-                    q.correct = false
-                    if (q.attempts) q.attempts ++
+                    q.correct = false;
+                    if (q.attempts) q.attempts ++;
                     else q.attempts = 1
                 }
                 axios.post(`/api/question/${q.id}/answer`, { correct: q.correct, attempts: q.attempts })

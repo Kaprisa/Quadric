@@ -6,7 +6,7 @@
                 <span class="subheading">Тест</span>
                 <v-spacer/>
                 <v-btn
-                        @click="questions.push({ answers: [], points: 0 }); active = `${questions.length - 1}`;"
+                        @click="questions.push({ answers: [], points: 0, active: true }); active = `${questions.length - 1}`;"
                         fab
                         dark
                         small

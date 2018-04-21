@@ -52,10 +52,14 @@
                             </v-card>
                         </v-dialog>
                     </v-layout>
-                    <v-editor
+                    <!--<v-editor
                             @change="(v) => course.description = v"
                             :value="course.description"
-                    ></v-editor>
+                    ></v-editor>-->
+                    <my-editor
+                            @change="(v) => course.description = v"
+                            buttonText="Описание"
+                    ></my-editor>
                     <v-switch label="Активен?" v-model="course.active"></v-switch>
                     <photo-uploader
                             :fileName="course.image"
@@ -133,7 +137,7 @@
         <snackbar :options="snackbar"></snackbar>
         <v-dialog v-model="lessonDialog" v-if="block" fullscreen transition="dialog-bottom-transition" :overlay="false">
             <v-card>
-                <v-toolbar dark color="secondary" class="mb-5">
+                <v-toolbar dark color="primary" class="mb-5">
                     <v-btn icon @click.native="lessonDialog = false" dark>
                         <v-icon>close</v-icon>
                     </v-btn>
@@ -166,18 +170,14 @@
                                         :rules="[() => !!lesson.name || 'Укажите название урока']"
                                 ></v-text-field>
                                 <v-editor
-                                        @change="(v) => lesson.text1 = v"
-                                        :value="lesson.text1"
-                                ></v-editor>
-                                <v-editor
-                                        @change="(v) => lesson.text2 = v"
-                                        :value="lesson.text2"
+                                        @change="(v) => lesson.text = v"
+                                        :value="lesson.text"
                                 ></v-editor>
                                 <v-card-title>
                                     Ссылки на дополнительные ресурсы
                                     <v-spacer/>
                                     <v-btn
-                                            @click="lesson.resourses.push({})"
+                                            @click="lesson.resources.push({})"
                                             fab
                                             dark
                                             color="amber"
@@ -186,7 +186,7 @@
                                         <v-icon dark>add</v-icon>
                                     </v-btn>
                                 </v-card-title>
-                                <v-text-field v-for="r, ri in lesson.resourses" class="mb-1" :key="`${r.name}${ri}`" solo v-model="r.name"></v-text-field>
+                                <v-text-field v-for="r, ri in lesson.resources" class="mb-1" :key="`${r.name}${ri}`" solo v-model="r.name"></v-text-field>
                                 <v-switch label="Активен?" v-model="lesson.active"></v-switch>
                                 <video-uploader
                                         :fileName="lesson.video"
@@ -211,6 +211,8 @@
 
 <script>
     import VEditor from '../common/CKEEditor'
+    import MyEditor from '../common/Editor'
+    //import VEditor from '../common/TinyMCE'
     import PhotoUploader from '../common/PhotoUploader'
     import VideoUploader from '../common/VideoUploader'
     import TestMaster from '../common/TestMaster'
@@ -221,6 +223,7 @@
     export default {
         components: {
             VEditor,
+            MyEditor,
             PhotoUploader,
             TestMaster,
             Snackbar,
@@ -296,7 +299,7 @@
             initLesson() {
                 this.editingLesson = false
                 this.lesson = {
-                    resourses: [],
+                    resources: [],
                     questions: [],
                     active: true,
                     type: 'test'

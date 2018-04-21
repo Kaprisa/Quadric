@@ -21,6 +21,7 @@ class CreateBlocksTable extends Migration
             $table->boolean('active')->default(0);
             $table->timestamps();
         });
+        Artisan::call('db:seed', ['--class' => CoursesSeeder::class]);
     }
 
     /**

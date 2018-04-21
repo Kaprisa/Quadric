@@ -134,6 +134,8 @@
                 { icon: 'keyboard_arrow_left', text: 'Назад в академию', link: '/' },
                 { icon: 'contacts', text: 'Пользователи', link: '/admin/users' },
                 { icon: 'history', text: 'История', link: '/admin/history' },
+                { icon: 'spellcheck', text: 'Домашние работы', link: '/admin/homework' },
+                { icon: 'today', text: 'Все задачи', link: '/admin/tasks' },
                 { icon: 'palette', text: 'Темы', link: '/admin/themes' },
                 {
                     icon: 'keyboard_arrow_up',

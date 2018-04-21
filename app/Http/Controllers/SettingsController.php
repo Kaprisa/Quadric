@@ -15,8 +15,9 @@ class SettingsController extends Controller
 
     public function save(Request $request)
     {
-       $setting = Setting::updateOrCreate(
-           [ 'id' => $request->id ],
+        $check = $request->has('id') ? [ 'id' => $request->id ] : [ 'name' => $request->name ];
+        $setting = Setting::updateOrCreate(
+           $check,
            [
                'name' => $request->name,
                'value' => $request->value,

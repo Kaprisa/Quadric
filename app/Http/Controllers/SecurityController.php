@@ -15,7 +15,8 @@ class SecurityController extends Controller
 
     public function saveRole(Request $request)
     {
-       $role = Role::updateOrCreate([ 'id' => $request->id ], [
+        $check = $request->has('id') ? [ 'id' => $request->id ] : [ 'name' => $request->name ];
+        $role = Role::updateOrCreate($check, [
            'name' => $request->name,
            'display_name' => $request->display_name
        ]);
