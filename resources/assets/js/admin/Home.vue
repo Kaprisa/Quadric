@@ -105,47 +105,45 @@
         <v-content>
             <router-view/>
         </v-content>
-        <v-dialog width="50vw" v-model="action.dialog">
-            <v-component :is="action.component" @error="processError" @success="processSuccess"></v-component>
-        </v-dialog>
+        <!--<v-dialog width="50vw" v-model="action.dialog">-->
+            <!--<v-component :is="action.component" @error="processError" @success="processSuccess"></v-component>-->
+        <!--</v-dialog>-->
         <snackbar :options="snackbar"></snackbar>
     </div>
 </template>
 
 <script>
-    import Task from './actions/Task'
     import Snackbar from '../components/common/Snackbar'
     import { mapActions } from 'vuex'
 
     export default {
         components: {
-            Task,
             Snackbar
         },
         data: () => ({
             dialog: false,
             drawer: null,
             snackbar: {},
-            action: {
-                dialog: false,
-                component: 'task'
-            },
+            // action: {
+            //     dialog: false,
+            //     component: 'task'
+            // },
             items: [
                 { icon: 'keyboard_arrow_left', text: 'Назад в академию', link: '/' },
                 { icon: 'contacts', text: 'Пользователи', link: '/admin/users' },
                 { icon: 'history', text: 'История', link: '/admin/history' },
                 { icon: 'spellcheck', text: 'Домашние работы', link: '/admin/homework' },
-                { icon: 'today', text: 'Все задачи', link: '/admin/tasks' },
+                { icon: 'today', text: 'Задачи', link: '/admin/tasks' },
                 { icon: 'palette', text: 'Темы', link: '/admin/themes' },
-                {
-                    icon: 'keyboard_arrow_up',
-                    'icon-alt': 'keyboard_arrow_down',
-                    text: 'Задачи',
-                    model: true,
-                    children: [
-                        { icon: 'add', text: 'Создать задачу', component: 'task' }
-                    ]
-                },
+                // {
+                //     icon: 'keyboard_arrow_up',
+                //     'icon-alt': 'keyboard_arrow_down',
+                //     text: 'Задачи',
+                //     model: true,
+                //     children: [
+                //         { icon: 'add', text: 'Создать задачу', component: 'task' }
+                //     ]
+                // },
                 {
                     icon: 'keyboard_arrow_up',
                     'icon-alt': 'keyboard_arrow_down',
@@ -167,10 +165,10 @@
         methods: {
             callAction(component) {
                 if (component) {
-                    this.action = {
-                        dialog: true,
-                        component
-                    }
+                    // this.action = {
+                    //     dialog: true,
+                    //     component
+                    // }
                 }
             },
             ...mapActions([

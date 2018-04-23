@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTasksTable extends Migration
+class CreateTaskCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +14,17 @@ class CreateTasksTable extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('task_categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('description')->nullable();
             $table->string('name');
-            $table->integer('executor_id')->unsigned()->references('id')->on('users');
-            $table->integer('creator_id')->unsigned()->references('id')->on('users');
-            $table->integer('category_id')->unsigned()->references('id')->on('task_categories');
+            $table->string('icon', 15);
+            $table->string('color', 10);
+            $table->integer('sort');
             $table->timestamps();
         });
+
+
+        Artisan::call('db:seed', ['--class' => TasksSeeder::class]);
     }
 
     /**
@@ -31,6 +34,6 @@ class CreateTasksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('task_categories');
     }
 }

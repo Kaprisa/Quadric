@@ -62,7 +62,9 @@ Route::get('/roles', 'SecurityController@roles');
 Route::post('/roles/save', 'SecurityController@saveRole');
 Route::delete('/roles/{id}', 'SecurityController@removeRole');
 
-Route::post('/tasks/add', 'TasksController@add');
+Route::post('/tasks/{category_id}/add', 'TasksController@add');
+Route::get('/task/categories', 'TasksController@getCategories');
+Route::delete('/tasks/{id}', 'TasksController@delete');
 
 Route::get('/tags', 'ApiController@tags');
 

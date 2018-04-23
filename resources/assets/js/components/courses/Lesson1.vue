@@ -36,6 +36,8 @@
     import Test from './Test'
     import { mapActions, mapGetters } from 'vuex'
 
+    import md from '../../markdown'
+
     export default {
         components: {
             VVideo,
@@ -56,7 +58,13 @@
               if (lesson_id) {
                   this.getLesson(lesson_id)
               }
-          }
+          },
+            loadingLesson(val) {
+              if (!val) {
+                  if (this.lesson.text)
+                    this.lesson.text = md.render(this.lesson.text)
+              }
+            }
         },
         computed: {
             ...mapGetters({

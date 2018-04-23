@@ -27,4 +27,9 @@ class WelcomeController extends Controller
         }
         return collect($arr);
     }
+
+    public function test()
+    {
+        return view('test');
+    }
 }

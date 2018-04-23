@@ -6,28 +6,28 @@
                     <v-card-media src="/images/new_york.jpeg" height="30vh">
                     </v-card-media>
                     <v-layout @keypress.13="saveProfile" style="position: relative;">
-                        <v-avatar
-                                size="150px"
-                                style="position: absolute; left: 100px; top: -75px;"
-                        >
-                            <input
-                                    type="file"
-                                    accept="image/*"
-                                    @change="uploadAvatar($event.target.files[0])"
-                                    class="input-file"
+                        <v-flex xs5 md3 class="layout column align-center" style="margin-top: 100px; position: relative">
+                            <v-avatar
+                                    size="150px"
+                                    style="position: absolute; top: -175px;"
                             >
-                            <img
-                                    :src="`uploads/users/${user.avatar}`"
-                            >
-                        </v-avatar>
-                        <v-flex xs5 class="layout column align-center" style="margin-top: 100px;">
+                                <input
+                                        type="file"
+                                        accept="image/*"
+                                        @change="uploadAvatar($event.target.files[0])"
+                                        class="input-file"
+                                >
+                                <img
+                                        :src="`uploads/users/${user.avatar}`"
+                                >
+                            </v-avatar>
                             <span class="headline">{{ user ? user.name : ''}}</span>
                             <v-chip>
                                 <v-avatar class="success"><v-icon dark>euro_symbol</v-icon></v-avatar>
                                 {{ user.points }}
                             </v-chip>
                         </v-flex>
-                        <v-flex xs7 class="pa-1">
+                        <v-flex xs7 md9 class="pa-1">
                             <v-layout column>
                                 <v-text-field
                                         prepend-icon="account_circle"

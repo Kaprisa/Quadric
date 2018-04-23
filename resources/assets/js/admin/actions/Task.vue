@@ -58,10 +58,13 @@
                 }
             }
         },
+        props: {
+           category: Number
+        },
         methods: {
             saveTask() {
-                axios.post('/api/tasks/add', this.task)
-                    .then(res => this.$emit('success', 'Задача успешно добавлена!', res))
+                axios.post(`/api/tasks/${this.category}/add`, this.task)
+                    .then(res => this.$emit('success', 'Задача успешно добавлена!', res.data))
                     .catch(err => this.$emit('error', err))
             }
         }

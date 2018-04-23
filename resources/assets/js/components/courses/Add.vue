@@ -52,20 +52,17 @@
                             </v-card>
                         </v-dialog>
                     </v-layout>
-                    <!--<v-editor
-                            @change="(v) => course.description = v"
-                            :value="course.description"
-                    ></v-editor>-->
-                    <my-editor
-                            @change="(v) => course.description = v"
-                            buttonText="Описание"
-                    ></my-editor>
-                    <v-switch label="Активен?" v-model="course.active"></v-switch>
+                    <v-switch label="Активен?" v-model="course.active" class="mb-1"></v-switch>
                     <photo-uploader
                             :fileName="course.image"
                             @uploadFile="(file) => course.image = file.name"
                             label="Фото"
                     ></photo-uploader>
+                    <my-editor
+                            @change="(v) => course.description = v"
+                            buttonText="Описание"
+                            :value="course.description"
+                    ></my-editor>
                 </v-card-text>
                 <v-card-actions>
                     <v-spacer></v-spacer>
@@ -82,7 +79,7 @@
                             @click="blocks.push({ name: 'Название', sort: blocks.length + 1, active: true })"
                             fab
                             dark
-                            color="accent"
+                            color="secondary"
                     >
                         <v-icon dark>add</v-icon>
                     </v-btn>
@@ -114,19 +111,19 @@
                         </td>
                         <td>
                             <v-btn v-if="props.item.id" @click="lessonDialog = true; block_id = props.item.id; getBlock(block_id)"  small fab dark
-                                   :color="props.item.sort % 2 === 0 ? 'secondary' : 'accent'">
+                                   :color="props.item.sort % 2 === 0 ? 'secondary' : 'info'">
                                 <v-icon dark>add</v-icon>
                             </v-btn>
                         </td>
                         <td>
                             <v-btn @click="saveBlock(props.item)" small fab dark
-                                   :color="props.item.sort % 2 === 0 ? 'accent' : 'secondary'">
+                                   :color="props.item.sort % 2 === 0 ? 'info' : 'secondary'">
                                 <v-icon dark>save</v-icon>
                             </v-btn>
                         </td>
                         <td>
                             <v-btn v-if="props.item.id" @click="deleteBlock(props.item.id)" small fab dark
-                                   color="red">
+                                   color="error">
                                 <v-icon dark>delete</v-icon>
                             </v-btn>
                         </td>
@@ -169,10 +166,6 @@
                                         required
                                         :rules="[() => !!lesson.name || 'Укажите название урока']"
                                 ></v-text-field>
-                                <v-editor
-                                        @change="(v) => lesson.text = v"
-                                        :value="lesson.text"
-                                ></v-editor>
                                 <v-card-title>
                                     Ссылки на дополнительные ресурсы
                                     <v-spacer/>
@@ -180,7 +173,7 @@
                                             @click="lesson.resources.push({})"
                                             fab
                                             dark
-                                            color="amber"
+                                            color="secondary"
                                             small
                                     >
                                         <v-icon dark>add</v-icon>
@@ -194,6 +187,11 @@
                                         :dir="course.name"
                                         label="Видео"
                                 ></video-uploader>
+                                <my-editor
+                                        @change="(v) => lesson.text = v"
+                                        buttonText="Текст"
+                                        :value="lesson.text"
+                                ></my-editor>
                                 <test-master :types="add_info.types" :questions="lesson.questions" @change="(questions) => lesson.questions = questions"></test-master>
                             </v-card-text>
                             <v-card-actions>
@@ -210,9 +208,9 @@
 </template>
 
 <script>
-    import VEditor from '../common/CKEEditor'
-    import MyEditor from '../common/Editor'
-    //import VEditor from '../common/TinyMCE'
+    //import VEditor from '../common/CKEEditor'
+    //import MyEditor from '../common/Editor'
+    import MyEditor from '../common/editor/MDEditor'
     import PhotoUploader from '../common/PhotoUploader'
     import VideoUploader from '../common/VideoUploader'
     import TestMaster from '../common/TestMaster'
@@ -222,7 +220,7 @@
 
     export default {
         components: {
-            VEditor,
+            //VEditor,
             MyEditor,
             PhotoUploader,
             TestMaster,

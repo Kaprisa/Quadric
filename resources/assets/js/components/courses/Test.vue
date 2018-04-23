@@ -28,17 +28,17 @@
                             <!--:key="`a${i}`"-->
                     <!--&gt;</v-radio>-->
                 <!--</v-radio-group>-->
-                <v-layout v-for="a, i in q.answers" :key="`a${i}`" row align-start class="mb-1 mt-2">
-                    <v-flex xs1>
+                <v-layout v-for="a, i in q.answers" :key="`a${i}`" row class="mb-1 mt-2">
+                    <div style="flex-basis: 30px;">
                         <v-checkbox
                                 color="success"
                                 v-model="a.checked"
                                 hide-details
                         ></v-checkbox>
-                    </v-flex>
-                    <v-flex xs11>
-                        <span>{{ a.text }}</span>
-                    </v-flex>
+                    </div>
+                    <div>
+                        <span style="line-height: 30px;">{{ a.text }}</span>
+                    </div>
                 </v-layout>
                 <v-btn
                         @click="q.answers.forEach(a => a.checked = false)"

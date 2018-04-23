@@ -18,6 +18,7 @@ export default new Vuex.Store({
         tags: f('Tags'),
         settings: f('Settings'),
         themes: f('Themes'),
-        directories: f('Directories')
+        directories: f('Directories'),
+        taskCategories: f('TaskCategories')
     }
 })

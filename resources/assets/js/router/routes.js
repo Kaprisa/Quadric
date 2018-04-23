@@ -22,7 +22,7 @@ import History from '../admin/History'
 import HomeworkCheck from '../admin/HomeworkCheck'
 import Kanban from '../admin/Kanban'
 
-import GL from '../components/GL'
+import GL from '../components/test/GL'
 import Editor from '../components/test/Editor'
 import Math from '../components/test/Math'
 
@@ -65,7 +65,7 @@ export default [
 
     ]},
     { path: '/gl', component: GL },
-    { path: '/editor', component: Editor },
+    { path: '/ed', component: Editor },
     { path: '/math', component: Math }
 
 ]

@@ -10,7 +10,8 @@ class Task extends Model
         'description',
         'name',
         'executor_id',
-        'creator_id'
+        'creator_id',
+        'category_id'
     ];
 
     public function tags()
@@ -26,5 +27,10 @@ class Task extends Model
     public function creator()
     {
         return $this->belongsTo(User::class, 'creator_id');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(TaskCategory::class, 'category_id');
     }
 }

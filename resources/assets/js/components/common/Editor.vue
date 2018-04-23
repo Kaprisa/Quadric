@@ -36,13 +36,13 @@
                     </v-btn>
                     <v-btn>
                         <v-tooltip top>
-                            <input value="#000000" style="width: 36px; height: 36px;" class="color-input" slot="activator" type="color" v-model="foreColor" @change="command('foreColor', foreColor)">
+                            <input value="#000000" style="width: 36px; height: 36px; border: none;" class="color-input" slot="activator" type="color" v-model="foreColor" @change="command('foreColor', foreColor)">
                             Цвет шрифта
                         </v-tooltip>
                     </v-btn>
                     <v-btn>
                         <v-tooltip top>
-                            <input value="#000000" style="width: 36px; height: 36px;" class="color-input" slot="activator" type="color" v-model="hiliteColor" @change="e => command('hiliteColor', hiliteColor)">
+                            <input value="#ffffff" style="width: 36px; height: 36px; border: none;" class="color-input" slot="activator" type="color" v-model="hiliteColor" @change="e => command('hiliteColor', hiliteColor)">
                             Цвет выделения
                         </v-tooltip>
                     </v-btn>
@@ -205,7 +205,11 @@
             }
         },
         props: {
-            buttonText: String
+            buttonText: String,
+            value: {
+                type: String,
+                default: ''
+            }
         },
         mounted() {
             const d = this.$refs.editor.contentWindow.document
@@ -216,16 +220,16 @@
                 '<html><head><script src=\'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML\'><\/script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arimo|Cabin|Exo|Exo+2|Lato|Lora|Merriweather|Open+Sans|Open+Sans+Condensed:300|Oxygen|Poppins|Raleway|Roboto|Roboto+Condensed|Roboto+Mono|Slabo+27px|Tajawal"><style type="text/css">'+
                 'body { font-size: 18px; }'+
                 'img { max-width: 50%; height: auto; }'+
-                '<\/style><\/head><body><\/body><\/html>'
+                '<\/style><\/head><body>' + this.value + '<\/body><\/html>'
             );
             d.close()
             d.designMode = 'On'
+            this.command('insertHTML', this.value)
             this.command('fontName', 'Open Sans')
         },
         methods: {
             command(c, b = null) {
                 this.document.execCommand(c, false, b)
-                //this.$refs.editor.contentWindow.focus()
                 const d = this.document
                 debounce(function (e) {
                     d.execCommand('insertHTML', false, '<div id="editor-output">{\\sqrt{2}^\\sqrt{2}}^\\sqrt{2} = 2 \\\\ \\sqrt{2}^{2\\log_{2}{3}} = 3</div>')
@@ -236,7 +240,7 @@
 
             },
             change() {
-                this.$emit('change', this.document.body.textContent)
+                this.$emit('change', this.document.body.innerHTML)
                 this.dialog = false
             },
             prompt(a, b) {
