@@ -1,5 +1,5 @@
 <template>
-    <v-dialog width="80vw"  v-model="dialog" :fullscreen="fullscreen">
+    <v-dialog width="80vw" persistent v-model="dialog" :fullscreen="fullscreen">
         <v-btn slot="activator" color="lime" dark>{{ buttonText }}</v-btn>
         <v-card style="width: 100%; height: 100%;">
             <ul style="display: flex; justify-content: center;">
@@ -43,6 +43,9 @@
     import 'codemirror/addon/selection/active-line.js'
     import 'codemirror/theme/mdn-like.css'
 
+    const d3 = require('d3')
+    //import d3node from 'd3-node'
+
     import actions from './actions'
 
     export default {
@@ -51,7 +54,7 @@
         },
         watch: {
             code(val) {
-                this.result = md.render(val)
+                this.result = md.render(val, { d3 })
             },
             value(val) {
                 this.code = val

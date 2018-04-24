@@ -49,7 +49,7 @@
         data() {
             return {
                 drawer: true,
-                testDialog: false,
+                testDialog: false
             }
         },
         watch: {

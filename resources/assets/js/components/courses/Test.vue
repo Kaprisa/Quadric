@@ -1,23 +1,24 @@
 <template>
     <div>
         <v-tabs
-                v-model="active"
                 color="secondary"
                 dark
                 slider-color="accent"
                 centered
                 show-arrows
-        >
+                :value="active"
+        ><!--                v-model="active"-->
             <v-tab
                     v-for="q, index in props.questions"
                     :key="`q${index}`"
                     ripple
+                    :id="`${index}`"
             >
                 {{ index + 1 }}
                 <v-icon v-if="q.correct" dark>check_circle</v-icon>
             </v-tab>
             <v-tab-item v-for="q, index in props.questions" class="py-2 px-3" :key="`qb${index}`">
-                <span class="subheading">{{ q.text }}</span>
+                <span class="subheading" v-html="md.render(q.text)"></span>
                 <!--<v-radio-group v-if="q.type === 'test_single'" v-model="ex7" column>-->
                     <!--<v-radio-->
                             <!--:label="a.text"-->
@@ -28,7 +29,7 @@
                             <!--:key="`a${i}`"-->
                     <!--&gt;</v-radio>-->
                 <!--</v-radio-group>-->
-                <v-layout v-for="a, i in q.answers" :key="`a${i}`" row class="mb-1 mt-2">
+                <v-layout v-for="a, i in q.answers" :key="`a${i}`" row class="mb-1 mt-2" v-if="q.type === 'test'">
                     <div style="flex-basis: 30px;">
                         <v-checkbox
                                 color="success"
@@ -37,9 +38,10 @@
                         ></v-checkbox>
                     </div>
                     <div>
-                        <span style="line-height: 30px;">{{ a.text }}</span>
+                        <span style="line-height: 30px;" v-html="md.render(a.text)"></span>
                     </div>
                 </v-layout>
+                <v-text-field v-else v-model="answer"></v-text-field>
                 <v-btn
                         @click="q.answers.forEach(a => a.checked = false)"
                         color="info"
@@ -66,6 +68,7 @@
 <script>
     import Snackbar from '../common/Snackbar'
     import axios from 'axios'
+    import md from '../../markdown'
     export default {
         name: 'test',
         data() {
@@ -73,7 +76,9 @@
                 snackbar: {},
                 page: 1,
                 ex7: 0,
-                active: 1
+                active: "0",
+                answer: '',
+                md
             }
         },
         components: {
@@ -92,6 +97,7 @@
                 };
                 if (isCorrect) {
                     q.correct = true
+                    this.active = parseInt(this.active) === this.props.questions.length - 1 ? "0" : (parseInt(this.active) + 1).toString();
                 } else {
                     q.correct = false;
                     if (q.attempts) q.attempts ++;
