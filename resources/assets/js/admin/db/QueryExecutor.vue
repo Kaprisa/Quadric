@@ -79,6 +79,7 @@
                     theme: `solarized ${this.theme}`,
                     extraKeys: {'Ctrl-Space': 'autocomplete'},
                     matchBrackets: true,
+                    viewportMargin: Infinity,
                    /* hintOptions: { tables: this.tables }*/
                 },
                 headers: [],

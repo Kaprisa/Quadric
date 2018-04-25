@@ -1,7 +1,7 @@
 <template>
     <v-dialog width="80vw" persistent v-model="dialog" :fullscreen="fullscreen">
         <v-btn slot="activator" color="lime" dark>{{ buttonText }}</v-btn>
-        <v-card style="width: 100%; height: 100%;">
+        <v-card style="width: 100%;">
             <ul style="display: flex; justify-content: center;">
                 <li v-for="group, i in actions" :key="i" style="display: flex; justify-content: center;">
                     <!--class="d-flex row align-center"-->
@@ -18,12 +18,12 @@
                     <span v-if="i < actions.length - 1" class="editor_devider"></span>
                 </li>
             </ul>
-            <v-layout style="height: 100%;">
-                <v-flex :class="showCode && showPreview ? 'xs6' : 'xs12'" style="height: 100%" v-if="showCode">
+            <v-layout style="height: 80vh; position: relative;">
+                <v-flex :class="showCode && showPreview ? 'xs6' : 'xs12'" v-if="showCode" style="overflow-y: auto">
                     <codemirror ref="codemirror" v-model="code" :options="opt"></codemirror>
                 </v-flex>
-                <v-flex :class="showCode && showPreview ? 'xs6' : 'xs12'" style="height: 100%; padding: 5px;" v-if="showPreview">
-                    <div v-html="result"></div>
+                <v-flex :class="showCode && showPreview ? 'xs6' : 'xs12'" style="padding: 5px; overflow-y: auto;" v-if="showPreview">
+                    <div v-html="result" style="overflow-y: auto"></div>
                 </v-flex>
             </v-layout>
             <v-divider/>
@@ -87,7 +87,8 @@
                     tabSize: 2,
                     lineWrapping: true,
                     theme: 'mdn-like',
-                    matchBrackets: true
+                    matchBrackets: true,
+                    viewportMargin: Infinity
                 }
             }
         },
@@ -234,7 +235,7 @@
     }
 </script>
 
-<style scoped lang="sass">
+<style lang="sass">
     .editor
         &_btn
             outline: none
@@ -260,4 +261,7 @@
             background-color: rgba(0, 0, 0, .3)
             &:last-child
                 margin-right: 0
+    .CodeMirror.cm-s-mdn-like.CodeMirror-wrap
+        height: 80vh
+        overflow-y: auto
 </style>

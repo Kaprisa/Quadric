@@ -31,6 +31,7 @@
                     lineWrapping: true,
                     theme: 'material',
                     matchBrackets: true,
+                    viewportMargin: Infinity
                 }
             }
         },
