@@ -32,32 +32,14 @@
                         <v-list-tile-title>Панель администрирования</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
-                <v-list-group
-                        prepend-icon="graphic_eq"
-                        no-action
-                >
-                    <v-list-tile slot="activator">
-                        <v-list-tile-content>
-                            <v-list-tile-title>Курсы</v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                    <v-list-tile @click="$router.push(`/courses`)">
-                        <v-list-tile-content>
-                            <v-list-tile-title>Каталог</v-list-tile-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action>
-                            <v-icon>view_list</v-icon>
-                        </v-list-tile-action>
-                    </v-list-tile>
-                    <v-list-tile @click="$router.push(`/courses/add`)">
-                        <v-list-tile-content>
-                            <v-list-tile-title>Новый курс</v-list-tile-title>
-                        </v-list-tile-content>
-                        <v-list-tile-action>
-                            <v-icon>add</v-icon>
-                        </v-list-tile-action>
-                    </v-list-tile>
-                </v-list-group>
+                <v-list-tile @click="$router.push(`/courses`)">
+                    <v-list-tile-action>
+                        <v-icon>graphic_eq</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Курсы</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
                 <!-- <v-list-group
                          prepend-icon="graphic_eq"
                          no-action
@@ -80,7 +62,7 @@
         </v-navigation-drawer>
         <v-toolbar color="primary" dark scroll-off-screen app>
             <v-spacer/><!--teal lighten-3-->
-            <v-toolbar-title>Academy</v-toolbar-title>
+            <v-toolbar-title>Quadric</v-toolbar-title>
             <v-toolbar-side-icon @click.stop="drawer = !drawer"/>
         </v-toolbar>
         <v-content>

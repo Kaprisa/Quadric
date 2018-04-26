@@ -4,7 +4,7 @@
                 v-for="b in course.blocks"
                 :key="b.name"
                 xs12
-                sm6
+                class="mb-2"
         >
             <v-card>
                 <v-card-title><h4>{{ b.name }}</h4></v-card-title>

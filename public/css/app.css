@@ -14,6 +14,16 @@
   background: #FFF -webkit-gradient(linear, 40% 0%, 75% 84%, from(#4DB6AC), to(#35817a), color-stop(0.6, #1f4b47));
 }
 
+ol,
+ul {
+  padding-left: 10px;
+}
+
+ol li,
+ul li {
+  padding-top: 7px;
+}
+
 .input-file {
   opacity: 0;
   width: 100%;

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -40,7 +41,7 @@ class UsersController extends Controller
 
     public function avatar(Request $request)
     {
-        if (!$request->hasFile('avatar')) return null;
+        if (!$request->hasFile('avatar')) return 'avatar.png';
         $user = Auth::guard('api')->user();
         if ($user->avatar !== 'avatar.png') Storage::disk('uploads')->delete('users/'.$request->avatar);
         $user->avatar = str_replace('users/', '', Storage::disk('uploads')->put('users', $request->avatar));
