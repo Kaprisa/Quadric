@@ -4,6 +4,7 @@ const md = require('markdown-it')({
     typographer: true,
 }).set({ breaks: true })
 import mk from '@iktakahiro/markdown-it-katex'
+const { markdownItTable } = require('markdown-it-table')
 //import vis from 'markvis'
 //import mp from 'markdown-it-plantuml'
 import mct from 'markdown-it-center-text'
@@ -11,6 +12,7 @@ import mc from 'markdown-it-container'
 
 md.use(mk)
 md.use(mct)
+md.use(markdownItTable)
 md.use(mc, 'spoiler', {
 
     validate: function(params) {

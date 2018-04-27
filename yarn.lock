@@ -4910,6 +4910,10 @@ markdown-it-plantuml@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/markdown-it-plantuml/-/markdown-it-plantuml-1.0.0.tgz#7b6a351a1d9275705c09626b02d873301e5899c2"
 
+markdown-it-table@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/markdown-it-table/-/markdown-it-table-2.0.2.tgz#7fb3512c173017f4c141d2c5ea39e8bb7396fe97"
+
 markdown-it@^8.4.1:
   version "8.4.1"
   resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-8.4.1.tgz#206fe59b0e4e1b78a7c73250af9b34a4ad0aaf44"

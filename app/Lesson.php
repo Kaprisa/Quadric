@@ -15,7 +15,8 @@ class Lesson extends Model
        'resources',
        'sort',
        'text',
-       'video'
+       'video',
+       'examples'
     ];
 
     protected $appends = ['totals'];

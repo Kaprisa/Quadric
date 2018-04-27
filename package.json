@@ -25,6 +25,7 @@
         "markdown-it-container": "^2.0.0",
         "markdown-it-katex": "^2.0.3",
         "markdown-it-plantuml": "^1.0.0",
+        "markdown-it-table": "^2.0.2",
         "markvis": "^0.0.12",
         "stackedit-js": "^1.0.5",
         "vue": "^2.5.13",

@@ -7,10 +7,11 @@
             <v-icon>battery_full</v-icon>
             <span>12:30</span>
         </v-system-bar>
-        <video ref="video" width="100%" poster="/video/poster.jpg">
+        <video style="margin: 0 auto;" ref="video" poster="/video/poster.jpg">
             <source v-if="course.course" :src="`/video/${course.course.name}/${props.video}`" type="video/mp4">
+            <source v-if="course.course" :src="`/video/${course.course.name}/${props.video}`" type="video/mov">
             Ваш браузер не поддерживает html5 видео.
-        </video>
+        </video><!--width="100%"-->
         <v-toolbar card color="primary" >
             <v-icon
                     @click="changePlay()"

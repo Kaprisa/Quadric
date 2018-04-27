@@ -18,6 +18,7 @@ class CreateLessonsTable extends Migration
             $table->string('name');
             $table->string('video')->nullable();
             $table->text('text')->nullable();
+            $table->text('examples')->nullable();
             $table->text('resources')->nullable(); // Доп. ресурсы
             $table->integer('block_id')->references('id')->on('blocks')->onDelete('cascade');;
             $table->integer('sort');

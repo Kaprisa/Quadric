@@ -18,6 +18,7 @@ class LessonsController extends Controller
             'resources' => json_encode($request->resourses),
             'sort' => Lesson::count() + 1, //Todo исправить!!!
             'text' => $request->text,
+            'examples' => $request->examples,
             'video' => $request->video
         ]);
 

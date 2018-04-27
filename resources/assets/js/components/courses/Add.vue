@@ -192,6 +192,11 @@
                                         buttonText="Текст"
                                         :value="lesson.text"
                                 ></my-editor>
+                                <my-editor
+                                        @change="(v) => lesson.examples = v"
+                                        buttonText="Примеры"
+                                        :value="lesson.examples"
+                                ></my-editor>
                                 <test-master :types="add_info.types" :questions="lesson.questions" @change="(questions) => lesson.questions = questions"></test-master>
                             </v-card-text>
                             <v-card-actions>
