@@ -27,7 +27,7 @@ class LessonsController extends Controller
             $arr = [
                 'text' => $q['text'],
                 'type' => array_has($q, 'type') ? $q['type'] : 'test',
-                'answer' => $q['type'] === 'Задача' ? $q['answer'] : json_encode($q['answers']),
+                'answer' => $q['type'] === 'task' ? $q['answer'] : json_encode($q['answers']),
                 'points' => $q['points'],
                 'sort' => $index + 1,
                 'lesson_id' => $lesson->id

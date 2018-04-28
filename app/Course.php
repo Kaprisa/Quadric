@@ -42,7 +42,7 @@ class Course extends Model
     public function getEditableAttribute()
     {
         $user = Auth::guard('api')->user();
-        return $this->user->id === $user->id || $user->hasRole('admin');
+        return $user ? ($this->user->id === $user->id || $user->hasRole('admin')) : false;
     }
 
     public function users()

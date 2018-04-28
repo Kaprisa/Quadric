@@ -19,29 +19,27 @@
             </v-tab>
             <v-tab-item v-for="q, index in props.questions" class="py-2 px-3" :key="`qb${index}`">
                 <span class="subheading" v-html="md.render(q.text)"></span>
-                <!--<v-radio-group v-if="q.type === 'test_single'" v-model="ex7" column>-->
-                    <!--<v-radio-->
-                            <!--:label="a.text"-->
-                            <!--color="success"-->
-                            <!--:value="i"-->
-                            <!--@change="q.answers.forEach(u => u.checked = false); a.checked = true;"-->
-                            <!--v-for="a, i in q.answers"-->
-                            <!--:key="`a${i}`"-->
-                    <!--&gt;</v-radio>-->
-                <!--</v-radio-group>-->
-                <v-layout v-for="a, i in q.answers" :key="`a${i}`" row class="mb-1 mt-2" v-if="q.type === 'test'">
+                <v-layout v-if="q.type.startsWith('test')" v-for="a, i in q.answers" :key="`a${i}`" row class="mb-1 mt-2">
                     <div style="flex-basis: 30px;">
-                        <v-checkbox
+                        <!--<v-checkbox-->
+                                <!--color="success"-->
+                                <!--v-model="a.checked"-->
+                                <!--hide-details-->
+                                <!--v-if="q.type === 'test'"-->
+                        <!--&gt;</v-checkbox>-->
+                        <v-switch
                                 color="success"
+                                class="mr-2"
                                 v-model="a.checked"
                                 hide-details
-                        ></v-checkbox>
+                                @change="(v) => { if (q.type === 'test_one' && v) { q.answers.forEach(e => e.checked = false ); a.checked = true; } }"
+                        ></v-switch>
                     </div>
                     <div>
                         <span style="line-height: 30px;" v-html="md.render(a.text)"></span>
                     </div>
                 </v-layout>
-                <v-text-field v-else v-model="answer"></v-text-field>
+                <v-text-field v-if="q.type === 'task'" label="Ваш ответ" v-model="q.user_answer"></v-text-field>
                 <v-btn
                         @click="q.answers.forEach(a => a.checked = false)"
                         color="info"
@@ -69,6 +67,7 @@
     import Snackbar from '../common/Snackbar'
     import axios from 'axios'
     import md from '../../markdown'
+    import RadioGroup from '../common/RadioGroup'
     export default {
         name: 'test',
         data() {
@@ -82,14 +81,15 @@
             }
         },
         components: {
-            Snackbar
+            Snackbar,
+            RadioGroup
         },
         props: {
            props: Object
         },
         methods: {
             check(q) {
-                const isCorrect = q.answers.every(a => Boolean(a.checked) === Boolean(a.correct));
+                const isCorrect = q.type === 'task' ? q.answer === q.user_answer : q.answers.every(a => Boolean(a.checked) === Boolean(a.correct));
                 this.snackbar = {
                     visible: true,
                     text: isCorrect ? 'Правильно!' : 'Не правильно:( Подумайте немного.. У вас все получится! ',

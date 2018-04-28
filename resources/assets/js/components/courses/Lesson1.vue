@@ -67,6 +67,8 @@
               if (!val) {
                   if (this.lesson.text)
                     this.lesson.text = md.render(this.lesson.text)
+                  if (this.lesson.examples)
+                      this.lesson.examples = md.render(this.lesson.examples)
               }
             }
         },

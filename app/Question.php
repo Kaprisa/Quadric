@@ -20,6 +20,10 @@ class Question extends Model
             'value' => 'test'
         ],
         [
+            'text' => 'Тест (один ответ)',
+            'value' => 'test_one'
+        ],
+        [
             'text' => 'Сопоставление',
             'value' => 'matching'
         ]
@@ -50,7 +54,7 @@ class Question extends Model
 
     public function getAnswersAttribute()
     {
-        if ($this->type == 'test') {
+        if ($this->type == 'test' || $this->type === 'test_one') {
             return json_decode($this->answer);
         }
         return [];
