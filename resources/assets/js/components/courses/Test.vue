@@ -39,7 +39,7 @@
                         <span style="line-height: 30px;" v-html="md.render(a.text)"></span>
                     </div>
                 </v-layout>
-                <v-text-field v-if="q.type === 'task'" label="Ваш ответ" v-model="q.user_answer"></v-text-field>
+                <v-text-field @keypress.13="check(q)" v-if="q.type === 'task'" label="Ваш ответ" v-model="q.user_answer"></v-text-field>
                 <v-btn
                         @click="q.answers.forEach(a => a.checked = false)"
                         color="info"
@@ -89,7 +89,7 @@
         },
         methods: {
             check(q) {
-                const isCorrect = q.type === 'task' ? q.answer === q.user_answer : q.answers.every(a => Boolean(a.checked) === Boolean(a.correct));
+                const isCorrect = q.type === 'task' ? q.answer.toLowerCase() === q.user_answer.toLowerCase() : q.answers.every(a => Boolean(a.checked) === Boolean(a.correct));
                 this.snackbar = {
                     visible: true,
                     text: isCorrect ? 'Правильно!' : 'Не правильно:( Подумайте немного.. У вас все получится! ',
