@@ -1,5 +1,5 @@
 <template>
-    <v-dialog v-model="dialog">
+    <v-dialog v-model="dialog" width="60%">
         <v-btn
                 color="secondary"
                 small
@@ -20,9 +20,15 @@
                             v-model="user.theme.name"
                     ></v-text-field>
                 </v-flex>
-                <v-flex xs5 v-for="v, k in user.theme.colors" :key="k">
-                    <color-picker :vcolor="k" :label="v" @change="(color) => user.theme.colors[k] = color"></color-picker>
+                <v-flex class="layout justify-center">
+                    <div class="flex xs2 text-xs-center" v-for="v, k in user.theme.colors" :key="k">
+                        <span class="body-2">{{ k }}</span>
+                        <input type="color" style="height: 70px; width: 100%; border: none" :value="v" @change="(e) => user.theme.colors[k] = e.target.value">
+                    </div>
                 </v-flex>
+                <!--<v-flex xs5 v-for="v, k in user.theme.colors" :key="k">-->
+                    <!--<color-picker :vcolor="k" :label="v" @change="(color) => user.theme.colors[k] = color"></color-picker>-->
+                <!--</v-flex>-->
             </v-layout>
             <div style="width: 150px; margin: auto;">
                 <v-switch
