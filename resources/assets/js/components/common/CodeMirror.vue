@@ -1,5 +1,5 @@
 <template>
-    <codemirror v-model="code" :options="opt" @input="$emit('change', code)"></codemirror>
+    <codemirror ref="codemirror" v-model="code" :options="opt" @input="$emit('change', code)"></codemirror>
 </template>
 
 <script>
@@ -21,10 +21,25 @@
         components: {
             codemirror
         },
+        mounted() {
+            this.editor = this.$refs.codemirror.editor
+            this.editor.setOption("extraKeys", {
+                Tab: () => {
+                    const c = this.editor.getCursor()
+                    const line = this.code.split('\n')[c.line].substring(0,c.ch).split(/\s+/)
+                    const tag = line[line.length - 1]
+                    switch (this.file.ext) {
+                        case 'html':
+                            this.editor.replaceRange(`<${tag}></${tag}>`,  {line: c.line, ch: c.ch - tag.length}, c)
+                    }
+                }
+            });
+        },
         data () {
             return {
                 code: this.file.code,
                 document: null,
+                editor: null,
                 opt: {
                     mode: this.file.mode,
                     styleActiveLine: true,
@@ -48,7 +63,8 @@
                 this.code = f.code
                 this.opt = { ...this.opt, mode: this.file.mode }
             }
-        }
+        },
+        methods: {}
     }
 
 </script>

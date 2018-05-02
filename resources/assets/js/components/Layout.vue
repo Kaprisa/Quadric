@@ -40,6 +40,14 @@
                         <v-list-tile-title>Курсы</v-list-tile-title>
                     </v-list-tile-content>
                 </v-list-tile>
+                <v-list-tile @click="$router.push(`/html`)">
+                    <v-list-tile-action>
+                        <v-icon>code</v-icon>
+                    </v-list-tile-action>
+                    <v-list-tile-content>
+                        <v-list-tile-title>Html</v-list-tile-title>
+                    </v-list-tile-content>
+                </v-list-tile>
                 <!-- <v-list-group
                          prepend-icon="graphic_eq"
                          no-action

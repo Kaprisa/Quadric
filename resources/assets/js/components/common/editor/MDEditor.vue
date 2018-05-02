@@ -40,7 +40,8 @@
     import {codemirror} from 'vue-codemirror-lite'
     import 'codemirror/mode/markdown/markdown.js'
     import 'codemirror/addon/selection/active-line.js'
-    import 'codemirror/theme/mdn-like.css'
+    //import 'codemirror/theme/mdn-like.css'
+    import 'codemirror/theme/paraiso-light.css'
 
     //const d3 = require('d3')
     //import d3node from 'd3-node'
@@ -54,6 +55,7 @@
         watch: {
             code(val) {
                 this.result = md.render(val)
+
                 // md.mermaid.init(undefined, document.querySelectorAll('.mermaid'))
                 // document.querySelectorAll('.chartjs').forEach(element => {
                 //     try {
@@ -65,7 +67,9 @@
                 //{ d3 }
             },
             value(val) {
-                this.code = val
+                if (val) {
+                    this.code = val
+                }
             }
         },
         props: {
@@ -94,9 +98,10 @@
                     styleActiveLine: true,
                     tabSize: 2,
                     lineWrapping: true,
-                    theme: 'mdn-like',
+                    theme: 'paraiso-light',
                     matchBrackets: true,
-                    viewportMargin: Infinity
+                    viewportMargin: Infinity,
+                    highlightFormatting: true
                 }
             }
         },

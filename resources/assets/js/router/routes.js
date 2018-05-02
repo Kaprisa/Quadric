@@ -40,7 +40,7 @@ export default [
         { path: '/courses/:id/edit', component: AddCourse, props: { editing: true } },
         { path: '/courses/:id', component: Course, props: { what: 'welcome' } },
         { path: '/courses/:id/lessons/:lesson_id', component: Course, props: { what: 'lesson' } },
-        { path: '/code', component: CodeLesson },
+        { path: '/html', component: CodeLesson },
 
     ]},
 
