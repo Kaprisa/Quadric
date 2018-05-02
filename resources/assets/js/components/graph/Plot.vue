@@ -13,11 +13,11 @@
             </div>
         </div>
         <div
-                v-if="currentX !== 0 && current"
+                v-if="currentX !== 0"
                 class="tooltip__content menuable__content__active"
                 :style="`position: absolute; bottom: 0; left: ${currentX}%; transform: translateX(-50%);`"
         >
-            {{ formDate(current.date, period) }}
+            {{ displayX }}
         </div>
         <div
                 v-if="currentY !== 0"
@@ -26,7 +26,7 @@
         >
             {{ displayY }}
         </div>
-        <span :style="`font-size: 15px; color: #000000; font-weight: bold; position: absolute; top: ${toPercents(zero) - 3}%; left: 2px;`">0</span>
+        <span :style="`font-size: 15px; color: #000000; font-weight: bold; position: absolute; top: 50%; left: 50%;`">0</span>
         <svg
                 width="100%"
                 height="100%"
@@ -35,6 +35,22 @@
                 preserveAspectRatio="none"
         >
             <line
+                    x1="50"
+                    :y1="0"
+                    x2="50"
+                    :y2="100"
+                    stroke-width="0.1"
+                    :stroke="axesColor"
+            ></line>
+            <line
+                    :x1="0"
+                    y1="50"
+                    :x2="100"
+                    y2="50"
+                    stroke-width="0.1"
+                    :stroke="axesColor"
+            ></line>
+            <line
                     x1="0"
                     :y1="toPercents(zero)"
                     x2="100"
@@ -42,19 +58,6 @@
                     stroke-width="0.1"
                     stroke="#000000"
             ></line>
-            <indicators :zero="(zero * 100) / (params.max - params.min)" :coordinates="coordinates" :indicators="indicators"/>
-            <g v-if="type === 'candlestick'">
-                <candle
-                        v-for="i in coordinates"
-                        :key="`candle_${i.x}`"
-                        :open="i.open"
-                        :high="i.high"
-                        :low="i.low"
-                        :close="i.close"
-                        :width="candleWidth"
-                        :x="i.x"
-                />
-            </g>
             <line
                     v-for="i in [0, 1, 2, 3, 4, 5]"
                     :x1="i * (100 / 6)"
@@ -89,30 +92,25 @@
                     stroke-width="0.05"
                     :stroke="axesColor"
             ></line>
+            <path
+                    stroke-width="0.1"
+                    stroke="blue"
+                    fill="transparent"
+                    :d="path"
+            ></path>
         </svg>
     </v-card>
 </template>
 
 <script>
 
-    import Candle from './Candle'
-
-    import Indicators from "./Indicators";
-
     export default {
         name: 'plot',
-        components: {
-            Indicators,
-            Candle
-        },
         data() {
             return {
                 zero: 0,
                 currentX: 0,
                 currentY: 0,
-                rangeAddons: true,
-                current_dsp: 1,
-                candleWidth: 0,
                 coordinates: [],
                 axesColor: '#9494b8',
                 minX: 0,
@@ -120,20 +118,13 @@
                 range: 0,
                 current: null,
                 show: true,
-                displayY: 0
+                displayX: 0,
+                displayY: 0,
+                path: 'M 0 90'
             }
         },
         props: {
             type: String,
-            period: {
-                Number,
-                default: 1
-            },
-            data: Array,
-            indicators: {
-                type: Array,
-                default: null
-            },
             params: {
                 type: Object,
                 default: null
@@ -147,6 +138,9 @@
                 default: null
             }
         },
+        mounted() {
+           this.linear()
+        },
         computed: {},
         watch: {
             mouse(val) {
@@ -156,47 +150,24 @@
                 if (a > 0 && a < rect.height) {
                     this.currentY = 100 - Math.floor((a * 100) / rect.height)
                     this.currentX = Math.floor((b * 100) / rect.width)
-                    const i = (this.coordinates.length * this.currentX) / 100
-                    this.current = this.data[Math.ceil(i)]
-                    this.displayY = (Math.ceil(this.currentY * (this.params.max - this.params.min)) / 100) - this.zero
+                    this.displayX = this.params.min + (Math.ceil(this.currentX * (this.params.max - this.params.min)) / 100)
+                    this.displayY = this.params.min + (Math.ceil(this.currentY * (this.params.max - this.params.min)) / 100)
                 } else {
                     this.currentX = 0
                     this.currentY = 0
                 }
             },
-            data(val) {
-                this.coordinates = []
-                this.minX = new Date(this.data[0].date).getTime()
-                this.maxX = new Date(this.data[this.data.length - 1].date).getTime()
-                this.range = (this.maxX - this.minX) / 100
-                this.changeCoordinates()
-            },
-            indicators() {
-                this.zero = this.params.min < 0 ? - this.params.min : 0
-                this.changeCoordinates()
-            }
         },
         methods: {
             toPercents(val) {
                 return 100 - (val * 100) / (this.params.max - this.params.min)
             },
             linear() {
-                this.path = 'M 0 90 '
-                // this.data.forEach(e => {
-                //     this.path += `L ${Math.floor(((new Date(e.date).getTime()) - this.minX) / this.range)} ${Math.floor(100 - (e.close * 100) / (this.params.max - this.params.min))} `
-                // })
-            },
-            changeCoordinates() {
-                this.candleWidth = 100 / this.data.length
-                // this.data.forEach(e => {
-                //     let t = {
-                //         x: ((new Date(e.date).getTime()) - this.minX) / this.range,
-                //     }
-                //     Object.keys(e).forEach(key => {
-                //         if (key !== 'date') t[key] = this.toPercents(e[key])
-                //     })
-                //     this.coordinates.push(t)
-                // })
+                let path = 'M 0 90 '
+                for (let i = this.params.min; i < this.params.max; i++) {
+                    path += `L ${this.toPercents(i)} ${this.toPercents(i)} `
+                }
+                this.path = path
             }
         }
     }

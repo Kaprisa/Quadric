@@ -23,8 +23,10 @@ import HomeworkCheck from '../admin/HomeworkCheck'
 import Kanban from '../admin/Kanban'
 
 import GL from '../components/test/GL'
-import Editor from '../components/test/Editor'
 import Math from '../components/test/Math'
+
+import ImageEditor from '../components/common/ImageEditor'
+import CodeLesson from '../components/courses/CodeLesson'
 
 export default [
 
@@ -38,6 +40,7 @@ export default [
         { path: '/courses/:id/edit', component: AddCourse, props: { editing: true } },
         { path: '/courses/:id', component: Course, props: { what: 'welcome' } },
         { path: '/courses/:id/lessons/:lesson_id', component: Course, props: { what: 'lesson' } },
+        { path: '/code', component: CodeLesson },
 
     ]},
 
@@ -62,10 +65,10 @@ export default [
         { path: 'history', component: History },
         { path: 'homework', component: HomeworkCheck },
         { path: 'tasks', component: Kanban },
+        { path: 'image', component: ImageEditor },
 
     ]},
     { path: '/gl', component: GL },
-    { path: '/ed', component: Editor },
     { path: '/math', component: Math }
 
 ]

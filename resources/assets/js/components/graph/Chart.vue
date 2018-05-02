@@ -36,33 +36,25 @@
             </v-card>
         </v-menu>
         <plot
-                type="candlestick"
-                :period="period"
-                :data="data"
+                type="hello"
                 :params="params"
-                :height="90"
+                :height="80"
                 :mouse="mouse"
         />
     </v-container>
 </template>
 <script>
-   /* import {mapActions, mapGetters} from 'vuex'*/
     import Plot from './Plot'
-    import ColorPicker from '../common/ColorPicker'
-    //import Computer from '../../computer/Computer'
     export default {
         components: {
-            Plot,
-            ColorPicker
+            Plot
         },
         data() {
             return {
                 dialog: false,
                 fav: true,
                 menu: false,
-                menu_delete: false,
-                rangeAddons: true,
-                current_dsp: 1,
+                params: { max: 100, min: -100 },
                 mouse: {
                     x: 0,
                     y: 0

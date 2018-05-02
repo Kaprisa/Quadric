@@ -65,7 +65,7 @@
                     <v-spacer/>
                     <v-icon @click="dialog = false" style="cursor: pointer;">close</v-icon>
                 </v-card-title>
-                <v-code-mirror v-if="file.code" :file="file" :mode="mode"></v-code-mirror>
+                <v-code-mirror v-if="file.code" :file="file"></v-code-mirror>
                 <img v-else-if="image_extensions.includes(file.ext)" style="width: auto; max-width: 100%; height: auto" :src="file.path" alt="">
                 <video style="width: 100%; height: auto" v-else-if="file.ext === 'mp4'" controls autoplay>
                     <source :src="file.path">
@@ -122,7 +122,6 @@
                     vue: 'text/x-vue'
                 },
                 image_extensions: ['jpg', 'jpeg', 'png', 'svg', 'gif'],
-                mode: 'text/x-sass',
                 title: '',
                 code:
                     `$page-width:    800px
@@ -167,6 +166,7 @@ body
             },
             read(f) {
                 this.file = f
+                this.file.mode = this.extensions[f.ext]
                 if (this.extensions[f.ext]) {
                     axios.post('/api/files/read', {path: f.path}).then(res => {
                         this.file.code = res.data

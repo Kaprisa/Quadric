@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Arimo|Cabin|Exo|Exo+2|Lato|Lora|Merriweather|Open+Sans|Open+Sans+Condensed:300|Oxygen|Poppins|Raleway|Roboto|Roboto+Condensed|Roboto+Mono|Slabo+27px|Tajawal);@import url(https://fonts.googleapis.com/css?family=Do+Hyeon|Gugi);*::-webkit-scrollbar-track {
+@import url(https://fonts.googleapis.com/css?family=Montserrat|Muli|Poppins|Tajawal|Black+Han+Sans);@import url(https://fonts.googleapis.com/css?family=Do+Hyeon|Gugi);*::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
   background-color: #F5F5F5;
   border-radius: 10px;
@@ -14,14 +14,31 @@
   background: #FFF -webkit-gradient(linear, 40% 0%, 75% 84%, from(#4DB6AC), to(#35817a), color-stop(0.6, #1f4b47));
 }
 
-ol,
-ul {
-  padding-left: 10px;
+.md {
+  font-size: 15px;
+  color: #222222;
+  font-family: 'Montserrat', sans-serif;
 }
 
-ol li,
-ul li {
-  padding-top: 7px;
+.md h1,
+.md h2,
+.md h3,
+.md h4,
+.md h5,
+.md h6 {
+  margin-bottom: 15px;
+  font-family: 'Black Hans Sans', sans-serif;
+}
+
+.md ol,
+.md ul {
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+
+.md ol li,
+.md ul li {
+  padding-bottom: 7px;
 }
 
 .input-file {

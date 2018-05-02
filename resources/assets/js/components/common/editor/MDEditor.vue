@@ -23,7 +23,7 @@
                     <codemirror ref="codemirror" v-model="code" :options="opt"></codemirror>
                 </v-flex>
                 <v-flex :class="showCode && showPreview ? 'xs6' : 'xs12'" style="padding: 5px; overflow-y: auto;" v-if="showPreview">
-                    <div v-html="result" style="overflow-y: auto"></div>
+                    <div class="md pl-3" v-html="result" style="overflow-y: auto"></div>
                 </v-flex>
             </v-layout>
             <v-divider/>
@@ -37,13 +37,12 @@
 </template>
 <script>
     import md from '../../../markdown'
-
     import {codemirror} from 'vue-codemirror-lite'
     import 'codemirror/mode/markdown/markdown.js'
     import 'codemirror/addon/selection/active-line.js'
     import 'codemirror/theme/mdn-like.css'
 
-    const d3 = require('d3')
+    //const d3 = require('d3')
     //import d3node from 'd3-node'
 
     import actions from './actions'
@@ -54,7 +53,16 @@
         },
         watch: {
             code(val) {
-                this.result = md.render(val, { d3 })
+                this.result = md.render(val)
+                // md.mermaid.init(undefined, document.querySelectorAll('.mermaid'))
+                // document.querySelectorAll('.chartjs').forEach(element => {
+                //     try {
+                //         new Chart(element, JSON.parse(element.textContent))
+                //     } catch (e) {
+                //         element.outerHTML = `<pre>Chart.js complains: "${e}"</pre>`
+                //     }
+                // })
+                //{ d3 }
             },
             value(val) {
                 this.code = val
@@ -261,7 +269,7 @@
             background-color: rgba(0, 0, 0, .3)
             &:last-child
                 margin-right: 0
-    .CodeMirror.cm-s-mdn-like.CodeMirror-wrap
+    .CodeMirror.CodeMirror-wrap
         height: 80vh
         overflow-y: auto
 </style>

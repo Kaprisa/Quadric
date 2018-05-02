@@ -1,8 +1,9 @@
 $accent-color: #4DB6AC
 //@import './components/radio'
 
-@import url("https://fonts.googleapis.com/css?family=Arimo|Cabin|Exo|Exo+2|Lato|Lora|Merriweather|Open+Sans|Open+Sans+Condensed:300|Oxygen|Poppins|Raleway|Roboto|Roboto+Condensed|Roboto+Mono|Slabo+27px|Tajawal")
-
+//@import url("https://fonts.googleapis.com/css?family=Arimo|Cabin|Exo|Exo+2|Lato|Lora|Merriweather|Open+Sans|Open+Sans+Condensed:300|Oxygen|Poppins|Raleway|Roboto|Roboto+Condensed|Roboto+Mono|Slabo+27px|Tajawal")
+//@import url("https://fonts.googleapis.com/css?family=Bree+Serif|Lato|Open+Sans")
+@import url("https://fonts.googleapis.com/css?family=Montserrat|Muli|Poppins|Tajawal|Black+Han+Sans")
 *::-webkit-scrollbar-track
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1)
   background-color: #F5F5F5
@@ -14,10 +15,19 @@ $accent-color: #4DB6AC
   border-radius: 10px
   background: #FFF -webkit-gradient(linear, 40% 0%, 75% 84%, from($accent-color), to(darken($accent-color, 15%)), color-stop(.6, darken($accent-color, 30%)))
 
-ol,ul
-  li
-    padding-top: 7px
-  padding-left: 10px
+.md
+  font-size: 15px
+  color: #222222
+  font-family: 'Montserrat', sans-serif
+  h1, h2, h3, h4, h5, h6
+    margin-bottom: 15px
+    font-family: 'Black Hans Sans', sans-serif
+  ol,ul
+    li
+      padding-bottom: 7px
+    padding-left: 10px
+    margin-bottom: 20px
+
 
 .input-file
   opacity: 0

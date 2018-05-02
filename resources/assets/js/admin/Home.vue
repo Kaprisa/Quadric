@@ -136,6 +136,7 @@
                 { icon: 'spellcheck', text: 'Домашние работы', link: '/admin/homework' },
                 { icon: 'today', text: 'Задачи', link: '/admin/tasks' },
                 { icon: 'palette', text: 'Темы', link: '/admin/themes' },
+                { icon: 'photo', text: 'Редактор изображений', link: '/admin/image' },
                 // {
                 //     icon: 'keyboard_arrow_up',
                 //     'icon-alt': 'keyboard_arrow_down',

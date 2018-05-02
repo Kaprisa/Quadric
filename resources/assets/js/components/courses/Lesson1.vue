@@ -7,11 +7,11 @@
             </v-expansion-panel-content>
             <v-expansion-panel-content :value="false" v-if="lesson.text">
                 <div slot="header">Конспект лекции</div>
-                <div class="pa-3" v-html="lesson.text"></div>
+                <div class="pa-3 md" v-html="lesson.text"></div>
             </v-expansion-panel-content>
             <v-expansion-panel-content :value="false" v-if="lesson.examples">
                 <div slot="header">Примеры</div>
-                <div class="pa-3" v-html="lesson.examples"></div>
+                <div class="pa-3 md" v-html="lesson.examples"></div>
             </v-expansion-panel-content>
             <v-expansion-panel-content :value="false" v-if="lesson.resources && lesson.resources.length">
                 <div slot="header">Дополнительные ресурсы</div>

@@ -18,6 +18,7 @@
     <link rel="mask-icon" href="{{ asset('favicon/safari-pinned-tab.svg', $secure) }}" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+
     {{--<script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>--}}
     {{--<script src="https://unpkg.com/aframe-animation-component@3.2.1/dist/aframe-animation-component.min.js"></script>
     <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>

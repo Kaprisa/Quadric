@@ -89,7 +89,7 @@
         },
         methods: {
             check(q) {
-                const isCorrect = q.type === 'task' ? q.answer.toLowerCase() === q.user_answer.toLowerCase() : q.answers.every(a => Boolean(a.checked) === Boolean(a.correct));
+                const isCorrect = q.type === 'task' ? q.answer.replace(/\s/g,'').toLowerCase() === q.user_answer.replace(/\s/g,'').toLowerCase() : q.answers.every(a => Boolean(a.checked) === Boolean(a.correct));
                 this.snackbar = {
                     visible: true,
                     text: isCorrect ? 'Правильно!' : 'Не правильно:( Подумайте немного.. У вас все получится! ',
