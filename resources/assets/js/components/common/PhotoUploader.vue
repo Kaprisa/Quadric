@@ -3,11 +3,11 @@
         <v-btn dark color="accent" slot="activator">Фото</v-btn>
         <v-card>
             <form class="card" enctype="multipart/form-data">
-                <input type="file" :name="name" accept="image/*" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files[0])"
+                <input type="file" name="photos" accept="image/*" :disabled="isSaving" @change="filesChange($event.target.name, $event.target.files[0])"
                         class="input-file">
                 <v-card-title>{{ label }}</v-card-title>
                 <div class="layout justify-center">
-                    <img v-if="fileName || uploaded" :src="`/uploads/${name}/${uploaded ? uploaded.name : fileName}`" height="150px">
+                    <img v-if="fileName || uploaded" :src="`/uploads/${dir}/${uploaded ? uploaded.name : fileName}`" height="150px">
                     <v-icon large v-else color="gray">add_a_photo</v-icon>
                 </div>
                 <v-card-actions>
@@ -38,13 +38,12 @@
     const STATUS_INITIAL = 0, STATUS_SAVING = 1, STATUS_SUCCESS = 2, STATUS_FAILED = 3
 
     export default {
-        name: 'photo-uploader',
+        dir: 'photo-uploader',
         data() {
             return {
                 uploaded: this.src,
                 uploadError: null,
                 currentStatus: STATUS_INITIAL,
-                name: 'photos',
                 snackbar: false,
                 text: '',
                 dialog: false
@@ -66,12 +65,13 @@
         },
         props: {
             label: String,
-            fileName: String
+            fileName: String,
+            dir: String
         },
         methods: {
             save(formData) {
                 this.currentStatus = STATUS_SAVING
-                axios.post('/api/files/photos/upload', formData)
+                axios.post(`/api/files/${this.dir}/upload`, formData)
                     .then(res => {
                         if (this.uploaded) {
                             axios.post('/api/files/photos/remove', { name: this.uploaded })

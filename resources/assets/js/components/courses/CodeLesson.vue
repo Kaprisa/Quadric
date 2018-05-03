@@ -47,9 +47,8 @@
                     mode: 'text/css',
                     ext: 'css',
                     code:
-                        `body { color: #ff0000; }
-                         h1 { font-size: 40px; }
-                       `,
+`body { color: #ffffff; }
+h1 { font-size: 40px; }`,
                     color: 'red'
                 },
                 {

@@ -53,7 +53,7 @@ Route::post('/php/query', 'DataController@php_query');
 
 Route::get('/user', 'UsersController@get');
 Route::get('/users', 'UsersController@getAll');
-Route::put('/user/avatar', 'UsersController@avatar');
+Route::post('/user/avatar', 'UsersController@avatar');
 Route::put('/user/profile', 'UsersController@profile');
 Route::post('/user/courses/add', 'UsersController@addCourse');
 Route::delete('/user/courses/{id}', 'UsersController@removeCourse');

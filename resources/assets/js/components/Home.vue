@@ -1,11 +1,11 @@
 <template>
     <v-layout row wrap>
-        <v-flex xs4 class="mb-3" v-for="c in courses" :key="c.id">
+        <v-flex xs12 sm12 md6 lg6 xl4 class="mb-3" v-for="c in courses" :key="c.id">
             <v-card class="mx-1">
-                <v-card-media :src="`/uploads/photos/${c.image}`" height="200px">
+                <v-card-media :src="`/uploads/courses/${c.image}`" height="200px">
                 </v-card-media>
                 <v-card-title primary-title>
-                   <h3 class="headline mb-0 mr-2">{{ c.name }}</h3>
+                   <h3 class="title mb-0 mr-2">{{ c.name }}</h3>
                     <div v-if="c.editable">
                         <v-icon style="cursor: pointer;" color="info" @click="$router.push(`/courses/${c.id}/edit`)">edit</v-icon>
                         <v-icon style="cursor: pointer;" color="error" @click="removeCourse(c.id)">delete</v-icon>
@@ -42,6 +42,7 @@
             </v-card>
         </v-flex>
         <snackbar :options="snackbar"></snackbar>
+        <confirm :visible="confirm" @ok=""></confirm>
     </v-layout>
 </template>
 
@@ -49,17 +50,20 @@
     import { mapActions, mapGetters } from 'vuex'
     import axios from 'axios'
     import Snackbar from './common/Snackbar'
+    import Confirm from './common/Confirm'
     export default {
         data() {
             return {
-                snackbar: {}
+                snackbar: {},
+                confirm: false
             }
         },
         mounted() {
           this.getCourses()
         },
         components: {
-            Snackbar
+            Snackbar,
+            Confirm
         },
         computed: {
             ...mapGetters({

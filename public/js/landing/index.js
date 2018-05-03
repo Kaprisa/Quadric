@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 912);
+/******/ 	return __webpack_require__(__webpack_require__.s = 939);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -175,7 +175,7 @@ module.exports = function normalizeComponent (
 
 /***/ }),
 
-/***/ 13:
+/***/ 10:
 /***/ (function(module, exports) {
 
 var g;
@@ -203,7 +203,7 @@ module.exports = g;
 
 /***/ }),
 
-/***/ 15:
+/***/ 14:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -11631,7 +11631,7 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13), __webpack_require__(70).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(70).setImmediate))
 
 /***/ }),
 
@@ -13494,7 +13494,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10)))
 
 /***/ }),
 
@@ -13688,7 +13688,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13), __webpack_require__(31)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(10), __webpack_require__(31)))
 
 /***/ }),
 
@@ -31376,7 +31376,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(15)(content, options);
+var update = __webpack_require__(14)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -31512,15 +31512,15 @@ module.exports = __webpack_require__(52);
 
 /***/ }),
 
-/***/ 912:
+/***/ 939:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(913);
+module.exports = __webpack_require__(940);
 
 
 /***/ }),
 
-/***/ 913:
+/***/ 940:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -31540,7 +31540,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 __WEBPACK_IMPORTED_MODULE_1_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_vuetify___default.a);
 
-__WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('landing', __webpack_require__(914));
+__WEBPACK_IMPORTED_MODULE_1_vue___default.a.component('landing', __webpack_require__(941));
 
 var app = new __WEBPACK_IMPORTED_MODULE_1_vue___default.a({
     el: '#app'
@@ -31548,15 +31548,15 @@ var app = new __WEBPACK_IMPORTED_MODULE_1_vue___default.a({
 
 /***/ }),
 
-/***/ 914:
+/***/ 941:
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(915)
+var __vue_script__ = __webpack_require__(942)
 /* template */
-var __vue_template__ = __webpack_require__(916)
+var __vue_template__ = __webpack_require__(943)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -31596,7 +31596,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 915:
+/***/ 942:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -31947,7 +31947,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ 916:
+/***/ 943:
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {

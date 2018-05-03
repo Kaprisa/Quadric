@@ -26,7 +26,9 @@ class User extends Authenticatable
 
     protected $appends = [
         'points',
-        'is_admin'
+        'is_admin',
+        //'my_courses',
+        'analysis'
     ];
 
     public function generateToken()
@@ -62,9 +64,32 @@ class User extends Authenticatable
         return $this->questions()->withPivot(['correct'])->where('correct', true)->sum('points');
     }
 
+    public function getAnalysisAttribute()
+    {
+        $questions = $this->questions();
+        return [
+           'attempts' => (int)$questions->sum('attempts'),
+           'count' => $questions->count(),
+           'points' => (int)$questions->where('correct', true)->sum('points'),
+           'correct'=> $questions->where('correct', true)->count()
+        ];
+        //return $this->questions()->withPivot(['correct'])->where('correct', true)->sum('points');
+    }
+
     public function getIsAdminAttribute()
     {
         return $this->hasRole('admin');
+    }
+
+    public function getMyCoursesAttribute() {
+        return 'hello';
+//       $courses = $this->courses()->get();
+//       return $courses->map(function ($c) {
+//            return collect($c->toArray())
+//                ->only(['name', 'points', 'attempts'])
+//                ->all();
+//        });
+//        return $this->courses()->get()
     }
 
     public function theme() {

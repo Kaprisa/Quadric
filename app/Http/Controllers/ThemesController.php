@@ -16,17 +16,20 @@ class ThemesController extends Controller
 
     public function save(Request $request, $is_user = null)
     {
-        $check = $request->has('id') ? [ 'id' => $request->id ] : [ 'name' => $request->name ];
+        //$check = $request->has('id') ? [ 'id' => $request->id ] : [ 'name' => $request->name ];
+        $user = Auth::guard('api')->user(); //Ну пока так, сразу этот баг с id не заметила потом исправлю(нужно сделать выбор тем, а не сравнивать!)
+        $check = $request->name === $user->email ? [ 'name' => $request->name ] : [ 'name' => $user->email ];
         $theme = Theme::updateOrCreate(
             $check,
             [
-                'name' => $request->name,
+                //'name' => $request->name,
+                'name' => $check['name'],
                 'colors' => json_encode($request->colors),
                 'dark' => $request->dark
             ]
         );
         if ($is_user) {
-            $user = Auth::guard('api')->user();
+            //$user = Auth::guard('api')->user();
             $user->theme_id = $theme->id;
             $user->save();
         }

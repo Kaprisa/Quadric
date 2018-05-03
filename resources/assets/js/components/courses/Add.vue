@@ -55,6 +55,7 @@
                     <v-switch label="Активен?" v-model="course.active" class="mb-1"></v-switch>
                     <photo-uploader
                             :fileName="course.image"
+                            dir="courses"
                             @uploadFile="(file) => course.image = file.name"
                             label="Фото"
                     ></photo-uploader>

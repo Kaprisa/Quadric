@@ -1,5 +1,6 @@
 import Layout from '../components/Layout'
 import Home from '../components/Home'
+import Welcome from '../components/Welcome'
 import Profile from '../components/Profile'
 
 import Course from '../components/courses/Course'
@@ -32,7 +33,8 @@ export default [
 
     { path: '/', component: Layout, children: [
 
-        { path: '/academy', component: Home },
+        { path: '/', component: Welcome },
+        { path: '/academy', component: Welcome },
         { path: '/courses', component: Home },
         { path: '/profile', component: Profile },
         { path: '/analysis/chart', component: Chart },

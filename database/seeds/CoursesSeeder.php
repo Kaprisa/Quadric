@@ -27,7 +27,7 @@ class CoursesSeeder extends Seeder
         $course = Course::Create([
             'name' => 'Алгебра',
             'description' => 'Очень важный курс для настоящих героев!',
-            'image' => 'diff_eq.jpeg',
+            'image' => 'algebra.jpg',
             'category_id' => 1,
             'active' => true,
             'user_id' => 1
@@ -94,7 +94,7 @@ $cos(\varphi)=\frac{x}{r}\implies{x}=r\cos(\varphi)$
 
 $Arg(z)$ определяется с точностью до слагаемого $2\pi{k},k\in{Z}:\space{Arg(z)}=arg(z)+2\pi{k}$, где $arg(z)$ - главное значение аргумента, $arg(z)\in{(-\pi,\pi]\lor{[0,2\pi)}}$
 
-  ->$arg(z)=\begin{cases}\arctg\frac{y}{x},z\in{1,4}\space\text{четверти}\\\pi+\arctg\frac{y}{x},z\in{2}\space\text{четверти}\\-\pi+\arctg\frac{y}{x},z\in{3}\space\text{четверти}\end{cases}$<-
+  ->$arg(z)=\begin{cases}\arctg\frac{y}{x},z\in{1,4}\space\text{четверти}\\\pi+\arctg\frac{y}{x},z\in{2}\space\text{четверти}\\\-\pi+\arctg\frac{y}{x},z\in{3}\space\text{четверти}\end{cases}$<-
 ',
             'examples' => ''
         ]);
@@ -232,7 +232,7 @@ $z_1-z_2=(x_1+iy_1)-(x_2+iy_2)=(x_1-x_2)+i(y_1-y_2)$
 	$z_1z_2=(x_1+iy_1)(x_2+iy_2)=x_1x_2+ix_1y_2+iy_1x_2-y_1y_2=(x_1x_2-y_1y_2)+i(x_1y_2+y_1x_2)$
 2) В тригонометрической форме:
 <br/>
-	->$\begin{aligned}z_1z_2=&r_1(\cos(\varphi_1)+isin(\varphi_1))r_2(\cos(\varphi_2)+isin(\varphi_2))\\=&r_1r_2(\cos(\varphi_1)\cos(\varphi_2)+i\cos(\varphi_1)\sin(\varphi_2)+i\cos(\varphi_2)\sin(\varphi_1)-\sin(\varphi_1)\sin(\varphi_2))\\=&r_1r_2((\cos(\varphi_1)\cos(\varphi_2)-\sin(\varphi_1)\sin(\varphi_2))+i(\cos(\varphi_1)\sin(\varphi_2)+\cos(\varphi_2)\sin(\varphi_1))\\=&r_1r_2(\cos(\varphi_1+\varphi_2)+i\sin(\varphi_1+\varphi_2))\end{aligned}$<-
+	->$\begin{aligned}z_1z_2=&r_1(\cos(\varphi_1)+isin(\varphi_1))r_2(\cos(\varphi_2)+isin(\varphi_2))\\\=&r_1r_2(\cos(\varphi_1)\cos(\varphi_2)+i\cos(\varphi_1)\sin(\varphi_2)+i\cos(\varphi_2)\sin(\varphi_1)-\sin(\varphi_1)\sin(\varphi_2))\\\=&r_1r_2((\cos(\varphi_1)\cos(\varphi_2)-\sin(\varphi_1)\sin(\varphi_2))+i(\cos(\varphi_1)\sin(\varphi_2)+\cos(\varphi_2)\sin(\varphi_1))\\\=&r_1r_2(\cos(\varphi_1+\varphi_2)+i\sin(\varphi_1+\varphi_2))\end{aligned}$<-
   
 ### Деление
 
@@ -252,7 +252,7 @@ $z^n=r^n(\cos(n\varphi)+i\sin(n\varphi))$ - формула Муавра
 1) База: при n=2, получаем верное тождество.
 2) Шаг: Пусть равенство справедливо для n-1, покажем что оно справедливо для n,
 
-->$\begin{aligned}z^n\\&=z^{n-1}z\\&=r^{n-1}(\cos((n-1)\varphi)+i\sin((n-1)\varphi))r(\cos(\varphi)+i\sin(\varphi))\\&=r^{n-1+1}(\cos(n\varphi+\varphi)+i\sin(n\varphi+\varphi))\\&=r^n(\cos(n\varphi)+i\sin(n\varphi))\end{aligned}$<-
+->$\begin{aligned}z^n\\\&=z^{n-1}z\\\&=r^{n-1}(\cos((n-1)\varphi)+i\sin((n-1)\varphi))r(\cos(\varphi)+i\sin(\varphi))\\\&=r^{n-1+1}(\cos(n\varphi+\varphi)+i\sin(n\varphi+\varphi))\\\&=r^n(\cos(n\varphi)+i\sin(n\varphi))\end{aligned}$<-
 
 ### Извлечение корня
 
@@ -265,7 +265,7 @@ $\sqrt[n]{z}=\sqrt[n]{\cos(\varphi)+i\sin(\varphi)}=\sqrt[n]{r}(\cos(\frac{\varp
 
 $r(\cos(\varphi)+i\sin(\varphi))=t^n(\cos(n\psi)+i\sin(n\psi))$, 
 
-$\begin{cases}t^n=r\\n\psi=\varphi+2\pi{k},k\in{Z}\end{cases},\space\begin{cases}t=\sqrt[n]{r}\\\psi=\frac{\varphi+2\pi{k}}{n}\end{cases}$, 
+$\begin{cases}t^n=r\\\n\psi=\varphi+2\pi{k},k\in{Z}\end{cases},\space\begin{cases}t=\sqrt[n]{r}\\\psi=\frac{\varphi+2\pi{k}}{n}\end{cases}$, 
 
 Таким образом $\sqrt[n]{z}=\sqrt[n]{r}(\cos(\frac{\varphi+2\pi{k}}{n})+i\sin(\frac{\varphi+2\pi{k}}{n})),\space{k}=\overline{0,n-1}$
 
@@ -286,7 +286,7 @@ $k=\overline{0,n-1}$, так как дальше корни будут повт�
 4. Пусть $f(x)\in{R}[x]$, тогда $f(\overline{z})=\overline{f(z)}$
 	 
 	->$f(x)=a_nx^n+..+a_1x+a_0,\space{a}_i\in{R},i=\overline{0,n}$<br/>
-  $\begin{aligned}&f(\overline{z})\\&=a_n\overline{z^n}+..+a_1\overline{z}+a_0\\&=\lbrace{\overline{a_i}=a_j}\rbrace\\&=\overline{a_n}\space\overline{z^n}+..+\overline{a_1}\space\overline{z}+\overline{a_0}\\&=\overline{a_nz^n}+..+\overline{a_1z}+a_0\\&=\overline{a_nz^n+..+a_1z+a_0}\\&=\overline{f(z)}\end{aligned}$<-
+  $\begin{aligned}&f(\overline{z})\\\&=a_n\overline{z^n}+..+a_1\overline{z}+a_0\\\&=\lbrace{\overline{a_i}=a_j}\rbrace\\\&=\overline{a_n}\space\overline{z^n}+..+\overline{a_1}\space\overline{z}+\overline{a_0}\\\&=\overline{a_nz^n}+..+\overline{a_1z}+a_0\\\&=\overline{a_nz^n+..+a_1z+a_0}\\\&=\overline{f(z)}\end{aligned}$<-
   
 5. Если $z=a+ib$ - корень многочлена $f(x)\in{R[x]}$, то $\overline{z}=a-ib$, также корень $f(x)$.
 	<br/>$f(\overline{z})=\overline{f(z)}=\overline{0}=0$'
@@ -462,7 +462,7 @@ $\blacktriangleright$  Очевидно, что линейная функция 
 **Свойства:**
 1) При $y=0\quad{}e^z=e^x$.
 2) $e^{z_1}e^{z_2}=e^{z_1+z_2}$
-	$\begin{aligned}\blacktriangleright\quad{e}^{z_1}e^{z_2}\\&=e^{x_1}(\cos(y_1)+i\sin(y_1))e^{x_2}(\cos(y_2)+i\sin(y_2))\\&=e^{x_1+x_2}(\cos(y_1+y_2)+i\sin(y_1+y_2))\\&=e^{z_1+z_2}\end{aligned}$.
+	$\begin{aligned}\blacktriangleright\quad{e}^{z_1}e^{z_2}\\\&=e^{x_1}(\cos(y_1)+i\sin(y_1))e^{x_2}(\cos(y_2)+i\sin(y_2))\\\&=e^{x_1+x_2}(\cos(y_1+y_2)+i\sin(y_1+y_2))\\\&=e^{z_1+z_2}\end{aligned}$.
 3) $e^z$ - периодическая функция с периодом $T=2\pi{i}$.
 	$\blacktriangleright\qquad{e}^{z+2\pi{i}}=e^x(\cos(y+2\pi)+i\sin(y+2\pi))=e^x(\cos(y)+i\sin(y))=e^z$
   
@@ -589,7 +589,7 @@ $sh(z)=\frac{e^z-e^{-z}}{2},ch(z)=\frac{e^z+e^{-z}}{2},th(z)=\frac{sh(z)}{ch(z)}
   
 Если $G=<G,*>$, то для $g\in{G}$, введем понятие m-й степени:
 
-$g^m=\begin{cases}\underbrace{g*..*g}_{\text{m раз}},m>0\\e,\qquad{}m=0\\\underbrace{g^{-1}*..*g^{-1}}_{\text{-m раз}},m<0\end{cases}$
+$g^m=\begin{cases}\underbrace{g*..*g}_{\text{m раз}},m>0\\\e,\qquad{}m=0\\\underbrace{g^{-1}*..*g^{-1}}_{\text{-m раз}},m<0\end{cases}$
 
 Данное определение корректно в силу обобщенной ассоциативности.
 
@@ -642,7 +642,7 @@ $g^m=\begin{cases}\underbrace{g*..*g}_{\text{m раз}},m>0\\e,\qquad{}m=0\\\und
         $course = Course::Create([
             'name' => 'Дифференциальные уравнения',
             'description' => 'Очень важный курс для настоящих героев!',
-            'image' => 'diff_eq.jpeg',
+            'image' => 'diff_eq.jpg',
             'category_id' => 1,
             'active' => true,
             'user_id' => 1
@@ -692,7 +692,7 @@ $g^m=\begin{cases}\underbrace{g*..*g}_{\text{m раз}},m>0\\e,\qquad{}m=0\\\und
    y=\alpha(t)
 \end{cases}$, $x\in(a,b), t\in(\omega,\eta), a=\beta(\omega), b=\alpha(\eta)$
 ',
-            'video' => 'hello.mov'
+            //'video' => 'hello.mov'
         ]);
 
         $questions = [
@@ -1098,11 +1098,11 @@ $\frac{dp}{p}=\frac{dy}{y}\implies{p}=Cy\iff{y\'}=Cy\iff\frac{dy}{dx}=Cy\iff\fra
 Тогда $y\'=ze^{\int{zdx}},\quad{y}\'\'=e^{\int{zdx}}(z^2+z\')$, теперь подставляем в уравнение
 
 $\begin{aligned}
-&x^2e^{\int{zdx}}e^{\int{zdx}}(z^2+z\')=(e^{\int{zdx}}+xze^{\int{zdx}})^2\\
-&x^2(z^2+z\')=(1+xz)^2\\
-&x^2z\'=1+2xz{}\\
-&z\'-\frac{2}{x}z-\frac{1}{x^2}=0\\
-&z=e^{\int{\frac{2}{x}dx}}(C+\int{\frac{1}{x^2}e^{\int{-\frac{2}{x}dx}}})=x^2(C-\frac{1}{3}x^{-3})=Cx^2-\frac{1}{3x}\\
+&x^2e^{\int{zdx}}e^{\int{zdx}}(z^2+z\')=(e^{\int{zdx}}+xze^{\int{zdx}})^2\\\
+&x^2(z^2+z\')=(1+xz)^2\\\
+&x^2z\'=1+2xz{}\\\
+&z\'-\frac{2}{x}z-\frac{1}{x^2}=0\\\
+&z=e^{\int{\frac{2}{x}dx}}(C+\int{\frac{1}{x^2}e^{\int{-\frac{2}{x}dx}}})=x^2(C-\frac{1}{3}x^{-3})=Cx^2-\frac{1}{3x}\\\
 &y=e^{\int{Cx^2-\frac{1}{3x}}}=C_1e^{\frac{1}{3}Cx^3+\frac{1}{3}ln(x)}=\sqrt[3]{x}e^{\frac{1}{3}Cx^3}
 \end{aligned}$
 
@@ -1493,7 +1493,7 @@ $y=e^{-x}((-x+C_1)cos(x)+(-\ln|\sin(x)|+C_2)\sin(x))$'
         $course = Course::Create([
             'name' => 'Дискретная математика',
             'description' => 'Очень важный курс для настоящих героев!',
-            'image' => 'diff_eq.jpeg',
+            'image' => 'disc_math.jpg',
             'category_id' => 1,
             'active' => true,
             'user_id' => 1
@@ -1549,7 +1549,7 @@ $E^n=\lbrace{(v_1,..,v_n)|a_i\in\lbrace{0,1}\rbrace; 1\leq{i}\leq{n}}\rbrace$
 **Теорема.** Для того , чтобы код исправлял любые ошибки веса $w$, минимальное расстояние должно быть не меньше $2*w+1$. Для того чтобы код обнаруживал любые ошибки веса $w$, минимальное расстояние должно быть не меньше $w+1$.
 
 *Доказательство*: Пусть d - минимальное расстояние кода C, s - сфера, радиус которой больше 0 и меньше $w+1$, а центр находится в кодовом слове v. Если $d\geq{w+1}$, то на s нет других кодовых слов. Если же $d\geq{2*w+1}$, то от точек s, расстояние до v меньше расстояния до других кодовых слов. ',
-            'video' => 'defs.mp4'
+            //'video' => 'defs.mp4'
         ]);
 
         $questions = [
@@ -2503,8 +2503,8 @@ $f:{X}^{\infty}\to{Y}^{\infty}$ - **автоматная**, если $\exists{A}
 $\forall\alpha^{\infty}={x(1)x(2)..x(t)..}\in{X}^{\infty}\space\exists{f_A(\alpha^\infty)=\beta^\infty=y(1)y(2)..y(t)..}:$
 
 ->$\begin{cases}
-	y(t)=\lambda(x(t),q(t-1))\\
-  q(t)=\delta(x(t),q(t-1))\\
+	y(t)=\lambda(x(t),q(t-1))\\\
+  q(t)=\delta(x(t),q(t-1))\\\
   q(0)=q_0
 \end{cases}$<-
 
@@ -2526,14 +2526,14 @@ $f$ осуществляется конечным автоматом $A=\lbrace{
 Найдем таблицы функций $\delta,\lambda$ и канонические уравнения
 
 $\begin{array}{|c|c|c|c|}
-   x\in{X} & q\in{Q} & \delta & \lambda \\
-   0 & 0 & 0 & 0\\
-   0 & 1 & 1 & 0\\
-   1 & 0 & 0 & 1\\
+   x\in{X} & q\in{Q} & \delta & \lambda \\\
+   0 & 0 & 0 & 0\\\
+   0 & 1 & 1 & 0\\\
+   1 & 0 & 0 & 1\\\
    1 & 1 & 1 & 1
 \end{array},\space\begin{cases}
-	y(t)=q(t-1)\\
-  q(t)=x(t)\\
+	y(t)=q(t-1)\\\
+  q(t)=x(t)\\\
   q(0)=0
 \end{cases}$
 
@@ -2578,7 +2578,7 @@ $x(T_0+1)=x(T_O+1+T)=x(T_0+1+2T)=..=x(T_0+1+rT)$.
         $course = Course::Create([
             'name' => 'Операционные системы',
             'description' => 'Очень важный курс для настоящих героев!',
-            'image' => 'diff_eq.jpeg',
+            'image' => 'os.jpg',
             'category_id' => 1,
             'active' => true,
             'user_id' => 1
@@ -2631,7 +2631,7 @@ $x(T_0+1)=x(T_O+1+T)=x(T_0+1+2T)=..=x(T_0+1+rT)$.
 + **Сетевые** предназначены для управления ресурсами компьютеров, объединенных в сеть с целью совместного использования данных, и предоставляют мощные средства разграничения доступа к данным в рамках обеспечения их целостности и сохранности, а также множество сервисных возможностей по использованию сетевых ресурсов.
 + **Локальные** могут использоваться на любом персональном компьютере, а также на отдельном компьютере, подключенном к сети в качестве рабочей станции или клиента.
 ',
-            'video' => 'defs.mp4'
+            //'video' => 'defs.mp4'
         ]);
 
         $questions = [

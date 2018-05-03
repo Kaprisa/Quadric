@@ -68,6 +68,11 @@ class Course extends Model
         return $this->questions->sum('points');
     }
 
+    public function getAttemptsAttribute()
+    {
+        return $this->questions->sum('attempts');
+    }
+
     public function getUserPointsAttribute()
     {
         return $this->questions->where('correct', true)->sum('points');

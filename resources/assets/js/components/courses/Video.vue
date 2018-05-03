@@ -1,150 +1,233 @@
 <template>
-    <v-card>
-        <v-system-bar status color="primary" dark>
-            <v-spacer></v-spacer>
-            <v-icon>network_wifi</v-icon>
-            <v-icon>signal_cellular_null</v-icon>
-            <v-icon>battery_full</v-icon>
-            <span>12:30</span>
-        </v-system-bar>
-        <video style="margin: 0 auto;" ref="video" poster="/video/poster.jpg">
-            <source v-if="course.course" :src="`/video/${course.course.name}/${props.video}`" type="video/mp4">
-            <source v-if="course.course" :src="`/video/${course.course.name}/${props.video}`" type="video/mov">
-            Ваш браузер не поддерживает html5 видео.
-        </video><!--width="100%"-->
-        <v-toolbar card color="primary" >
-            <v-icon
-                    @click="changePlay()"
-                    dense
-                    style="cursor: pointer;"
-                    size="30px"
-            >
-                {{ play ? 'pause' : 'play_arrow'}}
-            </v-icon>
-            <div style="color: white; flex-basis: 50px;" class="body-1">{{ time }}</div>
-            <v-progress-linear @click="changeVideoTrack" class="ml-1" color="accent" v-model="val"></v-progress-linear>
-            <v-icon @click="fullScreen()" dark>fullscreen</v-icon>
-            <v-menu
-                    offset-x
-                    :close-on-content-click="false"
-                    :nudge-width="200"
-                    v-model="menu"
-            >
-                <v-icon slot="activator" dark>settings</v-icon>
-                <v-card>
-                    <v-list>
-                        <v-list-tile avatar>
-                            <v-list-tile-content>
-                                <v-list-tile-title>Настройки</v-list-tile-title>
-                                <v-list-tile-sub-title>Настройте как вам удобно</v-list-tile-sub-title>
-                            </v-list-tile-content>
-                            <v-list-tile-action>
-                                <v-btn
-                                        icon
-                                >
-                                    <v-icon>favorite</v-icon>
-                                </v-btn>
-                            </v-list-tile-action>
-                        </v-list-tile>
-                    </v-list>
-                    <v-divider></v-divider>
-                    <!--<v-list>-->
-                        <!--<v-list-tile>-->
-                            <!--<v-list-tile-action>-->
-                                <!--<v-switch v-model="message" color="purple"></v-switch>-->
-                            <!--</v-list-tile-action>-->
-                            <!--<v-list-tile-title>Enable messages</v-list-tile-title>-->
-                        <!--</v-list-tile>-->
-                        <!--<v-list-tile>-->
-                            <!--<v-list-tile-action>-->
-                                <!--<v-switch v-model="hints" color="purple"></v-switch>-->
-                            <!--</v-list-tile-action>-->
-                            <!--<v-list-tile-title>Enable hints</v-list-tile-title>-->
-                        <!--</v-list-tile>-->
-                    <!--</v-list>-->
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="accent" flat @click="menu = false">Ок</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-menu>
-        </v-toolbar>
-    </v-card>
+    <div style="text-align: center;">
+        <video-player  class="vjs-custom-skin"
+                       ref="player"
+                       :options="playerOptions"
+                       :playsinline="true"
+        ></video-player>
+    </div>
 </template>
+
 <script>
-    import { mapGetters } from 'vuex'
+    import { videoPlayer } from 'vue-video-player'
     export default {
-        name: 'v-video',
+        components: {
+            videoPlayer
+        },
         data() {
             return {
-                val: 0,
-                play: false,
-                time: '00:00',
-                menu: false,
-                video: null,
-                m: false
-            }
-        },
-        mounted() {
-            const { video } = this.$refs
-            this.video = video
-            video.addEventListener('timeupdate', () => {
-                if (!this.m) {
-                    let currentTime = video.currentTime
-                    let minutes = Math.floor( currentTime / 60 )
-                    this.time =  `${minutes > 9 ? '' : 0}${minutes}:${currentTime - minutes > 9 ? '' : 0}${Math.floor(currentTime - minutes)}`
-                    this.val = (currentTime * 100) / video.duration
+                playerOptions: {
+                    height: '700',
+                    autoplay: false,
+                    muted: false,
+                    language: 'ru',
+                    playbackRates: [0.7, 1.0, 1.5, 2.0],
+                    sources: [
+                        {
+                            type: "video/mp4",
+                            src: `/video/${this.course}/${this.video}`,
+                        },
+                        {
+                            type: "video/mov",
+                            src: `/video/${this.course}/${this.video}`,
+                        }
+                    ],
+                    poster: "/video/poster.jpg",
                 }
-            })
-            video.addEventListener('ended', () => {
-                this.play = false
-                this.time = '00:00'
-            })
+            }
         },
         props: {
-            props: Object
+           video: String,
+           course: String
         },
         computed: {
-            ...mapGetters({
-                course: 'course'
-            })
-        },
-        methods: {
-            changePlay() {
-                if (this.play) {
-                    this.video.pause()
-                    this.play = false
-                } else {
-                    this.video.play()
-                    this.play = true
-                }
-            },
-            fullScreen() {
-                if (this.video.requestFullscreen) {
-                    this.video.requestFullscreen();
-                } else if (this.video.mozRequestFullScreen) {
-                    this.video.mozRequestFullScreen();
-                } else if (this.video.webkitRequestFullscreen) {
-                    this.video.webkitRequestFullscreen();
-                }
-            },
-            changeVideoTrack(e) {
-                let rect = e.target.getBoundingClientRect()
-                let a = rect.x
-                let b = e.screenX
-                let total = rect.width
-                let to = (b - a) * 100 / total
-                this.m = true
-                this.video.pause()
-                this.video.currentTime = (this.video.duration * to) / 100
-                this.video.play()
+            player() {
+                return this.$refs.player.player
             }
-        }
+        },
+        methods: {}
     }
 </script>
 
-<style lang="sass" scoped>
-    .icon
-        cursor: pointer
-        margin: 5px
+<style>
+    .vjs-custom-skin > .video-js {
+        width: 100%;
+        font-family: "PingFang SC","Helvetica Neue","Hiragino Sans GB","Segoe UI","Microsoft YaHei","微软雅黑",sans-serif;
+    }
+
+    .vjs-custom-skin > .video-js .vjs-menu-button-inline.vjs-slider-active,.vjs-custom-skin > .video-js .vjs-menu-button-inline:focus,.vjs-custom-skin > .video-js .vjs-menu-button-inline:hover,.video-js.vjs-no-flex .vjs-menu-button-inline {
+        width: 10em
+    }
+
+    .vjs-custom-skin > .video-js .vjs-controls-disabled .vjs-big-play-button {
+        display: none!important
+    }
+
+    .vjs-custom-skin > .video-js .vjs-control {
+        width: 3em
+    }
+
+    .vjs-custom-skin > .video-js .vjs-control.vjs-live-control{
+        width: auto;
+        padding-left: .5em;
+        letter-spacing: .1em;
+    }
+
+    .vjs-custom-skin > .video-js .vjs-menu-button-inline:before {
+        width: 1.5em
+    }
+
+    .vjs-menu-button-inline .vjs-menu {
+        left: 3em
+    }
+
+    .vjs-paused.vjs-has-started.vjs-custom-skin > .video-js .vjs-big-play-button,.video-js.vjs-ended .vjs-big-play-button,.video-js.vjs-paused .vjs-big-play-button {
+        display: block
+    }
+
+    .vjs-custom-skin > .video-js .vjs-load-progress div,.vjs-seeking .vjs-big-play-button,.vjs-waiting .vjs-big-play-button {
+        display: none!important
+    }
+
+    .vjs-custom-skin > .video-js .vjs-mouse-display:after,.vjs-custom-skin > .video-js .vjs-play-progress:after {
+        padding: 0 .4em .3em
+    }
+
+    .video-js.vjs-ended .vjs-loading-spinner {
+        display: none;
+    }
+
+    .video-js.vjs-ended .vjs-big-play-button {
+        display: block !important;
+    }
+
+    .video-js.vjs-ended .vjs-big-play-button,.video-js.vjs-paused .vjs-big-play-button,.vjs-paused.vjs-has-started.vjs-custom-skin > .video-js .vjs-big-play-button {
+        display: block
+    }
+
+    .vjs-custom-skin > .video-js .vjs-big-play-button {
+        top: 50%;
+        left: 50%;
+        margin-left: -1.5em;
+        margin-top: -1em
+    }
+
+    .vjs-custom-skin > .video-js .vjs-big-play-button {
+        background-color: rgba(0,0,0,0.45);
+        font-size: 3.5em;
+        /*border-radius: 50%;*/
+        height: 2em !important;
+        line-height: 2em !important;
+        margin-top: -1em !important
+    }
+
+    .video-js:hover .vjs-big-play-button,.vjs-custom-skin > .video-js .vjs-big-play-button:focus,.vjs-custom-skin > .video-js .vjs-big-play-button:active {
+        background-color: rgba(36,131,213,0.9)
+    }
+
+    .vjs-custom-skin > .video-js .vjs-loading-spinner {
+        border-color: rgba(36,131,213,0.8)
+    }
+
+    .vjs-custom-skin > .video-js .vjs-control-bar2 {
+        background-color: #000000
+    }
+
+    .vjs-custom-skin > .video-js .vjs-control-bar {
+        /*background-color: rgba(0,0,0,0.3) !important;*/
+        color: #ffffff;
+        font-size: 14px
+    }
+
+    .vjs-custom-skin > .video-js .vjs-play-progress,.vjs-custom-skin > .video-js  .vjs-volume-level {
+        background-color: #2483d5
+    }
+
+    .vjs-custom-skin > .video-js .vjs-play-progress:before {
+        top: -0.3em;
+    }
+
+    .vjs-custom-skin > .video-js .vjs-progress-control:hover .vjs-progress-holder {
+        font-size: 1.3em;
+    }
+
+    .vjs-menu-button-popup.vjs-volume-menu-button-vertical .vjs-menu {
+        left: 0em;
+    }
+
+    .vjs-custom-skin > .video-js .vjs-menu li {
+        padding: 0;
+        line-height: 2em;
+        font-size: 1.1em;
+        font-family: "PingFang SC","Helvetica Neue","Hiragino Sans GB","Segoe UI","Microsoft YaHei","微软雅黑",sans-serif;
+    }
+
+    .vjs-custom-skin > .video-js .vjs-time-tooltip,
+    .vjs-custom-skin > .video-js .vjs-mouse-display:after,
+    .vjs-custom-skin > .video-js .vjs-play-progress:after {
+        border-radius: 0;
+        font-size: 1em;
+        padding: 0;
+        width: 3em;
+        height: 1.5em;
+        line-height: 1.5em;
+        top: -3em;
+    }
+
+    .vjs-custom-skin > .video-js .vjs-menu-button-popup .vjs-menu {
+        width: 5em;
+        left: -1em;
+    }
+
+    .vjs-custom-skin > .video-js .vjs-menu-button-popup.vjs-volume-menu-button-vertical .vjs-menu {
+        left: 0;
+    }
+
+    .vjs-custom-skin > .video-js .vjs-control-bar .vjs-resolution-button .vjs-menu {
+        /*order: 4;*/
+    }
+
+    /*排序顺序*/
+    .vjs-custom-skin > .video-js .vjs-control-bar .vjs-play-control {
+        order: 0;
+    }
+
+    .vjs-custom-skin > .video-js .vjs-control-bar .vjs-time-control {
+        min-width: 1em;
+        padding: 0;
+        margin: 0 .1em;
+        text-align: center;
+        display: block;
+        order: 1;
+    }
+
+    .vjs-custom-skin > .video-js .vjs-control-bar .vjs-playback-rate .vjs-playback-rate-value{
+        font-size: 1.2em;
+        line-height: 2.4;
+    }
+
+    .vjs-custom-skin > .video-js .vjs-progress-control.vjs-control {
+        order: 2;
+    }
+
+    .vjs-custom-skin > .video-js .vjs-control-bar .vjs-volume-menu-button {
+        order: 3;
+    }
+
+    .vjs-custom-skin > .video-js .vjs-control-bar .vjs-resolution-button {
+        order: 4;
+    }
+
+    .vjs-custom-skin > .video-js .vjs-control-bar .vjs-resolution-button .vjs-resolution-button-label {
+        display: block;
+        line-height: 3em;
+    }
+
+    .vjs-custom-skin > .video-js .vjs-control-bar .vjs-playback-rate {
+        order: 5;
+    }
+
+    .vjs-custom-skin > .video-js .vjs-control-bar .vjs-fullscreen-control {
+        order: 6;
+    }
 </style>

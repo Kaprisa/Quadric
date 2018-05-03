@@ -3,7 +3,7 @@
         <v-expansion-panel>
             <v-expansion-panel-content :value="false" v-if="lesson.video">
                 <div slot="header">Смотреть видео</div>
-                <v-video :props="{ video: lesson.video }"></v-video>
+                <v-video v-if="course.course && lesson.video" :course="course.course.name" :video="lesson.video"></v-video>
             </v-expansion-panel-content>
             <v-expansion-panel-content :value="false" v-if="lesson.text">
                 <div slot="header">Конспект лекции</div>
@@ -75,7 +75,8 @@
         computed: {
             ...mapGetters({
                 lesson: 'lesson',
-                loadingLesson: 'loadingLesson'
+                loadingLesson: 'loadingLesson',
+                course: 'course'
             })
         },
         methods: {
