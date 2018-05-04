@@ -89,7 +89,13 @@
         },
         methods: {
             check(q) {
-                const isCorrect = q.type === 'task' ? q.answer.replace(/\s/g,'').toLowerCase() === q.user_answer.replace(/\s/g,'').toLowerCase() : q.answers.every(a => Boolean(a.checked) === Boolean(a.correct));
+                let isCorrect = false
+                if (q.type === 'task') {
+                    const answers = q.answer.split(';')
+                    isCorrect = answers.some(a => a.replace(/\s/g,'').toLowerCase() === q.user_answer.replace(/\s/g,'').toLowerCase())
+                } else {
+                   isCorrect = q.answers.every(a => Boolean(a.checked) === Boolean(a.correct))
+                }
                 this.snackbar = {
                     visible: true,
                     text: isCorrect ? 'Правильно!' : 'Не правильно:( Подумайте немного.. У вас все получится! ',

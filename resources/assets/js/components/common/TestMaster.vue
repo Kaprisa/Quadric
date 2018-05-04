@@ -42,7 +42,7 @@
                     <v-switch label="Активен?" v-model="q.active"></v-switch>
                     <div v-if="q.type === 'task'">
                         <v-text-field label="Контроллер (если нужен)" v-model="q.controller"></v-text-field>
-                        <v-text-field label="Ответ" v-model="q.answer"></v-text-field>
+                        <v-text-field placeholder="Если правильных ответов несколько, разделите их ';', например 1+k;k+1" label="Ответ" v-model="q.answer"></v-text-field>
                     </div>
                     <div v-else>
                         <v-card-title>
