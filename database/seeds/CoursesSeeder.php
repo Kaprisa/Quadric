@@ -1808,9 +1808,205 @@ $du=0,u=C$, тогда общий интеграл уравнения $(1)$:
 $(x_0,y_0)$ - любая фиксированная точка из области задания уравнения.
 
 ★ Если задана задача Коши, то в качестве $(x_0,y_0)$ удобно брать начальную точку.',
+            'examples' => '1) Решить уравнение $(2-9xy^2)xdx+(4y^2-6x^3)ydy=0$.
+
+Данное уравнение является уравнением в полных дифференциалах, так как
+->$\frac{\partial{M(x,y)}}{\partial{y}}=-18x^2y=\frac{\partial{N(x,y)}}{\partial{x}}$<-
+
+Значит существует такая функция $u=u(x,y)$ что $du=(2-9xy^2)xdx+(4y^2-6x^3)ydy$
+
+Восстановим функцию $u$, для этого решим систему:
+
+$\begin{cases}\frac{\partial{u}}{\partial{x}}=(2-9xy^2)x\\\frac{\partial{u}}{\partial{y}}=(4y^2-6x^3)y\end{cases}$
+
+Из первого уравнения системы находим $u$ с точностью до произвольной функции $\varphi(y)$:
+->$u=\int{(2-9xy^2)xdx+\varphi(y)}$<-
+->$u=x^2-3x^3y^2+\varphi(y)\quad(1)$<-
+
+Теперь, для нахождения $\varphi(y)$, подставляем $u$ во второе уравнение системы:
+->$-6x^3y+\varphi\'(y)=4y^3-6x^3y$<-
+->$\varphi\'(y)=4y^3$<-
+->$\varphi(y)=y^4+\overline{C}$<-
+
+Теперь подставим найденную функцию $\varphi(y)$ в $(1)$:
+->$u=x^2-3x^3y^2+y^4+\overline{C}$<-
+
+Тогда общим интегралом дифференциального уравнения будет 
+->$x^2-3x^3y^2+y^4=C$<-'
         ]);
 
         $questions = [
+            [
+                'q' => 'Какие уравнения являются уравнениями в полных дифференциалах?',
+                'a' => [
+                    '$\frac{3x^2+y^2}{y^2}dx-\frac{2x^3+5y}{y^3}dy=0$',
+                    '$\frac{y}{x}dx+x^3dy=0$',
+                    '$(e^{-y}+x)dx-(3y^2+xe^{-y})dy=0$',
+                    '$(\frac{x}{siny}+8)dx+\frac{cosy(x^2+1)}{cos2y-1}dy=0$',
+                    '$2y(y+\sqrt{x^2-y})dx-\sqrt{x^2-y}dy=0$',
+                    '$(cos(y)+y^2sin(2x))dx=2ycos^2xdy$',
+                    '$\frac{y}{x}dx+(y^7+lnx)dy=0$',
+                    '$\frac{y^2-x^3}{y^2}dx-\frac{2x^3+5y}{y^3}dy=0$',
+                ],
+                'c' => [true, false, false, true, false, false, true, false]
+            ]
+        ];
+        $this->create_questions($lesson, $questions);
+
+        $lesson = Lesson::Create([
+            'block_id' => $blocks[0]->id,
+            'active' => true,
+            'name' => 'Интегрирующий множитель',
+            'resources' => json_encode(['http:://hello.ru']),
+            'sort' => 1,
+            'text' => 'Если уравнение $M(x,y)dx+N(x,y)dy=0\quad(1)$, не является уравнением в полных дифференциалах, то $\exists\space\omega(x,y),$ после умножения на которую уравнение $(1)$ превращается в уравнение в полных дифференциалах.
+
+Если $\omega(x,y)M(x,y)dx+\omega(x,y)N(x,y)dy=0$ - уравнение в полных дифференциалах, то $\omega(x,y)$ называется интегрирующим множителем уравнения $(1)$.
+
+Рассмотрим некоторые частные случаи нахождения интегрирующего множителя.
+
+1) Пусть $\exists\space\omega(x)$, тогда уравнение
+
+->$\omega(x)M(x,y)dx+\omega(x)N(x,y)dy=0$<-
+является уравнением в полных дифференциалах тогда и только тогда, когда
+
+->$\frac{\partial{(\omega(x)M(x,y)})}{\partial{y}}=\frac{\partial{(\omega(x)N(x,y)})}{\partial{x}}$<-
+Откуда
+->$\omega(x)\frac{\partial{M(x,y)}}{\partial{y}}=\frac{\partial\omega(x)}{\partial{x}}N(x,y)+\omega(x)\frac{\partial{N(x,y)}}{\partial{x}}$<-
+->$\frac{\partial\omega(x)}{\partial{x}}=\omega(x)\frac{\frac{\partial{M(x,y)}}{\partial{y}}-\frac{\partial{N(x,y)}}{\partial{x}}}{N(x,y)}$<-
+
+Левая часть последнего равенства зависит только от $x$, поэтому для существования интегрирующего множителя $\omega(x)$ необходимо и достаточно, чтобы и правая часть этого равенства зависела только от $x$.
+
+Обозначим $\frac{\frac{\partial{M(x,y)}}{\partial{y}}-\frac{\partial{N(x,y)}}{\partial{x}}}{N(x,y)}=\varphi(x)\quad(2)$, тогда  
+->$\frac{\partial\omega(x)}{\omega(x)}=\varphi(x)dx$<-
+->$\ln\omega(x)=\int{\varphi(x)dx}+C$<-
+->$\omega(x)=\overline{C}e^{\int{\varphi(x)dx}}$<-
+->$\omega(x)=e^{\int{\varphi(x)dx}}\quad(3)$<-
+
+Если у уравнения есть интегрирующий множитель, зависящий от $x$, и это определяется по формуле $(2)$, то он равен $(3)$.
+
+2) Пусть $\exists\space\omega(y)$, тогда уравнение
+
+->$\omega(y)M(x,y)dx+\omega(y)N(x,y)dy=0$<-
+является уравнением в полных дифференциалах тогда и только тогда, когда
+
+->$\frac{\partial{(\omega(y)M(x,y)})}{\partial{y}}=\frac{\partial{(\omega(y)N(x,y)})}{\partial{x}}$<-
+Откуда
+->$\omega(y)\frac{\partial{N(x,y)}}{\partial{x}}=\frac{\partial\omega(y)}{\partial{y}}M(x,y)+\omega(y)\frac{\partial{M(x,y)}}{\partial{y}}$<-
+->$\frac{\partial\omega(y)}{\partial{y}}=\omega(y)\frac{\frac{\partial{N(x,y)}}{\partial{x}}-\frac{\partial{M(x,y)}}{\partial{y}}}{M(x,y)}$<-
+
+Левая часть последнего равенства зависит только от $y$, поэтому для существования интегрирующего множителя $\omega(y)$ необходимо и достаточно, чтобы и правая часть этого равенства зависела только от $y$.
+
+Обозначим $\frac{\frac{\partial{N(x,y)}}{\partial{x}}-\frac{\partial{M(x,y)}}{\partial{y}}}{M(x,y)}=\varphi(y)\quad(4)$, тогда  
+->$\frac{\partial\omega(y)}{\omega(y)}=\varphi(y)dy$<-
+->$\ln\omega(y)=\int{\varphi(y)dy}+C$<-
+->$\omega(y)=\overline{C}e^{\int{\varphi(y)dy}}$<-
+->$\omega(y)=e^{\int{\varphi(y)dy}}\quad(5)$<-
+
+Если у уравнения есть интегрирующий множитель, зависящий от $y$, и это определяется по формуле $(4)$, то он равен $(5)$.
+
+3) Пусть $\exists\space\omega(\lambda(x,y))$, тогда уравнение
+
+->$\omega(\lambda(x,y))M(x,y)dx+\omega(\lambda(x,y))N(x,y)dy=0$<-
+является уравнением в полных дифференциалах тогда и только тогда, когда
+
+->$\frac{\partial{(\omega(\lambda(x,y))M(x,y)})}{\partial{y}}=\frac{\partial{(\omega(\lambda(x,y))N(x,y)})}{\partial{x}}$<-
+Откуда
+->$\frac{\partial\omega}{\partial{\lambda}}\frac{\partial{\lambda}}{\partial{y}}M(x,y)+\omega(\lambda(x,y))\frac{\partial{M}(x,y)}{\partial{y}}=\frac{\partial\omega}{\partial{\lambda}}\frac{\partial{\lambda}}{\partial{x}}N(x,y)+\omega(\lambda(x,y))\frac{\partial{N}(x,y)}{\partial{x}}$<-
+->$\frac{\partial\omega}{\partial\lambda}(\frac{\partial\lambda}{\partial{y}}M(x,y)-\frac{\partial\lambda}{\partial{x}}N(x,y))=\omega(\lambda(x,y))(\frac{\partial{N(x,y)}}{\partial{x}}-\frac{\partial{M(x,y)}}{\partial{y}})$<-
+->$\frac{\omega\'(\lambda(x,y))}{\omega(\lambda(x,y))}=\frac{\frac{\partial{N(x,y)}}{\partial{x}}-\frac{\partial{M(x,y)}}{\partial{y}}}{\frac{\partial\lambda}{\partial{y}}M(x,y)-\frac{\partial\lambda}{\partial{x}}N(x,y)}$<-
+
+Левая часть последнего равенства зависит только от $\lambda(x,y)$, поэтому для существования интегрирующего множителя $\omega(\lambda(x,y))$ необходимо и достаточно, чтобы и правая часть этого равенства зависела только от $\lambda(x,y)$.
+
+Обозначим $\frac{\frac{\partial{N(x,y)}}{\partial{x}}-\frac{\partial{M(x,y)}}{\partial{y}}}{\frac{\partial\lambda}{\partial{y}}M(x,y)-\frac{\partial\lambda}{\partial{x}}N(x,y)}=\varphi(\lambda(x,y))\quad(6)$, тогда  
+->$\frac{\omega\'(\lambda(x,y))}{\omega(\lambda(x,y))}=\varphi(\lambda(x,y))d\lambda$<-
+->$\ln\omega(\lambda(x,y))=\int{\varphi(\lambda(x,y))d\lambda}+C$<-
+->$\omega(\lambda(x,y))=\overline{C}e^{\int{\varphi(\lambda(x,y))d\lambda}}$<-
+->$\omega(\lambda(x,y))=e^{\int{\varphi(\lambda(x,y))d\lambda}}\quad(7)$<-
+
+Если у уравнения есть интегрирующий множитель, зависящий от $\lambda(x,y)$, и это определяется по формуле $(6)$, то он равен $(7)$.
+
+★ Если $\omega$ во всех точках некоторой кривой обращается в $\infty$, то могут быть потеряны некотороые решения (они могут оказаться особыми).
+
+★ Если $\omega$ во всех точках некоторой кривой обращается в $0$, то могут появиться новые решения.
+
+★ Для решения некоторых уравнений можно применять метод выделения полных дифференциалов, используя известные формулы:
+
+->$\begin{matrix}
+   d(xy)=ydx+xdy & d(y^2)=2ydy \\
+   d(\frac{x}{y})=\frac{ydx-xdy}{y^2} & d(lny)=\frac{dy}{y}
+\end{matrix}\quad\text{и т.п.}$<-',
+            'examples' => '1) Решить уравнение $y^2dx-(xy+x^3)dy=0$, найдя каким-либо способом интегрирующий множитель.
+
+Уравнение не является уравнением в полных дифференциалах, так как:
+
+->$\frac{\partial{M(x,y)}}{\partial{y}}=2y,\quad\frac{\partial{N(x,y)}}{\partial{x}}=-y-3x^2$<-
+
+Так как $\frac{{\frac{\partial{M(x,y)}}{\partial{y}}-\frac{\partial{N(x,y)}}{\partial{x}}}}{N(x,y)}=\frac{3y+3x^2}{-xy-x^3}=\frac{3(y+x^2)}{-x{y+x^2}}=-\frac{3}{x}$, то $\exists$ интегрирующий множитель $\space\omega(x)=e^{\int{-\frac{3}{x}dx}}=\overline{C}x^{-3}$
+
+Теперь умножим наше уравнение на $\omega(x)$:
+->$\frac{y^2}{x^3}dx-(\frac{y}{x^2}+1)dy=0$<-
+
+Решим полученное уравнение в полных дифференциалах:
+
+$\frac{\partial{u}}{\partial{x}}=\frac{y^2}{x^3}\implies{u}=-\frac{y^2}{2x^2}+\varphi(y)$
+
+$\frac{\partial{u}}{\partial{y}}=-(\frac{y}{x^2}+1)\implies{}-\frac{2y}{2x^2}+\varphi\'(y)=-(\frac{y}{x^2}+1)\implies\varphi\'(y)=-1\implies\varphi(y)=-y+C_1$
+
+$u=-\frac{y^2}{2x^2}+\varphi(y)=-\frac{y^2}{2x^2}+y+C_1$
+
+Тогда общий интеграл дифференциального уравнения $-\frac{y^2}{2x^2}+y=\overline{C}$  или $y^2=x^2(C-2y)$
+
+$\omega(x)\to\infty$ при  $x\to{0}$, следовательно может быть особое решение $x=0$. 
+
+Проверкой убеждаемся, что $x=0$ решение. Но не особое, так как входит в общее решение при $C=\infty$
+
+Ответ: $y^2=x^2(C-2y)$
+
+2) Решить уравнение $(x^2-y)dx+x(y+1)dy=0$.
+
+Данное уравнение не является уравнением в полных дифференциалах, так как:
+->$\frac{\partial{M(x,y)}}{\partial{y}}=-1,\quad\frac{\partial{N(x,y)}}{\partial{x}}=y+1$<-
+
+Можно заметить что в уравнении присутствуют 2 полных дифференциала:
+->$d(x^2+y^2)=2xdx+2ydy,\quad{d}(\frac{y}{x})=\frac{ydx-xdy}{x^2}$<-
+
+Считая что  $x\not=0$ немного преобразуем уравнение:
+->$x^2dx+xydy-ydx+xdy=0\quad|\frac{2}{x}$<-
+->$(2xdx+2ydy)-2x\frac{ydx-xdy}{x^2}=0$<-
+->$d(x^2+y^2)-2xd(\frac{y}{x})=0$<-
+
+Сделаем замену:
+->$\begin{cases}x^2+y^2=m\\\frac{y}{x}=n\end{cases}\quad\implies\begin{cases}y=\frac{n\sqrt{m}}{\sqrt{1+n^2}}\\x=\frac{\sqrt{m}}{\sqrt{1+n^2}}\end{cases}$<-
+
+Тогда уравнение примет вид:
+->$dm-\frac{2\sqrt{m}}{\sqrt{1+n^2}}dn=0$<-
+
+Это уравнение с разделяющимися переменными, решим его:
+->$\frac{dm}{2\sqrt{m}}=\frac{dn}{\sqrt{1+n^2}}$<-
+->$\sqrt{m}=\ln{|n+\sqrt{1+n^2}|}+\overline{C}$<-
+->$\sqrt{x^2+y^2}=\ln{(\frac{y}{x}+\sqrt{1+\frac{y^2}{x^2}}})+\overline{C}$<-
+->$xe^{\sqrt{x^2+y^2}}=C(y+\sqrt{x^2+y^2})$<-
+
+$x=0$ входит в общее решение при $C=0$, поэтому особым не является.
+
+Ответ: $xe^{\sqrt{x^2+y^2}}=C(y+\sqrt{x^2+y^2})$
+
+'
+        ]);
+
+        $questions = [
+            [
+                'q' => 'Найдите интегрирующий множитель, зависящий от x, для уравнения $(x^2+y^2+x)dx+ydy=0$',
+                't' => 'test_one',
+                'a' => [
+                    '$x^2$',
+                    '$e^{2x}$',
+                    '$e^{3x}$',
+                    '$e^{x}$',
+                ],
+                'c' => [false, true, false, false]
+            ],
             [
                 'q' => '',
                 'a' => [
@@ -1830,7 +2026,208 @@ $(x_0,y_0)$ - любая фиксированная точка из област
             'name' => 'Уравнения не разрешенные относительно производной',
             'resources' => json_encode(['http:://hello.ru']),
             'sort' => 1,
-            'text' => '',
+            'text' => '#### Уравнения первого порядка $n-$й степени относительно $y\'$
+
+Рассмотрим дифференциальное уравнение $(y\')^n+a_1(x,y)(y\')^{n-1}+...+a_{n-1}(x,y)y\'+a_n(x,y)=0\quad(1)$
+
+Решим его относительно $y\'$. 
+
+Пусть $y\'=f_i(x,y),i=\overline{1,k},k\leq{n}$ - вещественные решения уравнения $(1)$.
+
+Тогда общий интеграл уравнения (1) выразится совокупностью интегралов $F_i(x,y,C),i=\overline{1,k}$,  являющимися интегралами соответствующих по индексу $i$ уравнений.
+
+Таким образом через каждую точку области, в которой $y\'$ принимает вещественные значения, проходит  $k$ интегральных линий.
+
+#### Уравнения вида $f(y,y\')=0$
+
+Пусть уравнение  $f(y,y\')\quad(2)$ разрешимо относительно $y$, тогда  $y=\varphi(y\')$.
+
+Полагаем  $y\'=p$, тогда $y=\varphi(p),\quad{dy}=pdx$. 
+
+Далее дифференцируем это уравнение:  $dy=\varphi\'(p)dp$
+
+Заменяем $dy$ на $pdx$: $pdx=\varphi\'(p)dp$
+
+Решим полученное уравнение с разделяющимися переменными: 
+->$dx=\frac{\varphi\'(p)dp}{p}$<-
+->$x=\int{\frac{\varphi\'(p)dp}{p}}+C$<-
+
+Получаем общее решение уравнения $(2)$ в параметрической форме:
+->$\begin{cases}x=\int{\frac{\varphi\'(p)dp}{p}}+C\\y=\varphi(p)\end{cases}$\quad(3)<-
+
+#### Уравнения вида $f(x,y\')=0$
+
+Пусть уравнение  $f(x,y\')\quad(4)$ разрешимо относительно $x$, тогда  $x=\varphi(y\')$.
+
+Полагаем  $y\'=p$, тогда $x=\varphi(p),\quad{dx}=\frac{dy}{p}$. 
+
+Далее дифференцируем это уравнение:  $dx=\varphi\'(p)dp$
+
+Заменяем $dx$ на $\frac{dy}{p}$: $\frac{dy}{p}=\varphi\'(p)dp$
+
+Решим полученное уравнение с разделяющимися переменными: 
+->$dy=p\varphi\'(p)dp$<-
+->$y=\int{p\varphi\'(p)dp}+C$<-
+
+Получаем общее решение уравнения $(2)$ в параметрической форме:
+->$\begin{cases}x=\varphi(p)\\y=\int{p\varphi\'(p)dp}+C\end{cases}\quad(5)$<-
+
+★ В формулах $(3),(5)$ нельзя рассматривать $p$ как производную. В них $p$ является просто параметром.
+
+#### Уравнения Лагранжа и Клеро.
+
+ Уравнение вида $y=x\varphi(y\')+\psi(y\')$, называется **уравнением Лагранжа**.
+ 
+ Положим $y\'=p$, тогда $dy=pdx$ и уравнение примет вид:
+ ->$y=x\varphi(p)+\psi(p)$<-
+ Дифференцируем уравнение по $x$:
+ ->$dy=\varphi(p)dx+x\varphi\'(p)dp+\psi\'(p)dp$<-
+ ->$pdx=\varphi(p)dx+x\varphi\'(p)dp+\psi\'(p)dp$<-
+ ->$px\'=\varphi(p)x\'+x\varphi\'(p)+\psi\'(p)\quad|\frac{1}{dp}$<-
+ ->$x\'+x\frac{\varphi\'(p)}{\varphi(p)-p}=\frac{\psi\'(p)}{p-\varphi(p)}$<-
+ 
+ Получили линейное уравнение, относительно $x$ и его решение:
+ ->$x=e^{-\int{\frac{\varphi\'(p)}{\varphi(p)-p}}dp}(C+\int{\frac{\psi\'(p)}{p-\varphi(p)}e^{\int{\frac{\varphi\'(p)}{\varphi(p)-p}}dp}dp})$<-
+ 
+ Получаем решение уравнения Лагранжа в параметрической форме:
+  ->$\begin{cases}x=e^{-\int{\frac{\varphi\'(p)}{\varphi(p)-p}}dp}(C+\int{\frac{\psi\'(p)}{p-\varphi(p)}e^{\int{\frac{\varphi\'(p)}{\varphi(p)-p}}dp}dp})\\
+ y=x\varphi(p)+\psi(p)\end{cases}$<-
+ ',
+            'examples' => '1) Решить уравнение $x^2(y\')^2+3xyy\'+2y^2=0$.
+
+Разрешим уравнение относительно $y\'$:
+->$D=9x^2y^2-8x^2y^2=x^2y^2,\quad\sqrt{D}=xy$<-
+->$y\'=\frac{-3xy\pm{xy}}{2x^2}$<-
+->$y\'=-\frac{y}{x},\quad{y\'}=-\frac{2y}{x}$<-
+->$\frac{dy}{y}=-\frac{dx}{x},\quad\frac{dy}{y}=-\frac{2x}{x}$<-
+->$y=C_1\frac{1}{x},\quad{y}=C_2\frac{1}{x^2}$<-
+->$xy=C_1,\quad{x^2y}=C_2$<-
+
+2) Решить уравнение $x=\ln{y\'}+\sin{y\'}$.
+
+Положим $p=y\',$ тогда $dx=\frac{dy}{p}$ и уравнение примет вид:
+->$x=\ln{p}+\sin{p}$<-
+Дифференцируем полученное уравнение и решаем его: 
+->$dx=\frac{dp}{p}+\cos{p}dp$<-
+->$dx=\frac{dy}{p}\implies{}dy=dp+p\cos{p}dp$<-
+->$y=p+p\sin{p}+\cos{p}+C$<-
+
+Таким образом получаем общее решение уравнения в параметрической форме:
+->$\begin{cases}x=\ln{p}+\sin{p}\\y=p+p\sin{p}+\cos{p}+C\end{cases}$<-
+
+3) Решить уравнение $y\'=e^{\frac{y\'}{y}}$.
+
+Положим $p=y\'$, тогда $dy=pdx$ и уравнение примет вид:
+->$p=e^\frac{p}{y}$<-
+->$\ln{p}=\frac{p}{y}$<-
+->$y=\frac{p}{\ln{p}}$<-
+->$dy=\frac{(\ln{p}-1)dp}{\ln^2{p}}$<-
+->$dy=pdx\implies{}pdx=\frac{(\ln{p}-1)dp}{\ln^2{p}}$<-
+->$dx=\frac{(\ln{p}-1)dp}{p\ln^2{p}}$<-
+->$dx=\frac{(\ln{p}-1)d\ln{p}}{\ln^2{p}}$<-
+->$x=\ln{\ln{p}}+\frac{1}{\ln{p}}+C$<-
+
+Таким образом получаем общее решение уравнения в параметрической форме:
+->$\begin{cases}x=\ln{\ln{p}}+\frac{1}{\ln{p}}+C\\y=\frac{p}{\ln{p}}\end{cases}$<-'
+        ]);
+
+        $questions = [
+            [
+                'q' => '',
+                'a' => [
+                    '',
+                    '',
+                    '',
+                    '',
+                ],
+                'c' => [false, true, false, false]
+            ]
+        ];
+        $this->create_questions($lesson, $questions);
+
+        $lesson = Lesson::Create([
+            'block_id' => $blocks[0]->id,
+            'active' => true,
+            'name' => 'Уравнения Лагранжа и Клеро',
+            'resources' => json_encode(['http:://hello.ru']),
+            'sort' => 1,
+            'text' => '#### Уравнения Лагранжа и Клеро.
+
+ Уравнение вида $y=x\varphi(y\')+\psi(y\')$, называется **уравнением Лагранжа**.
+ 
+ Положим $y\'=p$, тогда $dy=pdx$ и уравнение примет вид:
+ ->$y=x\varphi(p)+\psi(p)$<-
+ Дифференцируем уравнение по $x$:
+ ->$dy=\varphi(p)dx+x\varphi\'(p)dp+\psi\'(p)dp$<-
+ ->$pdx=\varphi(p)dx+x\varphi\'(p)dp+\psi\'(p)dp$<-
+ ->$px\'=\varphi(p)x\'+x\varphi\'(p)+\psi\'(p)\quad|\frac{1}{dp}$<-
+ ->$x\'+x\frac{\varphi\'(p)}{\varphi(p)-p}=\frac{\psi\'(p)}{p-\varphi(p)}$<-
+ 
+ Получили линейное уравнение, относительно $x$ и его решение:
+ ->$x=e^{-\int{\frac{\varphi\'(p)}{\varphi(p)-p}}dp}(C+\int{\frac{\psi\'(p)}{p-\varphi(p)}e^{\int{\frac{\varphi\'(p)}{\varphi(p)-p}}dp}dp})$<-
+ 
+ Получаем общее решение уравнения Лагранжа в параметрической форме:
+  ->$\begin{cases}x=e^{-\int{\frac{\varphi\'(p)}{\varphi(p)-p}}dp}(C+\int{\frac{\psi\'(p)}{p-\varphi(p)}e^{\int{\frac{\varphi\'(p)}{\varphi(p)-p}}dp}dp})\\
+ y=x\varphi(p)+\psi(p)\end{cases}$<-
+ 
+ Вспомним, что мы делили на $\varphi(p)-p$. Исключая параметр $p$ из уравнений $\varphi(p)-p=0$ и $y=x\varphi(y\')+\psi(y\')$ найдем возможные особые решения. Те из полученных решений, которые удовлетворяют исходному уравнению, будут особыми решениями.
+ 
+ Частным случаем уравнения Лагранжа является **уравнение Клеро**. Оно имеет вид:
+ ->$y=xy\'+\psi(y\')$<-
+ 
+ Решается уравнение также, как и уравнение Лагранжа, в нем $\varphi(y\')=y\'$
+ 
+ Положим $y\'=p$, тогда $dy=pdx$ и уравнение примет вид:
+ ->$y=xp+\psi(p)$<-
+ Дифференцируем уравнение по $x$:
+ ->$dy=pdx+xdp+\psi\'(p)dp$<-
+ ->$pdx=pdx+xdp+\psi\'(p)dp$<-
+ ->$(x+\psi\'(p))dp=0$<-
+ 
+ Полученное уравнение распадается на 2 уравнения: $x+\psi\'(p)=0$  и $dp=0$. 
+ 
+ $dp=0\implies{p}=C$, тогда общее решение уравнения Клеро: $y=xC+\psi(C)$
+ 
+ Уравнение $x+\psi\'(p)=0$ соответствует особому решению уравнения Клеро. Исключением $p$ из уравнений 
+->$y=xp+\psi(p),\quad{x}+\psi\'(p)=0$<-
+найдем особое решение.',
+            'examples' => '1) Решить уравнение Лагранжа $y=x(y\')^2-\frac{1}{y\'}$.
+
+Положим $p=y\'$, тогда уравнение примет вид:
+->$y=xp^2-\frac{1}{p}$<-
+
+Дифференцируем и решаем уравнение:
+->$dy=p^2dx+2pxdp+\frac{dp}{p^2}$<-
+->$dy=pdx\implies{pdx}=p^2dx+2pxdp+\frac{dp}{p^2}\quad|\frac{1}{dp}$<-
+->$(p-p^2)x\'-2px=\frac{1}{p^2}$<-
+->$x\'-\frac{p}{1-p}x=\frac{1}{p^3(1-p)}$<-
+
+Получили линейное уравнение, находим его решение по формуле решения линейног дифференциального уравнения:
+->$x=e^{\int{\frac{p}{1-p}}dp}(C+\int{\frac{1}{p^3(1-p)}e^{-\int{\frac{p}{1-p}}dp}dp})$<-
+->$x=e^{-1+\ln(1-p)}(C+\int{\frac{1}{p^3(1-p)}e^{1-\ln(1-p)}dp})$<-
+->$x=\frac{1-p}{e}(C+\int{\frac{edp}{p^3(1-p)^2}})$<-
+->$x=\frac{1-p}{e}(C+e\int{\frac{3p^2+2p+1}{p^3}}dp+\int{\frac{-3p+4}{(1-p)^2}}dp)$<-
+->$x=\frac{1-p}{e}(C+e(3lnp-2\frac{1}{p}-\frac{1}{2p^2}+\frac{3}{2}\ln{(1-p)^2}+\frac{1}{1-p}))$<-
+
+Таким образом нашли общее решение уравнения Лагранжа в параметрической форме:
+->$\begin{cases}x=\frac{1-p}{e}(C+e(3lnp-2\frac{1}{p}-\frac{1}{2p^2}+\frac{3}{2}\ln{(1-p)^2}+\frac{1}{1-p}))\\y=xp^2-\frac{1}{p}\end{cases}$<-
+
+2) Решить уравнение Клеро $y=xy\'+a\sqrt{1-(y\')^2}$.
+
+Положим $y\'=p$, тогда уравнение примет вид:
+->$y=xp+a\sqrt{1-p^2}$<-
+
+Дифференцируем и решаем его:
+->$dy=xdp+pdx-\frac{pa}{\sqrt{1-p^2}}dp$<-
+->$dy=pdx\implies{pdx}=xdp+pdx-\frac{pa}{\sqrt{1-p^2}}dp$<-
+->$(x-\frac{pa}{\sqrt{1-p^2}})dp=0$<-
+
+$dp=0\implies{p}=C$ и тогда общее решение: $y=xC+a\sqrt{1-C^2}$
+
+Найдем особые решения, решив систему:
+$\begin{cases}x=\frac{pa}{\sqrt{1-p^2}}\\y=xp+a\sqrt{1-p^2}\end{cases}\implies{}y^2=x^2+a^2$
+
+Ответ: $y=xC+a\sqrt{1-C^2},\quad{}y^2=x^2+a^2$'
         ]);
 
         $questions = [
