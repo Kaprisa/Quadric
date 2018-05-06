@@ -59,6 +59,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Course::class);
     }
 
+    public function lessons()
+    {
+        return $this->belongsToMany(Lesson::class)->withPivot(['percent']);
+    }
+
     public function getPointsAttribute()
     {
         return $this->questions()->withPivot(['correct'])->where('correct', true)->sum('points');

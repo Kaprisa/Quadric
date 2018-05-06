@@ -32,12 +32,21 @@
                 </v-card>
             </v-dialog>
         </div>
+        <div class="text-xs-center">
+            <v-dialog v-model="test2Dialog" fullscreen transition="dialog-bottom-transition">
+                <v-btn slot="activator" color="accent">Тест2</v-btn>
+                <v-card>
+                    <test2 @close="test2Dialog = false" :questions="lesson.questions"></test2>
+                </v-card>
+            </v-dialog>
+        </div>
     </v-container>
 </template>
 
 <script>
     import VVideo from './Video'
     import Test from './Test'
+    import Test2 from './Test2'
     import { mapActions, mapGetters } from 'vuex'
 
     import md from '../../markdown'
@@ -45,7 +54,8 @@
     export default {
         components: {
             VVideo,
-            Test
+            Test,
+            Test2,
         },
         mounted() {
             this.getLesson(this.$route.params.lesson_id)
@@ -53,7 +63,8 @@
         data() {
             return {
                 drawer: true,
-                testDialog: false
+                testDialog: false,
+                test2Dialog: false,
             }
         },
         watch: {

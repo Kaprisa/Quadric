@@ -58,4 +58,12 @@ class UsersController extends Controller
         $user->save();
         return null;
     }
+
+    public function test(Request $request) {
+        $user = Auth::guard('api')->user();
+        if (!$user->lessons->contains($request->lesson_id)) $user->lessons()->attach($request->lesson_id);
+        $user->lessons()->updateExistingPivot($request->lesson_id, [
+            'percent' => $request->percent
+        ]);
+    }
 }
