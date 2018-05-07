@@ -14,7 +14,7 @@
                 <div class="pa-3 md" v-html="lesson.examples"></div>
             </v-expansion-panel-content>
             <v-expansion-panel-content :value="false" v-if="lesson.resources && lesson.resources.length">
-                <div slot="header">Дополнительные ресурсы</div>
+                <div slot="header">Дополнительные материалы</div>
                 <v-list dense>
                     <v-list-tile avatar v-for="r in lesson.resources" :key="r">
                         <v-list-tile-content>
@@ -36,7 +36,7 @@
             <v-dialog v-model="test2Dialog" fullscreen transition="dialog-bottom-transition">
                 <v-btn slot="activator" color="accent">Тест2</v-btn>
                 <v-card>
-                    <test2 @close="test2Dialog = false" :questions="lesson.questions"></test2>
+                    <test2 @percent="v => lesson.percent = v" @close="test2Dialog = false" :questions="lesson.questions"></test2>
                 </v-card>
             </v-dialog>
         </div>

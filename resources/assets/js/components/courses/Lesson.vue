@@ -27,7 +27,6 @@
         },
         data() {
             return {
-                //angleY: 0,
                 angleX: 0,
                 drawer: true,
                 lessons: [

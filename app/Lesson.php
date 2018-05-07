@@ -19,7 +19,7 @@ class Lesson extends Model
        'examples'
     ];
 
-    protected $appends = ['totals'];
+    protected $appends = ['totals', 'percent'];
 
     protected $with = ['questions'];
 
@@ -46,5 +46,17 @@ class Lesson extends Model
         'total' => $total,
         'user_total' => $user_total
       ];
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withPivot(['percent']);
+    }
+
+    public function getPercentAttribute()
+    {
+        $u = $this->users()->find(Auth::guard('api')
+            ->user()->id);
+        return $u ? $u->pivot->percent : null;
     }
 }

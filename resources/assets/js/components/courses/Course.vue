@@ -30,7 +30,9 @@
                             v-if="block.lessons"
                             v-for="lesson in block.lessons" :key="lesson.name"
                             @click="$router.push(`/courses/${course.course.id}/lessons/${lesson.id}`)"
+                            style="position: relative;"
                     >
+                         <v-progress-circular v-if="lesson.percent" size="20" :value="lesson.percent" color="success" style="position: absolute; left: 10px"></v-progress-circular>
                         <v-list-tile-content>
                             <v-list-tile-title>{{ lesson.name }}</v-list-tile-title>
                         </v-list-tile-content>
