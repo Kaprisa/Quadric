@@ -8,19 +8,34 @@
             <v-spacer></v-spacer>
         </v-toolbar>
         <transition name="fade">
+            <v-card class="elevation-12 mb-3 mt-5 pa-2 test__result" v-show="percent !== -1">
+                <v-layout justify-space-around align-center>
+                    <v-flex xs4 xl2 lg3 md4>
+                        <canvas ref="pie" width="150" height="150"></canvas>
+                    </v-flex>
+                    <v-flex v-if="percent !== -1" xs6 class="layout column justify-space-around align-center">
+                        <v-chip>
+                            <v-avatar class="secondary"><span class="title" style="color: #ffffff;">%</span></v-avatar>
+                            {{ percent }} / 100
+                        </v-chip>
+                        <v-chip>
+                            <v-avatar class="accent"><v-icon dark>euro_symbol</v-icon></v-avatar>
+                            {{ points }} / {{ questions.length * 5 }}
+                        </v-chip>
+                        <v-btn color="primary" @click="clear">Пройти тест заново</v-btn>
+                    </v-flex>
+                </v-layout>
+            </v-card>
+        </transition>
+        <transition name="fade">
             <div v-if="percent === -1">
                 <v-card v-for="q, index in questions" :key="`qb${index}`" class="mb-2 pa-2">
                     <span class="subheading" v-html="md.render(q.text)"></span>
-                    <v-layout v-if="q.type.startsWith('test')" v-for="a, i in q.answers" :key="`a${i}`" row class="mb-1 mt-2">
-                        <div style="flex-basis: 30px;">
-                            <v-switch
-                                    color="success"
-                                    class="mr-2"
-                                    v-model="a.checked"
-                                    hide-details
-                                    @change="(v) => { if (q.type === 'test_one' && v) { q.answers.forEach(e => e.checked = false ); a.checked = true; } }"
-                            ></v-switch>
-                        </div>
+                    <v-layout v-if="q.type.startsWith('test')" v-for="a, i in q.answers" :key="`a${i}`" align-center row class="mb-1 mt-2">
+                        <span class="option-input__wrapper">
+                            <input class="option-input option-input_check" type="checkbox" v-if="q.type === 'test'" v-model="a.checked">
+                            <input class="option-input option-input_radio" type="radio" :name="`radio${index}`" v-else v-model="a.checked">
+                        </span>
                         <div>
                             <span style="line-height: 30px;" v-html="md.render(a.text)"></span>
                         </div>
@@ -36,26 +51,6 @@
                     <v-btn color="primary" @click="check">Проверить</v-btn>
                 </div>
             </div>
-        </transition>
-        <transition name="fade">
-            <v-card class="elevation-12 mb-3 mt-5 pa-2 test__result" v-show="percent !== -1">
-                <v-layout justify-space-around align-center>
-                    <v-flex xs4 xl2 lg3 md4>
-                        <canvas ref="pie" width="150" height="150"></canvas>
-                    </v-flex>
-                    <v-flex v-if="percent !== -1" xs6 class="layout column justify-space-around align-center">
-                        <v-chip>
-                            <v-avatar class="secondary"><span class="title text--white">%</span></v-avatar>
-                            {{ percent }} / 100
-                        </v-chip>
-                        <v-chip>
-                            <v-avatar class="accent"><v-icon dark>euro_symbol</v-icon></v-avatar>
-                            {{ points }} / {{ questions.length * 5 }}
-                        </v-chip>
-                        <v-btn color="primary" @click="clear">Пройти тест заново</v-btn>
-                    </v-flex>
-                </v-layout>
-            </v-card>
         </transition>
         <snackbar :options="snackbar"></snackbar>
     </v-container>

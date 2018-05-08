@@ -19,22 +19,11 @@
             </v-tab>
             <v-tab-item v-for="q, index in props.questions" class="py-2 px-3" :key="`qb${index}`">
                 <span class="subheading" v-html="md.render(q.text)"></span>
-                <v-layout v-if="q.type.startsWith('test')" v-for="a, i in q.answers" :key="`a${i}`" row class="mb-1 mt-2">
-                    <div style="flex-basis: 30px;">
-                        <!--<v-checkbox-->
-                                <!--color="success"-->
-                                <!--v-model="a.checked"-->
-                                <!--hide-details-->
-                                <!--v-if="q.type === 'test'"-->
-                        <!--&gt;</v-checkbox>-->
-                        <v-switch
-                                color="success"
-                                class="mr-2"
-                                v-model="a.checked"
-                                hide-details
-                                @change="(v) => { if (q.type === 'test_one' && v) { q.answers.forEach(e => e.checked = false ); a.checked = true; } }"
-                        ></v-switch>
-                    </div>
+                <v-layout v-if="q.type.startsWith('test')" v-for="a, i in q.answers" :key="`a${i}`" align-center row class="mb-1 mt-2">
+                        <span class="option-input__wrapper">
+                            <input class="option-input option-input_check" type="checkbox" v-if="q.type === 'test'" v-model="a.checked">
+                            <input class="option-input option-input_radio" type="radio" :name="`radio${index}`" v-else v-model="a.checked">
+                        </span>
                     <div>
                         <span style="line-height: 30px;" v-html="md.render(a.text)"></span>
                     </div>
