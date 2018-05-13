@@ -1450,7 +1450,7 @@ $\varphi(m*n)=\underbrace{1+...+1}_{m*n\text{ раз}}=\underbrace{\underbrace{1
 //        ];
 //        $this->create_questions($lesson, $questions);
 
-        lesson = Lesson::Create([
+        $lesson = Lesson::Create([
             'block_id' => $blocks[3]->id,
             'active' => true,
             'name' => 'Расширение полей',
@@ -1562,7 +1562,291 @@ $\varphi(m*n)=\underbrace{1+...+1}_{m*n\text{ раз}}=\underbrace{\underbrace{1
 
 Элементами поля $F\'\'$ являются многочлены (представители классов) $w(y)=d_0+d_1*y+...+d_{n-1}*y^{n-1},d_i\in{F\'}$
 
-Так как $d_i\in{F\'}$, то $d_i$ - многочлен от $x$. Подставим эти многочлены в $w(y)$ и получим многочлены степени не выше $(m-1)*(n-1)$ от переменных $x$ и $y$ и с коэффициентами из поля $F$.'
+Так как $d_i\in{F\'}$, то $d_i$ - многочлен от $x$. Подставим эти многочлены в $w(y)$ и получим многочлены степени не выше $(m-1)*(n-1)$ от переменных $x$ и $y$ и с коэффициентами из поля $F$.
+
+Пусть $F=Q,f(x)=x^2-7$ - неприводим над $F$. 
+
+$F\'=Q(\sqrt{7})$. Элементами $F\'$ являются многочлены вида $a+b*x,a,b\in{Q}$.
+
+Рассмотрим $g(y)=x^2-5$, неприводимый над $F\'$. 
+
+Строим поле $F\'\'=F\'(\sqrt{5})$. Элементами $F\'\'$ являются многочлены вида $c+d*y,c,d\in{F\'}$.
+
+$c,d\in{F\'}\implies{c=a_1+b_1*x},d=a_2+b_2*x,a_i,b_i\in{F}$. Тогда:
+->$c+d*y=a_1+b_1*x+a_2*y+b_2*x*y$<-
+
+Вспомним, что $x^2-7=0$ и $y^2-5=0$ и введем обозначения $x=\sqrt{7},y=\sqrt{5}$.
+
+Если $t\in{F\'\'}$, то $t=a_1+b_1*\sqrt{7}+a_2*\sqrt{5}+b_2*\sqrt{35}$.
+
+Пусть $F$ - поле, тогда $F$ - линейное пространство над $F$.
+
+Пусть $F,F\'$ - два поля, $F\subseteq{F\'}$, тогда $F\'-$ линейное пространство над $F$. Если $\dim_F{F\'}$ (размерность $F\'$ над $F$) конечна, то расширение $F\'$ поля $F$ называется **конечным**.
+
+Примеры:
+
+✔︎ $R\subseteq{C}$.
+
+Если $t\in{C},$ то $t=1*a+i*b,a,b\in{R}$.
+
+Вектор $t$ линейно выражается через $1$ и $i$, причём $1$ и $i$ линейно независимы над полем $R$, поэтому $\dim_R{C}=2$.
+
+Степень расширения $C$ равна $2$.
+
+✔︎ $Q\subset{Q}(\sqrt{5},\sqrt{7})$
+
+Если $t\in{Q(\sqrt{5},\sqrt{7})},$ то $t=1*a+\sqrt{5}*b+\sqrt{7}*c+\sqrt{35}*d;\space{a},b,c,d\in{Q}$.
+
+Вектор $t$ линейно выражается через $1,\sqrt{5},\sqrt{7},sqrt{35}$, причём $1,\sqrt{5},\sqrt{7},sqrt{35}$ линейно независимы над полем $Q$, поэтому $\dim_Q{Q(\sqrt{5},\sqrt{7})}=4$.
+
+Степень расширения $Q(\sqrt{5},\sqrt{7})$ равна $4$.
+
+**Теорема**. Пусть $F\subseteq{F\'}\subseteq{F\'\'},\dim_F{F\'=m,\dim_{F\'}{F\'\'}=n}$, тогда $\dim_F{F\'\'}=m*n$.
+
+*Доказательство:* 
+
+Так как $\dim_F{F\'}=m$, то $\exists$ базис $e_1,...,e_m$, т.е. если $t\in{F}$, то $t=\alpha_1*e_1+\alpha_2*e_2+...+\alpha_m*e_m,\alpha_i\in{F}$.
+
+Так как $\dim_{F\'}{F\'\'}=n$, то $\exists$ базис $s_1,...,s_n$, т.е. если $l\in{F\'}$, то $l=\beta_1*s_1+\beta_2*s_2+...+\beta_n*s_n,\beta_i\in{F\'}$.
+
+Рассмотрим множество $\lbrace{e_i*s_j|i=\overline{1,m},j=\overline{1,n}}\rbrace$. Очевидно, что через это множество можно выразить любой элемент $F\'\'$ над $F$.
+
+Действительно, $l=\beta_1*s_1+\beta_2*s_2+...+\beta_n*s_n=\displaystyle\sum_{i=1}^m{\beta_i*s_i}=\displaystyle\sum_{i=1}^m{(\displaystyle\sum_{j=1}^n{\alpha_j*e_j})*s_i}=\displaystyle\sum_{i,j}{\alpha_j*e_j*s_i}$
+
+Покажем, что множество $\lbrace{e_i*s_j}\rbrace$ линейно независимо над $F$. 
+
+Если некоторая линейная комбинация этих векторов обращается в 0, т.е. $\displaystyle\sum_{i,j}{\alpha_{ij}*e_j*s_i}=0$, тогда $\displaystyle\sum_{i,j}{\alpha_{ij}*e_j*s_i}=\displaystyle\sum_{i=1}^m{(\displaystyle\sum_{j=1}^n{\alpha_{ij}*e_j})*s_i}=0\implies{\displaystyle\sum_{j=1}^n{\alpha_{ij}*e_j}=0\implies\alpha_{ij}=0}$. ∎
+
+Пусть $F,F\'$ - поля и $F\subseteq{F\'}$. Элемент $a\in{F\'}$ называется **алгебраическим** над $F$, если $a$ является корнем некоторого многочлена с коэффициентами из $F$, иначе $$ называется **трансцендентным**.
+
+Многочлен не является тривиальным, т.е. отличен от $0*x$.
+
+Примеры:
+
+✔︎ $F\subseteq{F}$. Если $t\in{F}$, то $t$ - корень уравнения $x-t=0$, т.е. любой элемент поля является алгебраическим над тем полем, в котором содержится.
+
+✔︎ $R\subset{C}$. Комплексное число $2+0*i$ является алгебраическим над $R$, т.к. $\underbrace{2+0*i}_{\in{C}}=2\in{R}$ и $2$ - корень уравнения $x-2=0$.
+
+✔︎ $Q\subset{R}$. $\sqrt{2}\in{R}$ - корень уравнения $x^2-2=0\implies{\sqrt{2}}$ алгебраичен над $Q$.
+
+✔︎ $\pi,e$ трансцендентны над $Q$.
+
+**Теорема.** Пусть $F\',F\'\'$ - поля, $F\'\subseteq{F\'\'}$ и $\dim_{F\'}{F\'\'}<\infty$, тогда любой элемент $F\'\'$ алгебраичен над $F\'$.
+
+*Доказательство*: Пусть $t\in{F\'\'}$. Так как расширение конечно, то найдётся такое $n$, что степени $t^0,t^1,t^2,...,t^n$ линейно зависимы над $F\'$, т.е. найдутся $\alpha_0,...,\alpha_n$ такие, что $\alpha_0*t_0+...+\alpha_n*t_n=0\implies{t}$ - корень уравнения $\alpha_0+\alpha_1*x+...+\alpha_n*x^n$.
+
+Примеры:
+
+✔︎ $Q\subseteq{Q(\sqrt{2})},\space\deg_Q{Q(\sqrt{2})}=2$. Любое действительное число $a+b*\sqrt{2}$ является корнем некоторого многочлена $f(x)$ с коэффициентами из $Q$.
+
+✔︎ $Q\subseteq{Q(\sqrt{2},\sqrt{3})},\space\deg_Q{Q(\sqrt{2},\sqrt{3})}=4$. Любое действительное число $a+b*\sqrt{2}+c*\sqrt{3}+d*\sqrt{6}$ является корнем некоторого многочлена $f(x)$ с коэффициентами из $Q$. $\sqrt{2}+\sqrt{3}\in{Q(\sqrt{2},\sqrt{3})}$ - корень многочлена с рациональными коэффициентами.'
+        ]);
+
+        //        $questions = [
+//
+//        ];
+//        $this->create_questions($lesson, $questions);
+        $lesson = Lesson::Create([
+            'block_id' => $blocks[3]->id,
+            'active' => true,
+            'name' => 'Автоморфизмы поля',
+            'resources' => json_encode(['http:://hello.ru']),
+            'sort' => 1,
+            'text' => '**Автоморфизм поля** - изоморфизм поля на себя.
+
+**Утверждение**. Множество автоморфизмов образует группу относительно последовательного выполнения отображений.
+
+*Доказательство:* Пусть $Aut(F)$ - множество автоморфизмов. Покажем, что $<Aut(F),*>$ - группа.
+
+$e$ - тождественное отображение, т.е. $e(x)=x$
+
+Если $\varphi,\psi,\theta$ автоморфизмы и $x\in{F}$, то:
+->$\varphi(\psi\theta)=(\psi\theta)(\varphi(x))=\theta(\psi(\varphi(x)))$
+$(\varphi\psi)\theta=\theta((\varphi\psi)(x))=\theta(\psi(\varphi(x)))$<-
+Таким образом, доказана ассоциативность.
+
+Если $\varphi(x)=y,$ то $\exists\psi:\psi(y)=x$
+
+$\varphi\psi(x)=\psi(\varphi(x))=x\space\forall{x}\in{A}\implies\varphi\psi=e$ или  $\psi=\varphi^{-1}$
+
+Таким образом $<Aut(F),*>$ - группа автоморфизмов поля.
+
+**Теорема.** При автоморфизме элементы простого подполя остаются на месте. Если $F$ - поле, $\varphi$ - автоморфизм, $F\'$ - простое подполе, то $\varphi(x)=x\space\forall{x}\in{F\'}$.
+
+*Доказательство:* Рассмотрим случай, когда $F=Q$.
+
+- $\varphi(a)=\varphi(a+0)=\varphi(a)+\varphi(0)\implies\varphi(0)=0$ (т.е. 0 переходит в себя).
+- $\varphi(1)=\varphi(1*1)=\varphi(1)*\varphi(1)\implies\varphi(1)=\varphi(1)*\varphi^{-1}(1)=1$
+- $\varphi(1)+\varphi(-1)=\varphi(1+(-1))=\varphi(0)=0\implies\varphi(-1)=-\varphi(1)=-1$
+- $\varphi(m)=\varphi(\underbrace{1+...+1}_{m\text{ раз}})=\underbrace{\varphi(1)+...+\varphi(1)}_{m\text{ раз}}=\underbrace{1+...+1}_{m\text{ раз}}=m$
+- $\varphi(-m)=\varphi(-1*m)=\varphi(-1)*\varphi(m)=-1*m=-m$
+- $1=\varphi(1)=\varphi(m*m^{-1})=\varphi(m)*\varphi(m^{-1})\implies\varphi(m^{-1})=(\varphi(m))^{-1}=m^{-1}$
+- $\varphi(a*b^{-1})=\varphi(a)*\varphi(b^{-1})=a*b^{-1}$.
+
+Таким образом, все рациональные числа переходят сами в себя.
+
+Можно повторить те же рассуждения для $Z_m$. ∎
+
+#### Автоморфизмы поля $Q(\sqrt{2},\sqrt{3})$
+
+Если $x\in{Q(\sqrt{2},\sqrt{3})}$, то $x=\alpha_0*1+\alpha_1*\sqrt{2}+\alpha_2*\sqrt{3}+\alpha_{3}*\sqrt{6}$
+
+$[Q(\sqrt{2},\sqrt{3}):Q]=4$ (степень расширения)
+
+$\theta=\sqrt{2}+\sqrt{3}$ - примитивный элемент расширения.
+
+$1=\theta^0$
+
+$\sqrt{2}=-\frac{9}{2}\theta+\frac{1}{2}\theta^3$
+
+$\sqrt{3}=\frac{11}{2}\theta-\frac{1}{2}\theta^3$
+
+$\sqrt{6}=\frac{1}{2}\theta^2-\frac{5}{2}$
+
+Каждый элемент поля $Q(\sqrt{2},\sqrt{3})$ есть линейная комбинация $1,\theta,\theta^2,\theta^3$, т.е. если $x\in{Q(\sqrt{2},\sqrt{3})}$, то $x=\alpha_0+\alpha_1\theta+\alpha_2\theta^2+\alpha_3\theta^3$.
+
+Любой автоморфизм поля $Q(\sqrt{2},\sqrt{3})$ определяется своим значением на $\theta$, т.е. если $\varphi_1(\theta)=\varphi_2(\theta)$, то для $x$ выполняется $\varphi_1(x)=\varphi_2(x)$.
+
+Действительно, 
+->$\varphi(x)=\alpha_0*1+\alpha_1*\varphi_1(\theta)+\alpha_2*\varphi_1(\theta^2)+\alpha_3*\varphi_1(\theta^3)=\alpha_1*1+\alpha_1*\varphi_2(\theta)+\alpha_2*\varphi_2(\theta^2)+\alpha_3*\varphi_2(\theta^3)=\varphi_2(x)$<-
+
+Заметим, что $\theta=\sqrt{2}+\sqrt{3}$ - корень уравнения $x^4-10x^2+1=0$, т.е. если $f(x)=x^4+10x^2+1$, то $f(\theta)=0$.
+
+Пусть $\varphi$ - автоморфизм, тогда $f(\varphi(\theta))=\varphi(\theta)^4-10\varphi(\theta)^2+1=\varphi(\theta^4)-10\varphi(\theta^2)+1=\varphi(\theta^4-10\theta^2+1)=\varphi(0)=0$
+
+Значит число автоморфизмов не произвольно, оно такого, сколько корней в нашем уравнении.
+
+Найдём корни $f(x):$
+
+$\theta_1=\sqrt{2}+\sqrt{3}$
+$\theta_2=-\sqrt{2}-\sqrt{3}$
+$\theta_3=\sqrt{2}-\sqrt{3}$
+$\theta_4=-\sqrt{2}+\sqrt{3}$
+
+Таким образом порядок $|Aut(Q(\sqrt{2},\sqrt{3}))|=4$
+
+Заметим, что $\theta_1=-\theta_2,\theta_3=-\theta_4,\theta_1=\theta_4^{-1},\theta_2=\theta_3^{-1}$
+
+Найдём все автоморфизмы.
+
+1) Тождественный автоморфизм
+	->$\varphi:\begin{cases}\theta_1\to\theta_1\\\theta_2\to\theta_2\\\theta_3\to\theta_3\\\theta_4\to\theta_4\end{cases}\quad$ <-
+2) Пусть $\varphi(\theta_1)=\theta_2$
+	->$\varphi(\theta_2)=\varphi(-\theta_1)=-\varphi(\theta_1)=-\theta_2=\theta_1$
+	$\varphi(\theta_3)=\varphi(\theta_2^{-1})=\varphi(\theta_2)^{-1}=\theta_1^{-1}=\theta_4$
+	$\varphi(\theta_4)=\varphi(-\theta_3)=-\varphi(\theta_3)=-\theta_4=\theta_3$<-
+3) Пусть $\varphi(\theta_1)=\theta_3$
+	->$\varphi(\theta_2)=-\varphi(\theta_1)=-\theta_3=\theta_4$
+	$\varphi(\theta_3)=\varphi(\theta_2)^{-1}=\theta_4^{-1}=\theta_1$
+	$\varphi(\theta_4)=-\varphi(\theta_3)=-\theta_1=\theta_2$<-
+4) Пусть $\varphi(\theta_1)=\theta_4$
+	->$\varphi(\theta_2)=-\varphi(\theta_1)=\theta_3$
+	$\varphi(\theta_3)=\varphi(\theta_2)^{-1}=\theta_3^{-1}=\theta_2$
+	$\varphi(\theta_4)=-\varphi(\theta_3)=-\theta_2=\theta_1$<-
+  '
+        ]);
+
+        //        $questions = [
+//
+//        ];
+//        $this->create_questions($lesson, $questions);
+
+        $lesson = Lesson::Create([
+            'block_id' => $blocks[3]->id,
+            'active' => true,
+            'name' => 'Дроби в поле',
+            'resources' => json_encode(['http:://hello.ru']),
+            'sort' => 1,
+            'text' => 'Пусть $F=<a,+,*>$ - поле.
+
+$<A,+>$ - абелева группа $\implies$ для $x\in{A}$ есть $-x$. Тогда $a+(-b)=a-b$
+
+$<A\backslash\lbrace0\rbrace,*>$ - группа, для $x\in{A\backslash\lbrace0\rbrace}$ есть $x^{-1}$. Тогда $a*b^{-1}=\frac{a}{b}$.
+
+Свойства дробей:
+1) $\frac{a}{b}=\frac{c}{d}\iff{ad=bc}$
+
+	$(\implies)ab^{-1}=cd^{-1}\implies{ab^{-1}bd=cd^{-1}bd\implies}ad=bc$
+  
+	$(\impliedby)ad=bc\implies{adb^{-1}d^{-1}=bcb^{-1}d^{-1}\implies}ab^{-1}=cd^{-1}\implies\frac{a}{b}=\frac{c}{d}$
+2) $\frac{a}{b}\frac{c}{d}=\frac{ac}{bd}$
+
+	$ab^{-1}cd^{-1}=acb^{-1}d^{-1}=ac(bd)^{-1}=\frac{ac}{bd}$
+3) $\frac{a}{b}+\frac{c}{d}=\frac{ad+cb}{bd}$
+
+	$\frac{ad+cb}{bd}=(ad+cb)(bd)^{-1}=ad(bd)^{-1}+cb(bd)^{-1}=adb^{-1}d^{-1}+cbb^{-1}d^{-1}=\frac{a}{b}+\frac{c}{d}$'
+        ]);
+
+        //        $questions = [
+//
+//        ];
+//        $this->create_questions($lesson, $questions);
+
+        $lesson = Lesson::Create([
+            'block_id' => $blocks[3]->id,
+            'active' => true,
+            'name' => 'Конечные поля',
+            'resources' => json_encode(['http:://hello.ru']),
+            'sort' => 1,
+            'text' => 'Пусть $F_q$ - конечное поле из $q$ элементов.
+
+$F_q\subset{F},[F:F_q]=n$, тогда $|F|=q^n$.
+
+В любом конечном поле простым подполем является поле $Z_p$ ($p$ - простое), следовательно число элементов конечного поля $p^n$.
+
+$p$ - простое число, $n\in{N}$, тогда есть конечное поле из $p^n$ элементов.
+
+**Теорема.** Для любого простого числа $p$ есть поле, состоящее из $p^n$ элементов.
+
+*Доказательство*: Пусть $F$ - поле.
+
+Рассмотрим многочлен $f(x)=x^{p^n}-x$
+
+Разложим многочлен $f(x)$. Заметим, что $f(x)$ не имеет кратных корней, т.е. если $\alpha$ - корень $f(x)$, то $f(x)$ делится на $(x-\alpha)$ и не делится на $(x-\alpha)^2$.
+
+Если $f(x)=(x-\alpha)^2p(x)$, то $f\'(x)=2(x-\alpha)p(x)+(x-\alpha)^2p\'(x)=(x-\alpha)(2p(x)-(x-\alpha)p\'(x))$, т.е. $f\'(x)$ делится на $(x-\alpha)$. В данном случае $f\'(x)=p^nx^{p^n-1}-1\implies{f\'(x)=-1}$, т.к. в поле $Z_p$ числа ${p=0}$. 
+
+У $f\'(x)$ корней нет $\implies$ у $f(x)$ нет кратных корней, т.е. $f(x)=x^{p^n}-x$ имеет $p^n$ различных корней.
+
+Покажем, что корни $f(x)$ образуют поле.
+
+Пусть $A$ - множество корней $f(x)$.
+
+$0\in{A}$, т.к. $0^{p^n}-0=0$
+$1\in{A}$, т.к. $1^{p^n}-1=0$
+
+Покажем, что $A$ замкнуто относительно сложения, умножения, взятия обратного и поотивоположного.
+
+Пусть $a,b\in{A}$, т.е. $a^{p^n}-a=0$ и $b^{p^n}-b=0$. Тогда
+
+$(a+b)^{p^n}-(a+b)=\displaystyle\sum_{i=1}^{p^n}(p_i^n)a^ib^{p^n-i}-(a+b)=a^{p^n}+b^{p^n}+\displaystyle\sum_{i=1}^{p^n-1}{(p_i^n)a^ib^{p^n-i}}-(a+b)=a^{p^n}+b^{p^n}+0-(a+b)=0\implies{a+b}\in{A}$
+
+$(ab)^{p^n}-ab=a^{p^n}b^{p^n}-a^{p^n}b^{p^n}=0\implies{ab}\in{A}$ (если $a\in{A}$)
+
+$1=1^{p^n}=(aa^{-1})^{p^n}=a^{p^n}(a^{-1})^{p^n}\implies(a^{-1})^{p^n}=a^{-1}\in{A}$
+$0=0^{p^n}=(a+(-a))^{p^n}=a^{p^n}+(-a^{p^n})=a+(-a)^{p^n}\implies-a^{p^n}=-a$
+
+В $A$ отношения $+$ и $*$ образуют поле, состоящее из $p^n$ элементов. ∎
+
+**Следствие:** Любой элемент конечного поля $F_q$ является корнем уравнения $x^n-x=0$.
+
+*Доказательство:* 
+
+0 - очевидный корень. 
+
+Пусть $\alpha\not=0$ равенство $|F_q^*|=q^{\varphi-1}$ порядок $Q$ делит $\varphi-1{\implies}Q^{\varphi-1}=1\implies{Q^{\varphi}=Q}$ или $Q^{\varphi}-Q=0$
+
+Пусть $\varphi$ - автоморфизм $F_q$.
+
+Элемент $Q$ поля $F_q$ называется неприводимым отношением в $F_q$ если $\varphi(Q)=Q$.
+
+**Теорема.** Множество неприводимых элементов относительно $\varphi$ образует поле.
+
+*Доказательство:* Пусть $A$ - множество неприводимых ёлементов отношения $\varphi.
+
+$0\in{A},$ т.к. $\varphi(0)=0\space\forall$ автоморфизма.
+
+$1\in{A},$ т.к. $\varphi(1)=1\space\forall$ автоморфизма.'
         ]);
 
         //        $questions = [
