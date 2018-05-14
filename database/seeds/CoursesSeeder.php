@@ -605,13 +605,13 @@ $*$ называется ассоциативной, если $(a*b)*c=a*(b*c)\s
 Примеры: 
 - $<Z,+>,\quad{a}+0=0+a\space\forall{a}\in{Z}\implies{e}=0$
 - $<M_n,*>,\quad{e}=\begin{pmatrix}
-   1 & & 0 \\
-   &\ddots&\\
+   1 & & 0 \\\
+   &\ddots&\\\
    0 & & 1
 \end{pmatrix}$
 - $<M_n,+>,\quad{e}=\begin{pmatrix}
-   0 & & 0 \\
-   &\ddots&\\
+   0 & & 0 \\\
+   &\ddots&\\\
    0 & & 0
 \end{pmatrix}$
 
@@ -777,7 +777,7 @@ $(\impliedby)$ Пусть ${b_1*b_2\in{B},b_1^{-1}\in{B}}\space\forall{b_1,b_2}\
 	
 	Покажем, что для любого набора $(a_1...a_p)\in{T\'}$ все его циклические сдвиги различны.
 	Пусть $(a_1,...,a_i,a_{i+1},...,a_p)=(a_{i+1},...,a_p,a_1,...,a_i)$, тогда:
-	->$\begin{cases}a_1=a_{i+1}\\a_2=a_{i+2}\\...\\a_i=a_{2i}\\a_{i+1}=a_{2i+1}\\...\\a_p=a_i\end{cases}\implies{a_1}=a_{i+1}=a_{2i+1}=a_{3i+1}=...$<-
+	->$\begin{cases}a_1=a_{i+1}\\\a_2=a_{i+2}\\\...\\\a_i=a_{2i}\\\a_{i+1}=a_{2i+1}\\\...\\\a_p=a_i\end{cases}\implies{a_1}=a_{i+1}=a_{2i+1}=a_{3i+1}=...$<-
 	Заметим, что $ki+1$ при различных $i$ пробегает все множество $\lbrace{1,2,...,p-1}\rbrace$, если сложение происходит в цикле длины $p$.
 	Предположим противное, т.е. $ki_1+1={k}i_2+1,i_1,i_2<p\implies{k}(i_1-i_2)=ps,$ но $i_1,i_2,k<p(i_1>i_2)$
 	$i_1-i_2<p\implies{i_1-i_2}$ не делится на $p$ и знаем, что $k$ не делится на $p$, но тогда множители из $i_1-i_2$ и из $k$ составляют $p$, но $p$ - простое и не может состоять из множителей. Значит $i_1=i_2$, поэтому $T\'$ можно разбить на помножества мощности $p$. Поэтому $|T\'|$ делится на $p$.
@@ -786,6 +786,256 @@ $(\impliedby)$ Пусть ${b_1*b_2\in{B},b_1^{-1}\in{B}}\space\forall{b_1,b_2}\
 6) Рассмотрим множество $B=\lbrace{g,g^2,..,g^p=e}\rbrace$. Очевидно, что $<B,*>$ - группа, которая является подгруппой в исходной группе. ∎
 
 $B-$ циклическая группа, порождённая одним элементом.'
+        ]);
+
+        $questions = [
+
+        ];
+        $this->create_questions($lesson, $questions);
+
+        $lesson = Lesson::Create([
+            'block_id' => $blocks[1]->id,
+            'active' => true,
+            'name' => 'Циклические группы',
+            'resources' => json_encode(['http:://hello.ru']),
+            'sort' => 1,
+            'text' => 'Пусть $G=<A,*>$ - группа, $a\in{A}$.
+
+Рассмотрим множество $B=\lbrace{...,a^{-2},a^{-1},a^0=e,a^1,a^2,...}\rbrace$. Очевидно $G\'=<B,*>$ - подгруппа группы $G$.
+
+Будем говорить, что подгруппа $G\'$, порождена элементом $a$ и обозначать $G\'=<<a>,*>$ или $<a>$.
+
+Если $G=<a>$ для некоторого $a$, то $G$ называется циклической группой, порождённой $a$.
+
+Свойства циклических групп:
+1) Любая циклическая группа коммутативна. $(a^m*a^n=a^{m+n}=a^{n+m}=a^n*a^m)$
+2) Любая подгруппа циклической группы является циклической.
+	Пусть $G$ - циклическая группа с образующим $a$. Все её элементы представимы в виде $a^n$.
+  Пусть $H$ - нетривиальная подгруппа группы $G$.
+  Возьмём наименьшее $n\neq0:a^n\in{H}$ и положим $a^n=b$.
+  Пусть теперь некоторое $c\in{H}$. Поскольку $c\in{H}\subset{G},$ то $c=a^m$ для некоторого $m$.
+  Имеем $m=nq+r,r<n$.
+  Поскольку $H$ - группа, то $b^{-q}*c\in{H}$. Но $b^{-q}*c=a^{-nq}a^{nq+r}=a^r\implies{r=0}$ (т.к. иначе $n$ не минимально)
+  Значит все элементы $H$ представимы в виде $b^m$, для некоторого $b$, т.е. $H$ - циклическая.
+3) Если порядок группы есть простое число, то группа циклическая.
+	Пусть $G=<A,*>$ - группа, $|G|=p$ - простое число, $a\in{A}$.
+	Поскольку $G$ конечна, то $\exists{m}\leq{p}:a^m=e$.
+  Рассмотрим множество $<a>=\lbrace{a^1,a^2,...,a^m=e}\rbrace$.
+  Очевидно, что $<<a>,*>$ - циклическая подгруппа группы $G$.
+  По т. Лагранжа $m|p$, но тогда $p=m\implies<<a>,*>=G,$ т.е. $G$ - циклическая. ∎
+  
+**Теорема.** Характеризация всех групп порядков $2,3,4,5$.
+
+1) Группы порядков $2,3,5$ циклические. Все циклические группы одного порядка изоморфны, поэтому групп порядков $2,3,5$ всего одна.
+2) Рассмотрим группы порядка $4$. 
+   - Есть циклическая группа порядка 4. Она одна с точностью до изоморфизма.
+   - Пусть группа $G=<A,*>$ порядка $4$ не циклическая. Тогда в ней нет элемента порядка $4$, т.е. все её элементы $(\neq{e})$ имеют порядок $2$ или $3$.
+   
+   Тогда имеем 2 варианта: $A=\lbrace{e,a,a^2,b}\rbrace$ и $A=\lbrace{e,a,b,c}\rbrace$
+   
+   Найдём элемент $ab$.
+   
+   Если $A=\lbrace{e,a,a^2,b}\rbrace$, то:
+   - $ab=e\implies{a=e}$ или $b=e$, что невозможно
+   - $ab=a\implies{b=e}$, что невозможно
+   - $ab=b\implies{a=e}$, что невозможно
+   - $ab=a^2\implies{a=b}$, что невозможно
+   
+   Значит в первом случае группа не получается.
+   
+   Если $A=\lbrace{e,a,b,c}\rbrace$, то:
+   - $ab=e\implies{a=e}$ или $b=e$, что невозможно
+   - $ab=a\implies{b=e}$, что невозможно
+   - $ab=b\implies{a=e}$, что невозможно
+   - $ab=c$ - подходит
+   
+   Итак, существует группа с множеством элементов $A=\lbrace{e,a,b,ab}\rbrace$.
+   
+   Других неизоморфных данной нециклических групп порядка $4$ нет.
+   
+   Таким образом групп порядка $4$ всего $2$.'
+        ]);
+
+        $questions = [
+
+        ];
+        $this->create_questions($lesson, $questions);
+
+        $lesson = Lesson::Create([
+            'block_id' => $blocks[1]->id,
+            'active' => true,
+            'name' => 'Нормальные подгруппы',
+            'resources' => json_encode(['http:://hello.ru']),
+            'sort' => 1,
+            'text' => 'Пусть $G=<A,*>$ - группа, $G_1=<B,*>$ - подгруппа группы $G$.
+
+Подгруппа $G_1$ называется **нормальной** и обозначается $G_1\vartriangleleft{G}$, если $\forall{x}\in{A}$ выполняется $xG_1=G_1x\space(xG_1=\lbrace{xg|g\in{G_1}}\rbrace,G_1x=\lbrace{gx|g\in{G_1}}\rbrace)$.
+
+★ Если $G$ - абелева, то любая её подгруппа является нормальной.
+
+★ В любой группе тривиальные подгруппы $G_1=<\lbrace{e}\rbrace,*>$ и $G_2=G$ являются нормальными.
+
+Мощность множества смежных классов называется **индексом** подгруппы в группе.
+
+**Теорема**. Если индекс подгруппы в группе равен $2$, то группа является нормальной.
+*Доказательство:* Пусть $G$ - группа, $H\vartriangleleft{G}$, $[G:H]=2$.
+
+$G$ разбивается на левые смежные классы по $H$, один из них $eH=H$, а значит другой $G\backslash{H}$.
+$G$ разбивается на правые смежные классы по $H$, один из них $He=H$, а значит другой $G\backslash{H}$.
+
+Значит разбиения на левые и правые смежные классы совпадают $\implies{H\vartriangleleft{G}}$.
+
+**Теорема**. Пусть $G=<A,*>$ - группа, $G_1=<B,*>$ - подгруппа, $x\in{G}$, тогда $xG_1=G_1\iff{x\in{G_1}}$.
+$(\implies)\space{x}G_1=G_1\implies{xg_1}=g_2,g_1,g_2\in{G_1}\implies{x=g_1g_2^{-1}}\implies{x\in{G_1}}$.
+$(\impliedby)\space{x}\in{G_1}\implies{x}=g_1,g_1\in{G_1}$, тогда $xG_1=g_1G_1=G_1$.'
+        ]);
+
+        $questions = [
+
+        ];
+        $this->create_questions($lesson, $questions);
+
+        $lesson = Lesson::Create([
+            'block_id' => $blocks[1]->id,
+            'active' => true,
+            'name' => 'Фактор-группы',
+            'resources' => json_encode(['http:://hello.ru']),
+            'sort' => 1,
+            'text' => 'Пусть:
+- $G=<A,*>$ - группа
+- $G_1=<B,*>$ - подгруппа
+- $G_1\vartriangleleft{G}$
+- $xG_1$ - левый смежный класс
+
+**Теорема**. Пусть $x\neq{y}$, тогда $xG_1=yG_1\iff{x^{-1}y\in{G_1}}$.
+
+*Доказательство:*
+$(\implies)\space{xG_1}=yG_1\implies{xg_1=yg_2};g_1,g_2\in{G_1}\implies{x^{-1}xg_1g_2^{-1}=x^{-1}yg_2g_2^{-1}}\implies{x^{-1}}y=g_1g_2^{-1}\implies{x^{-1}}y\in{G_1}$
+$(\impliedby)\space\begin{cases}{x^{-1}y\in{G_1}\implies{x^{-1}}y=g_1;g_1\in{G_1}\implies{xx^{-1}y}}=xg_1\implies{y}=xg_1\implies{y}\in{xG_1}\\\{x^{-1}y\in{G_1}\implies{x^{-1}}y=g_1;g_1\in{G_1}\implies{xx^{-1}yg_1^{-1}}}=xg_1g_1^{-1}\implies{yg_1}=x\implies{x}\in{yG_1}\end{cases}\implies{xG_1=yG_1}$
+
+На множестве смежных классов определим соответствие: $(xG_1)(yG_1)=(xy)G_1$
+
+Покажем, что это определение корректно.
+
+Пусть $xG_1=x\'G_1,yG_1=y\'G_1$. Покажем, что $(xy)G_1=(x\'y\')G_1,$.
+
+$a\in(xy)G_1\implies{a}=xyg_1;g_1\in{G_1}$
+
+$x\'G_1=xG_1\implies{x\'^{-1}x\in{G_1}\implies{x\'^{-1}x=g_2};g_2\in{G_1}\implies{x=x\'g_2}}$
+$y\'G_1=yG_1\implies{y\'^{-1}y\in{G_1}\implies{y\'^{-1}y=g_3};g_3\in{G_1}\implies{y=y\'g_3}}$
+
+Тогда $a=xyg_1=x\'g_2y\'g_3g_1=x\'y\'g_4g_3g_1\in{(x\'y\')G_1}\implies(xy)G_1\subseteq{(x\'y\')G_1}$
+ 
+Аналогично $(x\'y\')G_1\subseteq{(xy)G_1}$. Следовательно $(xy)G_1=(x\'y\')G_1$.
+ 
+Операция умножения смежных классов ассоциативна:
+
+$((xG_1)(yG_1))(zG_1)=((xy)G_1)(zG_1)=((xy)z)G_1=(x(yz))G_1=(xG_1)((yz)G_1)=(xG_1)((yG_1)(zG_1))$
+
+Нейтральный элемент $eG_1$:
+
+$(eG_1)(xG_1)=(ex)G_1=xG_1=(xe)G_1=(xG_1)(eG_1)$
+
+Для класса $xG_1$ обратный $x^{-1}G_1$
+
+Таким образом, множество смежных классов относительно $*$ образует группу, которая называется **фактор-группой** данной группы и обозначается $G/G_1$.
+
+**Фактор-группа** - группа, элементами которой являются смежные классы.'
+        ]);
+
+        $questions = [
+
+        ];
+        $this->create_questions($lesson, $questions);
+
+        $lesson = Lesson::Create([
+            'block_id' => $blocks[1]->id,
+            'active' => true,
+            'name' => 'Гомоморфизмы групп',
+            'resources' => json_encode(['http:://hello.ru']),
+            'sort' => 1,
+            'text' => 'Пусть $G=<A,*>$ и $G\'=<B,*>$ - 2 группы. Отображение $f:A\to{B}$ называется гомоморфизмом из $G$ в $G\'$, если $\forall{x,y}$ выполняется $f(x*y)=f(x)*f(y)$ (другими словами отображение сохраняет операцию).
+
+Свойства гомоморфизмов групп:
+1) $f(e)=e\',$ где $e$ - нейтральный в $G$, $e\'$ - нейтральный в $G\'$.
+
+	$f(e)*f(x)=f(e*x)=f(x)=f(x*e)=f(x)*f(e)\implies{f(e)=e\'}$
+2) $f(x)^{-1}=f(x^{-1})$
+
+	$e\'=f(e)=f(x*x^{-1})=f(x)*f(x^{-1})\implies{f}(x)^{-1}=f(x^{-1})$
+
+$Imf=\lbrace{b\in{B}|\exists{a}\in{A}:f(a)=b}\rbrace$ - образ $G$ при гомоморфизме $f$.
+$\ker{f}=\lbrace{a\in{A}|f(a)=e\'}\rbrace$ - ядро гомоморфизма $f$ (множество элементов, которые переходят в нейтральные)
+
+Если $Imf=G\'$, то имеем сюръективный гомоморфизм или гомоморфизм "на".
+
+**Теорема.** $<Imf,*>\space<G\'$. (Образ гомоморфизма в группе относительно её операции есть подгруппа)
+
+*Доказательство*:
+
+$b_1,b_2\in{Imf}\implies{b_1}=f(a_1),b_2=f(a_2)$ и $b_1*b_2=f(a_1)*f(a_2)=f(a_1*a_2)\in{Imf}$
+
+$(f(a_1)*f(a_2))f(a_3)=f(a_1*a_2)*f(a_3)=f((a_1*a_2)*a_3)=f(a_1*(a_2*a_3))=f(a_1)*f(a_2*a_3)=f(a_1)*(f(a_2)*f(a_3))$
+
+$e\'=f(e)\in{Imf}$
+
+$e\'=f(e)=f(a*a^{-1})=f(a)*f(a^{-1})\implies{f(a^{-1})}=(f(a))^{-1}\in{Imf}$. ∎
+
+**Теорема**. $<\ker{f},*>\space\vartriangleleft{G}$
+1) $a,b\in\ker{f}\implies{f(a)=e\'=f(b)}\implies{f(a*b)=f(a)*f(b)=e\'*e\'=e\'\implies{a*b\in\ker{f}}}$
+2) $f(e)=e\'\implies{e\in\ker{f}}$
+3) $a\in\ker{f}\implies{f(a)}=e\'$. Тогда $f(a^{-1})=f(a)^{-1}=e\'^{-1}=e\'\implies{a^{-1}\in\ker{f}}$
+
+$\implies\ker{f}-$ подгруппа группы $G$
+
+Покажем, что $ker{f}\space\vartriangleleft{G}$, т.е. $x*\ker{f}=\ker{f}*x\space\forall{x}\in{G}$
+$g\in{x*\ker{f}}\implies{g=x*a;a\in\ker{f}}.\space{}f(g)=f(x)*f(a)=f(x)*e\'=f(x)=e\'*f(x)=f(a)*f(x)=f(a*x)\implies{g\in{\ker{f}*x}}\implies{x*\ker{f}}\subseteq{\ker{f}*x}$
+$h\in{}\ker{f}*x\implies{h=a*x}\implies{f}(g)=f(a)*f(x)=e\'*f(x)=f(x)=f(x)*e\'=f(x)*f(a)=f(x*a)\implies{g}\in{x}*\ker{f}\implies\ker{f}*x\in{f*\ker{f}}$
+
+Таким образом ядро - нормальная подгруппа в группе.
+
+**Теорема.** Если $f:G\to{G\'}$ - гомоморфизм, то $\exists$ гомоморфизм (естественный) $\pi:G\to{G/\ker{f}}$
+
+*Доказательство:* Таким является отображение $\pi:x\mapsto{x*\ker{f}}$
+
+Действительно, $\pi(x*y)=(x*y)*\ker{f}=(x*\ker{f})*(y*\ker{f})=\pi(x)*\pi(y)$
+
+**Теорема**. Пусть $f:G\to{G\'}$ - гомоморфизм, тогда $\exists$ изоморфизм $\psi:G/\ker{f}\to{G\'}$, причём $\psi(\pi(x))=f(x)$.
+
+Построим отображение $\psi:G/\ker{f}\to{G\'}$ следующим образом: $\psi(x*\ker{f})=f(x)$.
+
+1) Покажем, что $\psi$ - корректно.
+
+Пусть $x\ker{f}=y\ker{f}$, тогда $x^{-1}y\in\ker{f}\implies{e\'=f(x^{-1}y)=f(x^{-1})*f(y)=f(x)^{-1}*f(y)\implies{f(y)=e\'f(x)=f(x)}}$
+
+2) Покажем, что $\psi$ - взаимооднозначное соответствие (каждому классу соответствует единственный элемент)
+
+Покажем, что если $f(x)\neq{f(y)}$, то $x*\ker{f}\neq{y}*\ker{f}$. Это следует из 1-го пункта, т.к. $X\to{Y}\iff{\overline{X}\to{\overline{Y}}}$
+
+3) Покажем, что $$ - инъекция. (отображение "на")
+
+$\forall{b}\in{G\'}\exists{a}\in{G}:b=f(a)\implies{b}=\psi(a*\ker{f})$
+
+4) Покажем, что $\psi$ - гомоморфизм.
+
+$\psi((x*\ker{f})*(y*\ker{f}))=\psi((x*y)*\ker{f})=f(x*y)=f(x)*f(y)=\psi(x*\ker{f})*\psi(y*\ker{f})$
+
+Пример:
+
+1) $<R^+,*>$
+   - $R^+$ замкнуто относительно $*$
+   - $*$ ассоциативна
+   - $e=1$
+   - если $a\in{R^+}$, то $a^{-1}\in{R^+}$
+2) $<R,+>$
+   - $R$ замкнуто относительно $+$
+   - $+$ ассоциативна
+   - $e=0$
+   - если $a\in{R}$, то $-a\in{R}$
+3) Гомоморфизм $f:R^+\to{R}$
+   - $f(a*b)=f(a)+f(b)$
+   - $f(x)=\ln{x}$
+   - $\ln(a*b)=\ln{a}+\ln{b}$'
         ]);
 
         $questions = [
@@ -840,7 +1090,7 @@ $\backsim$ есть отношение эквивалентности.
 
 В самом деле, пусть $n=an_k+r,\space0\leq{r}<n_k$.
 
-->$\begin{aligned}&q^{n_k}-1|q^n-1\iff\\&{q}^{n_k}-1|q^{an_k+r}-1\implies\\&{q}^{n_k}-1|(q^{an_k+r}-1)-(q^{n_k}-1)=q^{n_k}(q^{(a-1)n_k+r}-1)\implies\\&q^{n_k}-1|q^{(a-1)n_k+r}-1,\text{ т.к. }q^{n_k}\text{ и }q^{n_k}-1\text{ взаимно простые }\end{aligned}$<-
+->$\begin{aligned}&q^{n_k}-1|q^n-1\iff\\\&{q}^{n_k}-1|q^{an_k+r}-1\implies\\\&{q}^{n_k}-1|(q^{an_k+r}-1)-(q^{n_k}-1)=q^{n_k}(q^{(a-1)n_k+r}-1)\implies\\\&q^{n_k}-1|q^{(a-1)n_k+r}-1,\text{ т.к. }q^{n_k}\text{ и }q^{n_k}-1\text{ взаимно простые }\end{aligned}$<-
 
 Продолжая, таким образом, за  $a$ шагов мы находим что $q^{n_k}-1|q^r-1$, где $0\leq{r}<n_k$, что возможно только при $r=0$, т.е. при $n_k|n$. Итак  $n_k|n\space\forall{k}$.
 
@@ -929,8 +1179,8 @@ $\backsim$ есть отношение эквивалентности.
 Пусть $K_1=<A,+,*>$ и $K_2=<B,+,*>$ - два кольца. Отображение $\varphi:A\to{B}$ называется гомоморфизмом $K_1$ в $K_2$, если $\varphi(a+b)=\varphi(a)+\varphi(b)$ и $\varphi(a*b)=\varphi(a)*\varphi(b)$.
 
 Свойства гомоморфизма:
-1) $\begin{aligned}&\varphi(a)=\varphi(a+0)=\varphi(a)+\varphi(0)\\&\varphi(a)=\varphi(0+a)=\varphi(0)+\varphi(a)\end{aligned}\implies\varphi(0)=0$
-2) $\begin{aligned}&\varphi(a)=\varphi(a*1)=\varphi(a)*\varphi(1)\\&\varphi(a)=\varphi(1*a)=\varphi(1)*\varphi(a)\end{aligned}\implies\varphi(1)=1$
+1) $\begin{aligned}&\varphi(a)=\varphi(a+0)=\varphi(a)+\varphi(0)\\\&\varphi(a)=\varphi(0+a)=\varphi(0)+\varphi(a)\end{aligned}\implies\varphi(0)=0$
+2) $\begin{aligned}&\varphi(a)=\varphi(a*1)=\varphi(a)*\varphi(1)\\\&\varphi(a)=\varphi(1*a)=\varphi(1)*\varphi(a)\end{aligned}\implies\varphi(1)=1$
 
 Если $\varphi$ - взаимно однозначное отображение, то гомоморфизм называется **изоморфизмом.**
 
@@ -975,7 +1225,7 @@ $ab=(a\'+mz_1)(b\'+mz_2)=a\'b\'+m\underbrace{(a\'z_2+b\'z_1+mz_1z_2)}_{\in{Z}}=a
 Проверим выполнение свойств операции $*$:
 1) $*$ дистрибутивна относительно $+$
 	$\blacktriangleright$
-  ->$\quad\begin{gathered}(a+mZ)((b+mZ)+(c+mZ))=\\(a+mZ)((b+c)+mZ)=\\a(b+c)+mZ=ab+ac+mZ=\\ab+mZ+bc+mZ=\\(a+mZ)(b+mZ)+(a+mZ)(c+mZ)\end{gathered}$<-
+  ->$\quad\begin{gathered}(a+mZ)((b+mZ)+(c+mZ))=\\\(a+mZ)((b+c)+mZ)=\\\a(b+c)+mZ=ab+ac+mZ=\\\ab+mZ+bc+mZ=\\\(a+mZ)(b+mZ)+(a+mZ)(c+mZ)\end{gathered}$<-
   Аналогично проверяется, что $((a+mZ)+(b+mZ))(c+mZ)=(a+mZ)(c+mZ)+(b+mZ)(c+mZ)$
 2) $*$ коммутативна
 	$\blacktriangleright\quad(a+mZ)(b+mZ)=ab+mZ=ba+mZ=(b+mZ)(a+mZ)$
@@ -1009,7 +1259,7 @@ $(a_1+b_1*\sqrt{3})+(a_2+b_2*\sqrt{3})=(a_1+a_2)+(b_1+b_2)*\sqrt{3}$
 Покажем, что $<Q(\sqrt{3}),+>$ - абелева группа
 1) $0 = 0 + 0 * \sqrt{3}\in{Q(\sqrt{3})}$ нейтральный
 2) $*$ - ассоциативна
-->$\begin{gathered}((a_1+b_1*\sqrt{3})+(a_2+b_2*\sqrt{3}))+(a_3+b_3\sqrt{3})=\\((a_1+a_2)+(b_1+b_2)*\sqrt{3})+(a_3+b_3\sqrt{3})=\\((a_1+a_2)+a_3)+((b_1+b_2)+b_3)*\sqrt{3}=\\(a_1+(a_2+a_3))+(b_1+(b_2+b_3))*\sqrt{3}=\\(a_1+b_1*\sqrt{3})+((a_2+a_3)+(b_2+b_3)*\sqrt{3})=\\(a_1+b_1*\sqrt{3})+((a_2+b_2\sqrt{3})+(a_3+b_3*\sqrt{3}))\end{gathered}$<-
+->$\begin{gathered}((a_1+b_1*\sqrt{3})+(a_2+b_2*\sqrt{3}))+(a_3+b_3\sqrt{3})=\\\((a_1+a_2)+(b_1+b_2)*\sqrt{3})+(a_3+b_3\sqrt{3})=\\\((a_1+a_2)+a_3)+((b_1+b_2)+b_3)*\sqrt{3}=\\\(a_1+(a_2+a_3))+(b_1+(b_2+b_3))*\sqrt{3}=\\\(a_1+b_1*\sqrt{3})+((a_2+a_3)+(b_2+b_3)*\sqrt{3})=\\\(a_1+b_1*\sqrt{3})+((a_2+b_2\sqrt{3})+(a_3+b_3*\sqrt{3}))\end{gathered}$<-
 3) $-a_1-b_1*\sqrt{3}$ - противоположный к $a_1+b_1*\sqrt{3}$
 4) $*$ - коммутативна
 	$(a_1+b_1*\sqrt{3})+(a_2+b_2*\sqrt{3})=(a_1+a_2)+(b_1+b_2)*\sqrt{3}=(a_2+a_1)+(b_2+b_1)*\sqrt{3}=(a_2+b_2*\sqrt{3})+(a_1+b_1*\sqrt{3})$
@@ -1022,14 +1272,14 @@ $(a_1+b_1*\sqrt{3})*(a_2+b_2*\sqrt{3})=(a_1*a_2+3*b_1*b_2)+(a_1*b_2+b_1*a_2)*\sq
 
 $*$ - дистрибутивна.
 $\blacktriangleright$
-->$\begin{gathered}(a_1+b_1*\sqrt{3})*((a_2+b_2*\sqrt{3})+(a_3+b_3*\sqrt{3}))\\(a_1+b_1\sqrt{3})*((a_2+a_3)+(b_2+b_3)*\sqrt{3})=\\((a_1*(a_2+a_3))+3*b_1*(b_2+b_3))+(a_1*(b_2+b_3)+b_1*(a_2+a_3))*\sqrt{3}=\\((a_1*a_2+3*b_1*b_2)+(a_1*b_2+b_1*a_2)*\sqrt{3})+((a_1*a_3+3*b_1*b_3)+(a_1*b_3+b_1*a_3)*\sqrt{3})\end{gathered}$<-
+->$\begin{gathered}(a_1+b_1*\sqrt{3})*((a_2+b_2*\sqrt{3})+(a_3+b_3*\sqrt{3}))\\\(a_1+b_1\sqrt{3})*((a_2+a_3)+(b_2+b_3)*\sqrt{3})=\\\((a_1*(a_2+a_3))+3*b_1*(b_2+b_3))+(a_1*(b_2+b_3)+b_1*(a_2+a_3))*\sqrt{3}=\\\((a_1*a_2+3*b_1*b_2)+(a_1*b_2+b_1*a_2)*\sqrt{3})+((a_1*a_3+3*b_1*b_3)+(a_1*b_3+b_1*a_3)*\sqrt{3})\end{gathered}$<-
 
 $*$ - ассоциативна
-->$\begin{gathered}((a_1+b_1*\sqrt{3})*(a_2+b_2*\sqrt{3}))*(a_3+b_3*\sqrt{3})=\\((a_1*a_2+3*b_1*b_2)+(a_1*b_2+b_1*a_2)*\sqrt{3})*(a_3+b_3*\sqrt{3})=\\((a_1*a_2+3*b_1*b_2)*a_3+3*(3*b_1*b_2)*b_3)+((a_1*a_2+3*b_1*b_2)*b_3+a_3*(a_1*b_2+b_1*a_2))*\sqrt{3}=\\(a_1+b_1*\sqrt{3})*((a_2*a_3+3*b_2*b_3)+(a_2*b_3+b_2*a_3)*\sqrt{3})=\\(a_1+b_1*\sqrt{3})*((a_2+b_2*\sqrt{3})*(a_3+b_3*\sqrt{3}))\end{gathered}$<-
+->$\begin{gathered}((a_1+b_1*\sqrt{3})*(a_2+b_2*\sqrt{3}))*(a_3+b_3*\sqrt{3})=\\\((a_1*a_2+3*b_1*b_2)+(a_1*b_2+b_1*a_2)*\sqrt{3})*(a_3+b_3*\sqrt{3})=\\\((a_1*a_2+3*b_1*b_2)*a_3+3*(3*b_1*b_2)*b_3)+((a_1*a_2+3*b_1*b_2)*b_3+a_3*(a_1*b_2+b_1*a_2))*\sqrt{3}=\\\(a_1+b_1*\sqrt{3})*((a_2*a_3+3*b_2*b_3)+(a_2*b_3+b_2*a_3)*\sqrt{3})=\\\(a_1+b_1*\sqrt{3})*((a_2+b_2*\sqrt{3})*(a_3+b_3*\sqrt{3}))\end{gathered}$<-
 
 $*$ - коммутативна
 $\blacktriangleright$
-->$\begin{gathered}(a_1+b_1*\sqrt{3})*(a_2+b_2*\sqrt{3})=\\(a_1*a_2+3*b_1*b_2)+(a_1*b_2+b_1*a_2)*\sqrt{3}=\\(a_2*a_1+3*b_2*b_1)+(b_1*a_2+a_1*b_2)*\sqrt{3}=\\(a_2+b_2*\sqrt{3})*(a_1+b_1*\sqrt{3})\end{gathered}$<-
+->$\begin{gathered}(a_1+b_1*\sqrt{3})*(a_2+b_2*\sqrt{3})=\\\(a_1*a_2+3*b_1*b_2)+(a_1*b_2+b_1*a_2)*\sqrt{3}=\\\(a_2*a_1+3*b_2*b_1)+(b_1*a_2+a_1*b_2)*\sqrt{3}=\\\(a_2+b_2*\sqrt{3})*(a_1+b_1*\sqrt{3})\end{gathered}$<-
 
 $1 = 1*1+0*\sqrt{3}$ - нейтральный относительно $*$
 
@@ -1043,7 +1293,7 @@ $1=1*1+0*\sqrt{3}=(a_1+b_1\sqrt{3})*(a_2+b_2\sqrt{3})=(a_1*a_2+3*b_1*b_2)*1+(a_1
 
 Приравняем множители при $1$ и $\sqrt{3}$ соответственно:
 
-$\begin{cases}a_1*a_2+3*b_1*b_2=1\\a_1*b_2+b_1*a_2=0\end{cases}\implies\begin{cases}-b_1*a_2*b_2^{-1}*a_2+3*b_1*b_2=1\\a_1=-\frac{b_1*a_2}{b_2}\end{cases}\implies\frac{a_1}{a_2}=-\frac{b_1}{b_2}=a_2^2-3b_2^2$
+$\begin{cases}a_1*a_2+3*b_1*b_2=1\\\a_1*b_2+b_1*a_2=0\end{cases}\implies\begin{cases}-b_1*a_2*b_2^{-1}*a_2+3*b_1*b_2=1\\\a_1=-\frac{b_1*a_2}{b_2}\end{cases}\implies\frac{a_1}{a_2}=-\frac{b_1}{b_2}=a_2^2-3b_2^2$
 
 Таким образом, при $\frac{a_1}{a_2}=-\frac{b_1}{b_2}=a_2^2-3b_2^2$ элемент ${a}_2+b_2\sqrt{3}$ - обратный к $a_1+b_1*\sqrt{3}$.
 
@@ -1184,13 +1434,13 @@ $K_1+K_2=?$
 *Доказательство:* 
 1) $+$ ассоциативна
 	$\blacktriangleright$
-	->$\begin{gathered}(K_1+K_2)+K_3=[(a_0+b_0)+(a_1+b_1)x+...+(a_m+b_m)x^m]+[c_0+c_1x+...+c_mx^m]\\=[((a_0+b_0)+c_0)+((a_1+b_1)+c_1)x+...+((a_m+b_m)+c_m)x^m]\\=[(a_0+(b_0+c_0))+(a_1+(b_1+c_1))x+...+(a_m+(b_m+c_m))x^m]\\=[a_0+a_1x+...+a_mx^m]+[(b_0+c_0)+(b_1+c_1)x+...+(b_m+c_m)x^m]=K_1+(K_2+K_3)\end{gathered}$<-
+	->$\begin{gathered}(K_1+K_2)+K_3=[(a_0+b_0)+(a_1+b_1)x+...+(a_m+b_m)x^m]+[c_0+c_1x+...+c_mx^m]\\\=[((a_0+b_0)+c_0)+((a_1+b_1)+c_1)x+...+((a_m+b_m)+c_m)x^m]\\\=[(a_0+(b_0+c_0))+(a_1+(b_1+c_1))x+...+(a_m+(b_m+c_m))x^m]\\\=[a_0+a_1x+...+a_mx^m]+[(b_0+c_0)+(b_1+c_1)x+...+(b_m+c_m)x^m]=K_1+(K_2+K_3)\end{gathered}$<-
 2) $0=0+0x+0x^2+...$ - нейтральный элемент
 	$\blacktriangleright$
-    ->$\begin{gathered}{K}_1+0=[(a_0+0)+(a_1+0)x+...+(a_m+0)x^m]\\=[a_0+a_1x+...+a_mx^m]=\\{}[(0+a_0)+(0+a_1)x+...+(0+a_m)x^m]=0+K_1\end{gathered}$<-
+    ->$\begin{gathered}{K}_1+0=[(a_0+0)+(a_1+0)x+...+(a_m+0)x^m]\\\=[a_0+a_1x+...+a_mx^m]=\\\{}[(0+a_0)+(0+a_1)x+...+(0+a_m)x^m]=0+K_1\end{gathered}$<-
 3) $-K_1$ - противоположный к $K_1$, $(-a_0)+(-a_1)x+...+(-a_m)x^m\in{-K_1}$ 
 	$\blacktriangleright$
-	->$\begin{gathered}{}K_1+(-K_1)=[(a_0+(-a_0))+(a_1+(-a_1))x+...+(a_m+(-a_m))x^m]\\=[0+0x+...+0x^m]=\\{}[((-a_0)+a_0)+((-a_1)+a_1)x+...+((-a_m)+a_m)x^m]=(-K_1)+K_1\end{gathered}$<-
+	->$\begin{gathered}{}K_1+(-K_1)=[(a_0+(-a_0))+(a_1+(-a_1))x+...+(a_m+(-a_m))x^m]\\\=[0+0x+...+0x^m]=\\\{}[((-a_0)+a_0)+((-a_1)+a_1)x+...+((-a_m)+a_m)x^m]=(-K_1)+K_1\end{gathered}$<-
 4) $+$ коммутативна
 	$\blacktriangleright\quad{K_1+K_2=[(a_0+b_0)+(a_1+b_1)x+...+(a_m+b_m)x^m]=[(b_0+a_0)+(b_1+a_1)x+...+(b_m+a_m)x^m]=K_2+K_1}$
   
@@ -1228,7 +1478,7 @@ $K_1*K_2=?$
 
 Покажем, что в $K[x]$ умножение дистрибутивно относительно сложения
 
-->$\begin{gathered}K_1*(K_2+K_3)=[a_0+a_1x+...+a_mx^m]*([b_0+b_1x+...+b_mx^m]+[c_0+c_1x+...+c_mx^m])\\=[a_0+a_1x+...+a_mx^m]*[(b_0+c_0)+(b_1+c_1))x+...+(b_m+c_m)x^m]\\=[\displaystyle\sum_{l+s=0}{a_l(b_s+c_s)}+\displaystyle\sum_{l+s=1}{a_l(b_s+c_s)}x+...+\displaystyle\sum_{l+s=2m}{a_l(b_s+c_s)}x^m]\\=[\displaystyle\sum_{l+s=0}{a_lb_s}+\displaystyle\sum_{l+s=0}{a_lc_s}+\displaystyle\sum_{l+s=1}{a_lb_s}x+\displaystyle\sum_{l+s=1}{a_lc_s}x+...+\displaystyle\sum_{l+s=2m}{a_lb_s}x^m+\displaystyle\sum_{l+s=2m}{a_lc_s}x^m]\\=[\displaystyle\sum_{l+s=0}{a_lb_s}+\displaystyle\sum_{l+s=1}{a_lb_s}x+...+\displaystyle\sum_{l+s=2m}{a_lb_s}x^m]+[\displaystyle\sum_{l+s=0}{a_lc_s}+\displaystyle\sum_{l+s=1}{a_lc_s}x+...+\displaystyle\sum_{l+s=2m}{a_lc_s}x^m]\\=K_1K_2+K_1*K_3\end{gathered}$<-
+->$\begin{gathered}K_1*(K_2+K_3)=[a_0+a_1x+...+a_mx^m]*([b_0+b_1x+...+b_mx^m]+[c_0+c_1x+...+c_mx^m])\\\=[a_0+a_1x+...+a_mx^m]*[(b_0+c_0)+(b_1+c_1))x+...+(b_m+c_m)x^m]\\\=[\displaystyle\sum_{l+s=0}{a_l(b_s+c_s)}+\displaystyle\sum_{l+s=1}{a_l(b_s+c_s)}x+...+\displaystyle\sum_{l+s=2m}{a_l(b_s+c_s)}x^m]\\\=[\displaystyle\sum_{l+s=0}{a_lb_s}+\displaystyle\sum_{l+s=0}{a_lc_s}+\displaystyle\sum_{l+s=1}{a_lb_s}x+\displaystyle\sum_{l+s=1}{a_lc_s}x+...+\displaystyle\sum_{l+s=2m}{a_lb_s}x^m+\displaystyle\sum_{l+s=2m}{a_lc_s}x^m]\\\=[\displaystyle\sum_{l+s=0}{a_lb_s}+\displaystyle\sum_{l+s=1}{a_lb_s}x+...+\displaystyle\sum_{l+s=2m}{a_lb_s}x^m]+[\displaystyle\sum_{l+s=0}{a_lc_s}+\displaystyle\sum_{l+s=1}{a_lc_s}x+...+\displaystyle\sum_{l+s=2m}{a_lc_s}x^m]\\\=K_1K_2+K_1*K_3\end{gathered}$<-
 
 Таким образом $K[x]$ - кольцо.
 
@@ -1316,7 +1566,7 @@ $c$ - многочлен, т.к. $c=c+0x+0x^2+...,c^{-1}=c^{-1}+0x+0x^2+...$
 Задача: Зная $a_m,a_{m-1},...,a_1,a_0,\alpha$ найти $b_{m-1},b_{m-2},...,b_1,b_0$.
 
 Решение: 
-->$\begin{gathered}(x-\alpha)g(x)=\\b_{m-1}x^m+b_{m-2}x^{m-1}+...+b_1x^2+b_0x-\alpha{b_{m-1}x^{m-1}}-\alpha{b_{m-2}x^{m-2}}-...-\alpha{b_1x}-\alpha{b_0}=\\b_{m-1}x^m+(b_{m-2}-\alpha{b_{m-1}})x^{m-1}+...+(b_0-\alpha{b_1})x-\alpha{b_0}\end{gathered}$<-
+->$\begin{gathered}(x-\alpha)g(x)=\\\b_{m-1}x^m+b_{m-2}x^{m-1}+...+b_1x^2+b_0x-\alpha{b_{m-1}x^{m-1}}-\alpha{b_{m-2}x^{m-2}}-...-\alpha{b_1x}-\alpha{b_0}=\\\b_{m-1}x^m+(b_{m-2}-\alpha{b_{m-1}})x^{m-1}+...+(b_0-\alpha{b_1})x-\alpha{b_0}\end{gathered}$<-
 
 Приравняем коэффициенты при разных степенях $x$:
 
@@ -1559,7 +1809,7 @@ $\varphi(b)=\varphi(1*b)=\varphi(1)*\varphi(b)=0*\varphi(b)=0,$ т.о., если
 **Теорема.** Для любого поля $$, существует единственное простое подполе (либо $Q$ либо $Z_m$, ($m$ - простое число)).
 
 *Доказательство:* (Единственность) Пусть $F_1$ и $F_2$ - простые подполя поля $F$, тогда $F_1\cap{F_2}$ - поле. Тогда
-->$\begin{cases}F_1,F_2-\text{ простые}\\F_1\cap{F_2}\in{F_1}\\F_1\cap{F_2}\in{F_2}\end{cases}\implies{F_1=F_1\cap{F_2}=F_2}$<-
+->$\begin{cases}F_1,F_2-\text{ простые}\\\F_1\cap{F_2}\in{F_1}\\\F_1\cap{F_2}\in{F_2}\end{cases}\implies{F_1=F_1\cap{F_2}=F_2}$<-
 
 (Существование) Пусть $F_1$ - простое подполе. Покажем, что $F_1$ - либо $Q$ либо $Z_m$.
 
@@ -1645,7 +1895,7 @@ $\varphi(m*n)=\underbrace{1+...+1}_{m*n\text{ раз}}=\underbrace{\underbrace{1
 
 Т.к. $\alpha\in{Q}$, то $\alpha=\frac{p}{q},p,q\in{Z},q\not=0$. Можно считать, что $(p,q)=1$ (т.к. дробь можно сократить).
 
-->$\begin{gathered}\alpha^2=2\implies{\frac{p^2}{q^2}=2}\implies{p^2}=2q^2\implies{2|p^2}\implies{2|p}\implies{p=2u}\implies\\{4u^2}=2q^2\implies2u^2=q^2\implies{2|q^2}\implies{2|q}\implies(p,q)=2\end{gathered}$ <-
+->$\begin{gathered}\alpha^2=2\implies{\frac{p^2}{q^2}=2}\implies{p^2}=2q^2\implies{2|p^2}\implies{2|p}\implies{p=2u}\implies\\\{4u^2}=2q^2\implies2u^2=q^2\implies{2|q^2}\implies{2|q}\implies(p,q)=2\end{gathered}$ <-
 Что противоречит тому, что $(p,q)=1$. ∎
 
 Итак, $f(x)$ - многочлен $2$-й степени и не имеет корней в $Q$. Значит $f(x)$ неприводим. Построим поле $F\'$, в котором содержится $F$ и в котором многочлен $f(x)$ имеет корень.
@@ -6299,11 +6549,11 @@ $\begin{array}{|c|c|c|c|c|}
 
 ✔︎ Матрица смежностей графа
 
-$n\times{n}$ - матрица $A=||a_{ij}||,\quad{a_{ij}}=\begin{cases}1,\quad{v_i,v_j\space\text{смежны}}\\0,\quad{v_i,v_j}\space\text{не смежны}\\\infty\quad{i=j}\end{cases}$
+$n\times{n}$ - матрица $A=||a_{ij}||,\quad{a_{ij}}=\begin{cases}1,\quad{v_i,v_j\space\text{смежны}}\\\0,\quad{v_i,v_j}\space\text{не смежны}\\\infty\quad{i=j}\end{cases}$
 
 ✔︎ Матрица инциденций графа
 
-$n\times{m}$ - матрица $B=||b_{ij}||,\quad{b_{ij}}=\begin{cases}1,\quad{v_i\space\text{инцидентна}\space{r}_j}\\0,\quad\space\text{иначе}\end{cases}$
+$n\times{m}$ - матрица $B=||b_{ij}||,\quad{b_{ij}}=\begin{cases}1,\quad{v_i\space\text{инцидентна}\space{r}_j}\\\0,\quad\space\text{иначе}\end{cases}$
 
 ✔︎ По определению (множества $V,E$)
 
@@ -6809,7 +7059,7 @@ for (k = 1 ; k < n ; k ++)
 Общий вес кратчайшего пути между двумя венршинами называется расстоянием между этими вершинами.
 
 Пусть $G=<V,E>,|V|=n$ - нагруженный помеченный ориентированный граф. Весовой матрицей графа $G$ называется $n\toimes{n}$-матрица $W=||w_{ij}||$:
-->$w_{ij}=\begin{cases}0\quad\text{ если}\space{v}_i=v_j\\\infty\quad\text{если}\space{v}_i,v_j\space\text{не смежны}\\d\quad\text{ если}\space(v_i,v_j)-\text{ребро веса }d\end{cases}$<-
+->$w_{ij}=\begin{cases}0\quad\text{ если}\space{v}_i=v_j\\\infty\quad\text{если}\space{v}_i,v_j\space\text{не смежны}\\\d\quad\text{ если}\space(v_i,v_j)-\text{ребро веса }d\end{cases}$<-
 
 #### Алгоритм Дейкстры.
 
@@ -6945,9 +7195,9 @@ while (T.length !== 0) { // если T не пусто
 Шаг: Пусть оценка верна для всех графов с числом вершин, меньшим чем $p$.
 Рассмотрим граф с $p$ вершинами $G$. Выберем вершину $v$, не являющуюся точкой сочленения. Рассмотрим тогда граф $G-v$. Возможны 2 случая:
 1) Пусть $v$ - изолированная вершина, тогда
-	$\begin{cases}p\'=p-1\\q\'=q\\k\'=k-1\end{cases}\implies{}p-1-k+1=p-k\leq{q\'}=q\implies{p-k}\leq{q}$
+	$\begin{cases}p\'=p-1\\\q\'=q\\\k\'=k-1\end{cases}\implies{}p-1-k+1=p-k\leq{q\'}=q\implies{p-k}\leq{q}$
 2) Пусть $$ - не изолированная вершина, тогда:
-	$\begin{cases}p\'=p-1\\q\'<q\\k\'=k\end{cases}\implies{}p-k=p\'+1-k\'=p\'-k\'+1<{q\'+1}\leq{q}$
+	$\begin{cases}p\'=p-1\\\q\'<q\\\k\'=k\end{cases}\implies{}p-k=p\'+1-k\'=p\'-k\'+1<{q\'+1}\leq{q}$
   
 Докажем, что $q\leq{\frac{(p-k+1)(p-k)}{2}}$.
 
