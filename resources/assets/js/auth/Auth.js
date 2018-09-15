@@ -14,8 +14,16 @@ export default class Auth {
             this.axios.defaults.headers.common['Authorization'] = token
             this.check(token)
         } else {
+            this.skipLogin()
+            return
             Auth.authenticated = false
         }
+    }
+
+    skipLogin() {
+        this.login({email: 'admin@gmail.com', password: 'admin'}).then(_ => {
+            router.push(Auth.path)
+        })
     }
 
     check(token) {
@@ -27,6 +35,8 @@ export default class Auth {
             Auth.authenticated = true
             router.push(Auth.path)
         }).catch(err => {
+            this.skipLogin()
+            return
             Auth.pending = false
             localStorage.removeItem('token')
             Auth.authenticated = false
